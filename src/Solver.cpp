@@ -1,7 +1,7 @@
-#include "scSolver.h"
-#include "scSlave.h"
-#include "scConnector.h"
-#include "scVec3.h"
+#include "Solver.h"
+#include "Slave.h"
+#include "Connector.h"
+#include "Vec3.h"
 #include "stdlib.h"
 #include "stdio.h"
 

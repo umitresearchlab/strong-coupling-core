@@ -1,6 +1,6 @@
-#include "scConnector.h"
-#include "scLockConstraint.h"
-#include "scEquation.h"
+#include "Connector.h"
+#include "LockConstraint.h"
+#include "Equation.h"
 #include "stdio.h"
 #include "stdlib.h"
 

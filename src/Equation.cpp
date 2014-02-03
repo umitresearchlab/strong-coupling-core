@@ -1,4 +1,4 @@
-#include "scEquation.h"
+#include "Equation.h"
 #include "stdio.h"
 
 namespace sc {

@@ -1,6 +1,6 @@
-#include "scRigidBody.h"
-#include "scQuat.h"
-#include "scVec3.h"
+#include "RigidBody.h"
+#include "Quat.h"
+#include "Vec3.h"
 #include "stdio.h"
 
 namespace sc {

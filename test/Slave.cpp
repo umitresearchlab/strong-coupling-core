@@ -1,9 +1,9 @@
 #include <stdio.h>
-#include "scSlave.h"
-#include "scSolver.h"
-#include "scLockConstraint.h"
-#include "scEquation.h"
-#include "scTest.h"
+#include "Slave.h"
+#include "Solver.h"
+#include "LockConstraint.h"
+#include "Equation.h"
+#include "Test.h"
 
 using namespace sc;
 

@@ -1,25 +1,25 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 
 SET(SRCS
-    src/scConnector.cpp
-    src/scConstraint.cpp
-    src/scEquation.cpp
-    src/scLockConstraint.cpp
-    src/scQuat.cpp
-    src/scSlave.cpp
-    src/scSolver.cpp
-    src/scVec3.cpp
+    src/Connector.cpp
+    src/Constraint.cpp
+    src/Equation.cpp
+    src/LockConstraint.cpp
+    src/Quat.cpp
+    src/Slave.cpp
+    src/Solver.cpp
+    src/Vec3.cpp
 )
 
 SET(HEADERS
-    include/scConnector.h
-    include/scConstraint.h
-    include/scEquation.h
-    include/scLockConstraint.h
-    include/scQuat.h
-    include/scSlave.h
-    include/scSolver.h
-    include/scVec3.h
+    include/Connector.h
+    include/Constraint.h
+    include/Equation.h
+    include/LockConstraint.h
+    include/Quat.h
+    include/Slave.h
+    include/Solver.h
+    include/Vec3.h
 )
 
 INCLUDE_DIRECTORIES(${UMFPACK_INCLUDE_DIR} include)

@@ -1,5 +1,5 @@
-#include "scConnector.h"
-#include "scConstraint.h"
+#include "Connector.h"
+#include "Constraint.h"
 #include "stdio.h"
 
 namespace sc {

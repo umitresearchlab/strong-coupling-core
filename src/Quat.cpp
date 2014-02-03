@@ -1,5 +1,5 @@
-#include "scQuat.h"
-#include "scVec3.h"
+#include "Quat.h"
+#include "Vec3.h"
 #include "math.h"
 
 namespace sc {

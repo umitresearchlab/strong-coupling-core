@@ -1,7 +1,7 @@
 #ifndef EQUATION_H
 #define EQUATION_H
 
-#include "scConnector.h"
+#include "Connector.h"
 
 namespace sc {
 

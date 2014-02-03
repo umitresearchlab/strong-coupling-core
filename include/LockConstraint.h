@@ -1,7 +1,7 @@
 #ifndef SCLOCKCONSTRAINT_H
 #define SCLOCKCONSTRAINT_H
 
-#include "scConstraint.h"
+#include "Constraint.h"
 
 namespace sc {
 

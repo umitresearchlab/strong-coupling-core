@@ -1,4 +1,4 @@
-#include "scConnector.h"
+#include "Connector.h"
 
 namespace sc {
 

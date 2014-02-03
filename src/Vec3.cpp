@@ -1,4 +1,4 @@
-#include "scVec3.h"
+#include "Vec3.h"
 
 namespace sc {
 

@@ -1,5 +1,5 @@
-#include "scSlave.h"
-#include "scConnector.h"
+#include "Slave.h"
+#include "Connector.h"
 
 namespace sc {
 

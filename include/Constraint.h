@@ -2,8 +2,8 @@
 #define SCCONSTRAINT_H
 
 #include <vector>
-#include "scEquation.h"
-#include "scConnector.h"
+#include "Equation.h"
+#include "Connector.h"
 
 namespace sc {
 
