@@ -51,3 +51,10 @@ void scQuat::set(double* out, double x, double y, double z, double w){
     out[2] = z;
     out[3] = w;
 }
+
+void scQuat::copy(double* out, double* q){
+    out[0] = q[0];
+    out[1] = q[1];
+    out[2] = q[2];
+    out[3] = q[3];
+}

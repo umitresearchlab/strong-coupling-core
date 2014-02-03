@@ -100,7 +100,7 @@ void scSolver::solve(){
     for(i=0; i<neq; ++i){
         scEquation * eq = eqs[i];
         //printf("v=%f\n", eq->getVelocity());
-        rhs[i] = eq->m_a * eq->getViolation() + eq->m_b * eq->getVelocity(); // Z?
+        rhs[i] = -eq->m_a * eq->getViolation() -eq->m_b * eq->getVelocity(); // Z?
     }
 
     // Compute matrix S+E
@@ -280,11 +280,17 @@ void scSolver::solve(){
         double l = lambda[i] / eq->m_timeStep;
         double * G = eq->m_G;
         double fA[3] = { l*G[0], l*G[1],  l*G[2] };
-        double tA[3] = { l*G[0], l*G[1],  l*G[2] };
-        double fB[3] = { l*G[0], l*G[1],  l*G[2] };
-        double tB[3] = { l*G[0], l*G[1],  l*G[2] };
+        double tA[3] = { l*G[3], l*G[4],  l*G[5] };
+        double fB[3] = { l*G[6], l*G[7],  l*G[8] };
+        double tB[3] = { l*G[9], l*G[10], l*G[11] };
 
-        //printf("Setting forces for index %d and %d: %f %f %f\n", eq->getConnA()->m_index, eq->getConnB()->m_index,l*G[0], l*G[1],  l*G[2]);
+        /*
+        printf("Setting forces for index A=%d and B=%d: fA=(%f %f %f) fB=(%f %f %f), lambda=%f\n", eq->getConnA()->m_index, eq->getConnB()->m_index,l*G[0], l*G[1],  l*G[2],l*G[6], l*G[7],  l*G[8], l);
+        printf("GA = (%f %f %f)\n", G[0], G[1], G[2]);
+        printf("GB = (%f %f %f)\n", G[6], G[7], G[8]);
+        printf("g = %f\n", eq->getViolation());
+        printf("GW = %f\n", eq->getVelocity());
+        */
 
         // We are on row i in the matrix
         scVec3::add(eq->getConnA()->m_force, eq->getConnA()->m_force,  fA);

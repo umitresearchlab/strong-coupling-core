@@ -17,7 +17,10 @@ public:
     int m_index;
 
     /// Pointer to arbitrary user data. Use it as you want.
-    void * userData;
+    void * m_userData;
+
+    /// Pointer to the owner slave
+    void * m_slave; // problems with #include'ing scSlave in here, how to fix?
 
     /// Physical position of the connector.
     double m_position[3];
@@ -62,4 +65,4 @@ public:
     double getConstraintTorque(int element);
 };
 
-#endif
+#endif // SCCONNECTOR_H

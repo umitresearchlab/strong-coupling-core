@@ -13,6 +13,8 @@ public:
     static void copy(double* out, double* v);
     static void scale(double* out, double scalar);
     static void add(double* out, double * u, double * v);
+    static void subtract(double* out, double * u, double * v);
+    static void multiplyElementWise(double* out, double * u, double * v);
 };
 
 #endif

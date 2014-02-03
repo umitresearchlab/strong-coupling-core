@@ -30,6 +30,12 @@ void scVec3::add(double* out, double * u, double * v){
     out[2] = v[2] + u[2];
 }
 
+void scVec3::subtract(double* out, double * u, double * v){
+    out[0] = u[0] - v[0];
+    out[1] = u[1] - v[1];
+    out[2] = u[2] - v[2];
+}
+
 void scVec3::copy(double* out, double* v){
     out[0] = v[0];
     out[1] = v[1];
@@ -40,4 +46,10 @@ void scVec3::scale(double* out, double scalar){
     out[0] *= scalar;
     out[1] *= scalar;
     out[2] *= scalar;
+}
+
+void scVec3::multiplyElementWise(double* out, double * u, double * v){
+    out[0] = v[0] * u[0];
+    out[1] = v[1] * u[1];
+    out[2] = v[2] * u[2];
 }

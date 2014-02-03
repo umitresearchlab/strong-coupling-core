@@ -43,3 +43,51 @@ void scRigidBody::integrate(double dt){
 
     scQuat::normalize(m_quaternion,m_quaternion);
 }
+
+void scRigidBody::resetForces(){
+    scVec3::set(m_force,0,0,0);
+    scVec3::set(m_torque,0,0,0);
+}
+
+void scRigidBody::getDirectionalDerivative( double * outSpatial,
+                                            double * outRotational,
+                                            double * position,
+                                            double * spatialDirection,
+                                            double * rotationalDirection){
+    saveState();
+
+    // Just do spatial on the CM for now
+    scVec3::copy(position,m_position);
+
+    // Add force
+    scVec3::set(m_force,0,0,0);
+    scVec3::add(m_force,m_force,spatialDirection);
+
+    // Step
+    integrate(1);
+
+    // The derivative is difference in velocity
+    scVec3::subtract(outSpatial, m_velocity, m_velocity2);
+    //scVec3::multiplyElementWise(outSpatial,outSpatial,spatialDirection);
+    scVec3::set(outRotational,0,0,0);
+
+    restoreState();
+}
+
+void scRigidBody::saveState(){
+    scVec3::copy(m_position2,m_position);
+    scVec3::copy(m_velocity2,m_velocity);
+    scVec3::copy(m_force2,m_force);
+    scVec3::copy(m_torque2,m_torque);
+    scVec3::copy(m_angularVelocity2,m_angularVelocity);
+    scQuat::copy(m_quaternion2,m_quaternion);
+}
+
+void scRigidBody::restoreState(){
+    scVec3::copy(m_position,m_position2);
+    scVec3::copy(m_velocity,m_velocity2);
+    scVec3::copy(m_force,m_force2);
+    scVec3::copy(m_torque,m_torque2);
+    scVec3::copy(m_angularVelocity,m_angularVelocity2);
+    scQuat::copy(m_quaternion,m_quaternion2);
+}

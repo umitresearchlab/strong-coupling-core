@@ -7,6 +7,7 @@ scSlave::~scSlave(){}
 
 void scSlave::addConnector(scConnector * conn){
     m_connectors.push_back(conn);
+    conn->m_slave = (void*)this;
 }
 
 int scSlave::numConnectors(){

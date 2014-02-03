@@ -110,6 +110,7 @@ int main(int argc, char ** argv){
         // Create connector at center of mass of the body
         scConnector * conn = new scConnector();
         slave->addConnector(conn);
+        conn->m_userData = (void*)body;
 
         // Note: Must add slave *after* adding connectors
         solver.addSlave(slave);
@@ -156,24 +157,31 @@ int main(int argc, char ** argv){
 
         for (int j = 0; j < eqs.size(); ++j){
             scEquation * eq = eqs[j];
-            double seed[3];
+
+            scRigidBody * bodyA = (scRigidBody *)eq->getConnA()->m_userData;
+            scRigidBody * bodyB = (scRigidBody *)eq->getConnB()->m_userData;
+
+            double  spatSeed[3],
+                    rotSeed[3],
+                    ddSpatial[3],
+                    ddRotational[3];
 
             // Set jacobians
-            eq->getSpatialJacobianSeedA(seed);
-            scVec3::scale(seed,invMass);
-            eq->setSpatialJacobianA(seed);
+            eq->getSpatialJacobianSeedA(spatSeed);
+            eq->getRotationalJacobianSeedA(rotSeed);
+            bodyA->getDirectionalDerivative(ddSpatial,ddRotational,bodyA->m_position,spatSeed,rotSeed);
+            eq->setSpatialJacobianA(ddSpatial);
+            eq->setRotationalJacobianA(ddRotational);
 
-            eq->getRotationalJacobianSeedA(seed);
-            scVec3::scale(seed,invInertia);
-            eq->setRotationalJacobianA(seed);
+            //printf("A = (%f %f %f)\n", ddSpatial[0], ddSpatial[1], ddSpatial[2]);
 
-            eq->getSpatialJacobianSeedB(seed);
-            scVec3::scale(seed,invMass);
-            eq->setSpatialJacobianB(seed);
+            eq->getSpatialJacobianSeedB(spatSeed);
+            eq->getRotationalJacobianSeedB(rotSeed);
+            bodyB->getDirectionalDerivative(ddSpatial,ddRotational,bodyB->m_position,spatSeed,rotSeed);
+            eq->setSpatialJacobianB(spatSeed);
+            eq->setRotationalJacobianB(rotSeed);
 
-            eq->getRotationalJacobianSeedB(seed);
-            scVec3::scale(seed,invInertia);
-            eq->setRotationalJacobianB(seed);
+            //printf("B = (%f %f %f)\n", ddSpatial[0], ddSpatial[1], ddSpatial[2]);
         }
 
         // Solve system
