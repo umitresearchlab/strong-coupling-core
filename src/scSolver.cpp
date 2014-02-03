@@ -9,15 +9,17 @@ extern "C" {
 #include "umfpack.h"
 }
 
-scSolver::scSolver(){
+namespace sc {
+
+Solver::Solver(){
     m_connectorIndexCounter = 0;
 }
 
-scSolver::~scSolver(){
+Solver::~Solver(){
 
 }
 
-void scSolver::addSlave(scSlave * slave){
+void Solver::addSlave(Slave * slave){
     m_slaves.push_back(slave);
     int n = slave->numConnectors();
     for (int i = 0; i < n; ++i){
@@ -26,11 +28,11 @@ void scSolver::addSlave(scSlave * slave){
     }
 }
 
-void scSolver::addConstraint(scConstraint * constraint){
+void Solver::addConstraint(Constraint * constraint){
     m_constraints.push_back(constraint);
 }
 
-int scSolver::getSystemMatrixRows(){
+int Solver::getSystemMatrixRows(){
     // Easy. Just count total number of equations
     int i,
         nConstraints=m_constraints.size(),
@@ -41,7 +43,7 @@ int scSolver::getSystemMatrixRows(){
     return nEquations;
 }
 
-int scSolver::getSystemMatrixCols(){
+int Solver::getSystemMatrixCols(){
     int numSlaves = m_slaves.size(),
         numConnectors = 0,
         i;
@@ -52,7 +54,7 @@ int scSolver::getSystemMatrixCols(){
     return 6*numConnectors;
 }
 
-void scSolver::getEquations(std::vector<scEquation*> * result){
+void Solver::getEquations(std::vector<Equation*> * result){
     int i,j,
         nConstraints=m_constraints.size();
     for(i=0; i<nConstraints; ++i){
@@ -63,7 +65,7 @@ void scSolver::getEquations(std::vector<scEquation*> * result){
     }
 }
 
-void scSolver::setSpookParams(double relaxation, double compliance, double timeStep){
+void Solver::setSpookParams(double relaxation, double compliance, double timeStep){
     int i,j, nConstraints=m_constraints.size();
     for(i=0; i<nConstraints; ++i){
         int nEquations = m_constraints[i]->getNumEquations();
@@ -73,15 +75,15 @@ void scSolver::setSpookParams(double relaxation, double compliance, double timeS
     }
 }
 
-void scSolver::resetConstraintForces(){
+void Solver::resetConstraintForces(){
     for (int i = 0; i < m_connectors.size(); ++i){
-        scConnector * c = m_connectors[i];
-        scVec3::set(c->m_force,0,0,0);
-        scVec3::set(c->m_torque,0,0,0);
+        Connector * c = m_connectors[i];
+        Vec3::set(c->m_force,0,0,0);
+        Vec3::set(c->m_torque,0,0,0);
     }
 }
 
-void scSolver::solve(){
+void Solver::solve(){
 
     /*
     Need to compute
@@ -91,14 +93,14 @@ void scSolver::solve(){
     */
 
     int i, j, k, l;
-    std::vector<scEquation*> eqs;
+    std::vector<Equation*> eqs;
     getEquations(&eqs);
     int numRows = getSystemMatrixRows(), neq = eqs.size(), nconstraints=m_constraints.size();
     double * rhs = (double*)malloc(numRows*sizeof(double));
 
     // Compute RHS
     for(i=0; i<neq; ++i){
-        scEquation * eq = eqs[i];
+        Equation * eq = eqs[i];
         //printf("v=%f\n", eq->getVelocity());
         rhs[i] = -eq->m_a * eq->getViolation() -eq->m_b * eq->getVelocity(); // Z?
     }
@@ -110,10 +112,10 @@ void scSolver::solve(){
     std::vector<int> Scol;
     std::vector<double> Sval;
     for (i = 0; i < nconstraints; ++i){ // Loop over all 6x6 blocks in S
-        scConstraint * c0 = m_constraints[i];
+        Constraint * c0 = m_constraints[i];
 
         for (j = 0; j < nconstraints; ++j){
-            scConstraint * c1 = m_constraints[j];
+            Constraint * c1 = m_constraints[j];
 
             int block_row = i;
             int block_col = j;
@@ -123,9 +125,9 @@ void scSolver::solve(){
 
                 int neq = c1->getNumEquations();
                 for (k = 0; k < neq; ++k){
-                    scEquation * eqA = c0->getEquation(k);
+                    Equation * eqA = c0->getEquation(k);
                     for (l = 0; l < neq; ++l){
-                        scEquation * eqB = c1->getEquation(l);
+                        Equation * eqB = c1->getEquation(l);
                         int row = block_row * 6 + l;
                         int col = block_col * 6 + k;
 
@@ -147,10 +149,10 @@ void scSolver::solve(){
                 int neqB = c1->getNumEquations();
 
                 for (k = 0; k < neqA; ++k){
-                    scEquation * eqA = c0->getEquation(k);
+                    Equation * eqA = c0->getEquation(k);
 
                     for (l = 0; l < neqB; ++l){
-                        scEquation * eqB = c1->getEquation(l);
+                        Equation * eqB = c1->getEquation(l);
                         int row = block_row * 6 + l;
                         int col = block_col * 6 + k;
                         double val = 0;
@@ -276,7 +278,7 @@ void scSolver::solve(){
     // Remember that we need to divide lambda by the timestep size
     // f = G'*lambda
     for (int i = 0; i<eqs.size(); ++i){
-        scEquation * eq = eqs[i];
+        Equation * eq = eqs[i];
         double l = lambda[i] / eq->m_timeStep;
         double * G = eq->m_G;
         double fA[3] = { l*G[0], l*G[1],  l*G[2] };
@@ -293,10 +295,10 @@ void scSolver::solve(){
         */
 
         // We are on row i in the matrix
-        scVec3::add(eq->getConnA()->m_force, eq->getConnA()->m_force,  fA);
-        scVec3::add(eq->getConnA()->m_torque,eq->getConnA()->m_torque, tA);
-        scVec3::add(eq->getConnB()->m_force, eq->getConnB()->m_force,  fB);
-        scVec3::add(eq->getConnB()->m_torque,eq->getConnB()->m_torque, tB);
+        Vec3::add(eq->getConnA()->m_force, eq->getConnA()->m_force,  fA);
+        Vec3::add(eq->getConnA()->m_torque,eq->getConnA()->m_torque, tA);
+        Vec3::add(eq->getConnB()->m_force, eq->getConnB()->m_force,  fB);
+        Vec3::add(eq->getConnB()->m_torque,eq->getConnB()->m_torque, tB);
     }
 
     // Print matrices
@@ -305,15 +307,15 @@ void scSolver::solve(){
         char empty = '0';
         printf("G = [\n");
         for(int i=0; i<eqs.size(); ++i){
-            scEquation * eq = eqs[i];
-            scConnector * connA = eq->getConnA();
-            scConnector * connB = eq->getConnB();
+            Equation * eq = eqs[i];
+            Connector * connA = eq->getConnA();
+            Connector * connB = eq->getConnB();
 
             //printf("%d %d\n",connA->m_index,connB->m_index);
 
             int swapped = 0;
             if(connA->m_index > connB->m_index){
-                scConnector * temp = connA;
+                Connector * temp = connA;
                 connA = connB;
                 connB = temp;
                 swapped = 1;
@@ -397,4 +399,6 @@ void scSolver::solve(){
     free(Ax);
     umfpack_di_free_symbolic(&Symbolic);
     umfpack_di_free_numeric(&Numeric);
+}
+
 }

@@ -2,18 +2,22 @@
 #include "scConstraint.h"
 #include "stdio.h"
 
-scConstraint::scConstraint(scConnector* connA, scConnector* connB){
+namespace sc {
+
+Constraint::Constraint(Connector* connA, Connector* connB){
     m_connA = connA;
     m_connB = connB;
 }
 
-scConstraint::~scConstraint(){
+Constraint::~Constraint(){
 }
 
-int scConstraint::getNumEquations(){
+int Constraint::getNumEquations(){
     return m_equations.size();
 }
 
-scEquation * scConstraint::getEquation(int i){
+Equation * Constraint::getEquation(int i){
     return m_equations[i];
+}
+
 }

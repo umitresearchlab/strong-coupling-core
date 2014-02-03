@@ -1,5 +1,5 @@
-#ifndef SCSOLVER_H
-#define SCSOLVER_H
+#ifndef SOLVER_H
+#define SOLVER_H
 
 #include "scSlave.h"
 #include "scConstraint.h"
@@ -8,21 +8,23 @@
 
 #define SCSOLVER_DEBUGPRINTS 0
 
+namespace sc {
+
 /**
  * Holds all slaves and constraints in the system, and solves for constraint
  * forces.
  */
-class scSolver {
+class Solver {
 
 private:
-    std::vector<scSlave*> m_slaves;
-    std::vector<scConstraint*> m_constraints;
-    std::vector<scConnector*> m_connectors;
+    std::vector<Slave*> m_slaves;
+    std::vector<Constraint*> m_constraints;
+    std::vector<Connector*> m_connectors;
 
 public:
 
-    scSolver();
-    ~scSolver();
+    Solver();
+    ~Solver();
 
     /// Counter for connector index
     int m_connectorIndexCounter;
@@ -31,13 +33,13 @@ public:
      * @brief Add a slave to the solver
      * @param slave
      */
-    void addSlave(scSlave * slave);
+    void addSlave(Slave * slave);
 
     /**
      * @brief Add a constraint to the solver.
      * @param constraint
      */
-    void addConstraint(scConstraint * constraint);
+    void addConstraint(Constraint * constraint);
 
     /**
      * @brief Get the number of rows in the system matrix
@@ -53,7 +55,7 @@ public:
      * @brief Get all equations in a vector.
      * @param eqs Vector that will be appended with the equations.
      */
-    void getEquations(std::vector<scEquation*> * eqs);
+    void getEquations(std::vector<Equation*> * eqs);
 
     /**
      * @brief Solves the system of equation. Sets the constraint forces in each connector.
@@ -73,5 +75,7 @@ public:
      */
     void resetConstraintForces();
 };
+
+}
 
 #endif

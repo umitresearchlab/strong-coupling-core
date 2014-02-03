@@ -1,19 +1,23 @@
 #include "scSlave.h"
 #include "scConnector.h"
 
-scSlave::scSlave(){
-}
-scSlave::~scSlave(){}
+namespace sc {
 
-void scSlave::addConnector(scConnector * conn){
+Slave::Slave(){
+}
+Slave::~Slave(){}
+
+void Slave::addConnector(Connector * conn){
     m_connectors.push_back(conn);
     conn->m_slave = (void*)this;
 }
 
-int scSlave::numConnectors(){
+int Slave::numConnectors(){
     return m_connectors.size();
 }
 
-scConnector * scSlave::getConnector(int i){
+Connector * Slave::getConnector(int i){
     return m_connectors[i];
+}
+
 }

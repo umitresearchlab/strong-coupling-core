@@ -1,12 +1,14 @@
 #ifndef SCRIGIDBODY_H
 #define SCRIGIDBODY_H
 
-class scRigidBody {
+namespace sc {
+
+class RigidBody {
 
 public:
 
-    scRigidBody();
-    ~scRigidBody();
+    RigidBody();
+    ~RigidBody();
 
     double m_position[3];
     double m_velocity[3];
@@ -38,4 +40,7 @@ public:
     void restoreState();
 };
 
+}
+
 #endif
+

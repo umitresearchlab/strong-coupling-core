@@ -1,7 +1,9 @@
 #include "scEquation.h"
 #include "stdio.h"
 
-scEquation::scEquation(scConnector * connA, scConnector * connB){
+namespace sc {
+
+Equation::Equation(Connector * connA, Connector * connB){
     m_connA = connA;
     m_connB = connB;
 
@@ -14,23 +16,23 @@ scEquation::scEquation(scConnector * connA, scConnector * connB){
     }
 }
 
-scEquation::~scEquation(){}
+Equation::~Equation(){}
 
-scConnector * scEquation::getConnA(){
+Connector * Equation::getConnA(){
     return m_connA;
 }
-scConnector * scEquation::getConnB(){
+Connector * Equation::getConnB(){
     return m_connB;
 }
 
-void scEquation::setSpookParams(double relaxation, double compliance, double timeStep){
+void Equation::setSpookParams(double relaxation, double compliance, double timeStep){
     m_a = 4/(1+4*relaxation)/timeStep;
     m_b = 4*relaxation/(1+4*relaxation);
     m_epsilon = 4 * compliance / (timeStep*timeStep * (1 + 4*relaxation));
     m_timeStep = timeStep;
 }
 
-double scEquation::getViolation(){
+double Equation::getViolation(){
     double zero[] = {0,0,0};
     return Gmult(   m_connA->m_position,
                     zero,
@@ -38,14 +40,14 @@ double scEquation::getViolation(){
                     zero);
 }
 
-double scEquation::getVelocity(){
+double Equation::getVelocity(){
     return Gmult(   m_connA->m_velocity,
                     m_connA->m_angularVelocity,
                     m_connB->m_velocity,
                     m_connB->m_angularVelocity);
 }
 
-double scEquation::Gmult(double x1[], double v1[], double x2[], double v2[]){
+double Equation::Gmult(double x1[], double v1[], double x2[], double v2[]){
     return  x1[0] * m_G[0] +
             x1[1] * m_G[1] +
             x1[2] * m_G[2] +
@@ -60,7 +62,7 @@ double scEquation::Gmult(double x1[], double v1[], double x2[], double v2[]){
             v2[2] * m_G[11];
 }
 
-double scEquation::GmultG(double G[]){
+double Equation::GmultG(double G[]){
     return  G[0] * m_G[0] +
             G[1] * m_G[1] +
             G[2] * m_G[2] +
@@ -75,7 +77,7 @@ double scEquation::GmultG(double G[]){
             G[11] * m_G[11];
 }
 
-void scEquation::setJacobian(   double G1,
+void Equation::setJacobian(   double G1,
                                 double G2,
                                 double G3,
                                 double G4,
@@ -93,74 +95,76 @@ void scEquation::setJacobian(   double G1,
     setRotationalJacobianB(G10,G11,G12);
 }
 
-void scEquation::setSpatialJacobianA(double x, double y, double z){
+void Equation::setSpatialJacobianA(double x, double y, double z){
     m_invMGt[0] = x;
     m_invMGt[1] = y;
     m_invMGt[2] = z;
 }
 
-void scEquation::setSpatialJacobianA(double * seed){
+void Equation::setSpatialJacobianA(double * seed){
     m_invMGt[0] = seed[0];
     m_invMGt[1] = seed[1];
     m_invMGt[2] = seed[2];
 }
 
-void scEquation::setRotationalJacobianA(double x, double y, double z){
+void Equation::setRotationalJacobianA(double x, double y, double z){
     m_invMGt[3] = x;
     m_invMGt[4] = y;
     m_invMGt[5] = z;
 }
 
-void scEquation::setRotationalJacobianA(double * seed){
+void Equation::setRotationalJacobianA(double * seed){
     m_invMGt[3] = seed[0];
     m_invMGt[4] = seed[1];
     m_invMGt[5] = seed[2];
 }
 
-void scEquation::setSpatialJacobianB(double x, double y, double z){
+void Equation::setSpatialJacobianB(double x, double y, double z){
     m_invMGt[6] = x;
     m_invMGt[7] = y;
     m_invMGt[8] = z;
 }
 
-void scEquation::setSpatialJacobianB(double * seed){
+void Equation::setSpatialJacobianB(double * seed){
     m_invMGt[6] = seed[0];
     m_invMGt[7] = seed[1];
     m_invMGt[8] = seed[2];
 }
 
-void scEquation::setRotationalJacobianB(double x, double y, double z){
+void Equation::setRotationalJacobianB(double x, double y, double z){
     m_invMGt[9] = x;
     m_invMGt[10] = y;
     m_invMGt[11] = z;
 }
 
-void scEquation::setRotationalJacobianB(double * seed){
+void Equation::setRotationalJacobianB(double * seed){
     m_invMGt[9] = seed[0];
     m_invMGt[10] = seed[1];
     m_invMGt[11] = seed[2];
 }
 
-void scEquation::getSpatialJacobianSeedA(double * seed){
+void Equation::getSpatialJacobianSeedA(double * seed){
     seed[0] = m_G[0];
     seed[1] = m_G[1];
     seed[2] = m_G[2];
 }
 
-void scEquation::getRotationalJacobianSeedA(double * seed){
+void Equation::getRotationalJacobianSeedA(double * seed){
     seed[0] = m_G[3];
     seed[1] = m_G[4];
     seed[2] = m_G[5];
 }
 
-void scEquation::getSpatialJacobianSeedB(double * seed){
+void Equation::getSpatialJacobianSeedB(double * seed){
     seed[0] = m_G[6];
     seed[1] = m_G[7];
     seed[2] = m_G[8];
 }
 
-void scEquation::getRotationalJacobianSeedB(double * seed){
+void Equation::getRotationalJacobianSeedB(double * seed){
     seed[0] = m_G[9];
     seed[1] = m_G[10];
     seed[2] = m_G[11];
+}
+
 }

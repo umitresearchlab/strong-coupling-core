@@ -5,31 +5,34 @@
 #include "scEquation.h"
 #include "scConnector.h"
 
+namespace sc {
+
 /**
  * Base class for constraints.
  */
-class scConstraint {
+class Constraint {
 
 protected:
-    std::vector<scEquation*> m_equations;
+    std::vector<Equation*> m_equations;
 
 public:
 
-    scConstraint(scConnector*, scConnector*);
-    virtual ~scConstraint();
+    Constraint(Connector*, Connector*);
+    virtual ~Constraint();
 
     /// Arbitrary data from the user
     void * userData;
 
-    scConnector * m_connA;
-    scConnector * m_connB;
+    Connector * m_connA;
+    Connector * m_connB;
 
     /// Get number of equations in this constraint
     int getNumEquations();
 
     /// Get one of the equations
-    scEquation * getEquation(int i);
+    Equation * getEquation(int i);
 };
 
+}
 
 #endif

@@ -3,16 +3,20 @@
 
 #include "scConstraint.h"
 
+namespace sc {
+
 /**
  * Locks all degrees of freedom between two connectors.
  */
-class scLockConstraint : public scConstraint {
+class LockConstraint : public Constraint {
 
 private:
 
 public:
-    scLockConstraint(scConnector* connA, scConnector* connB);
-    virtual ~scLockConstraint();
+    LockConstraint(Connector* connA, Connector* connB);
+    virtual ~LockConstraint();
 };
+
+}
 
 #endif

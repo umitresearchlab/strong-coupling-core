@@ -5,20 +5,22 @@
 #include "scEquation.h"
 #include "scTest.h"
 
+using namespace sc;
+
 int main(int argc, char const *argv[]){
 
     // Construct test
-    scSolver solver;
+    Solver solver;
 
     // Create slaves
-    scSlave slaveA;
-    scSlave slaveB;
+    Slave slaveA;
+    Slave slaveB;
     solver.addSlave(&slaveA);
     solver.addSlave(&slaveB);
 
     // Create connectors
-    scConnector connA;
-    scConnector connB;
+    Connector connA;
+    Connector connB;
     slaveA.addConnector(&connA);
     slaveB.addConnector(&connB);
 
@@ -33,7 +35,7 @@ int main(int argc, char const *argv[]){
     connB.setAngularVelocity(-1,0,2);
 
     // Constrain connectors
-    scLockConstraint lock(&connA,&connB);
+    LockConstraint lock(&connA,&connB);
     solver.addConstraint(&lock);
 
     // Loop over all equations in the lock constraint.
@@ -41,7 +43,7 @@ int main(int argc, char const *argv[]){
     int numEquations = lock.getNumEquations(), i;
     for(i=0; i<numEquations; i++){
 
-        scEquation * eq = lock.getEquation(i);
+        Equation * eq = lock.getEquation(i);
 
         // Get seed vector for getting directional derivatives
         // Equivalent to G(row,body)*eps

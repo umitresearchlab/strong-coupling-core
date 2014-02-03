@@ -3,7 +3,9 @@
 
 #include "stdlib.h"
 
-class scQuat {
+namespace sc {
+
+class Quat {
 public:
     static double * alloc();
     static void free(double* q);
@@ -12,5 +14,7 @@ public:
     static void set(double* q, double x, double y, double z, double w);
     static void copy(double* out, double* q);
 };
+
+}
 
 #endif

@@ -1,17 +1,19 @@
 #ifndef SCCONNECTOR_H
 #define SCCONNECTOR_H
 
+namespace sc {
+
 /**
  * The connector is a handle in each slave, which can be constrained. The connector
  * could be the slave center of mass (in the rigid body case) or something else.
  */
-class scConnector {
+class Connector {
 
 private:
 
 public:
-    scConnector();
-    ~scConnector();
+    Connector();
+    ~Connector();
 
     /// Index of the connector in the system matrix. Will be set by the scSolver it is added to.
     int m_index;
@@ -64,5 +66,7 @@ public:
      */
     double getConstraintTorque(int element);
 };
+
+}
 
 #endif // SCCONNECTOR_H

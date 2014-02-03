@@ -1,24 +1,26 @@
-#ifndef SCEQUATION_H
-#define SCEQUATION_H
+#ifndef EQUATION_H
+#define EQUATION_H
 
 #include "scConnector.h"
 
+namespace sc {
+
 /**
- * Base class for equations. Constrains two instances of scConnector.
+ * Base class for equations. Constrains two instances of Connector.
  */
-class scEquation {
+class Equation {
 
 private:
-    scConnector * m_connA;
-    scConnector * m_connB;
+    Connector * m_connA;
+    Connector * m_connB;
 
 public:
 
-    scEquation(scConnector*,scConnector*);
-    ~scEquation();
+    Equation(Connector*,Connector*);
+    ~Equation();
 
-    scConnector * getConnA();
-    scConnector * getConnB();
+    Connector * getConnA();
+    Connector * getConnB();
 
     double m_G[12];         // TODO: Should be sparse!
     double m_invMGt[12];    // TODO: Should be sparse!
@@ -96,5 +98,6 @@ public:
 
 };
 
+}
 
 #endif

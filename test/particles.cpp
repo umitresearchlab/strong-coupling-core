@@ -10,6 +10,8 @@
 #include <vector>
 #include "string.h"
 
+using namespace sc;
+
 void printHelp(char * command){
     printf("\nUsage:\n");
     printf("\t%s [options]\n\n",command);
@@ -33,7 +35,7 @@ void deleteVectorContent(std::vector<T> v){
 /*
  * Prints out the first row of CSV with variable names, for example "time,x0,f0,x1,f1,..." depending on the number of bodies.
  */
-void printFirstCSVRow(std::vector<scRigidBody*> bodies){
+void printFirstCSVRow(std::vector<RigidBody*> bodies){
     printf("time");
     for (int i = 0; i < bodies.size(); ++i){
         printf(",x%d", i);
@@ -45,11 +47,11 @@ void printFirstCSVRow(std::vector<scRigidBody*> bodies){
 /*
  * Prints a CSV data row
  */
-void printCSVRow(double t, std::vector<scRigidBody*> bodies){
+void printCSVRow(double t, std::vector<RigidBody*> bodies){
     // Print results
     printf("%lf", t);
     for (int j = 0; j < bodies.size(); ++j){
-        scRigidBody * body = bodies[j];
+        RigidBody * body = bodies[j];
         printf(",%lf", body->m_position[0]);
         printf(",%lf", body->m_force[0]);
     }
@@ -88,27 +90,27 @@ int main(int argc, char ** argv){
             quiet = 1;
     }
 
-    scSolver solver;
+    Solver solver;
 
     // Init bodies / slave systems
-    std::vector<scRigidBody*> bodies;
-    std::vector<scSlave*> slaves;
-    std::vector<scConnector*> connectors;
-    std::vector<scConstraint*> constraints;
-    scConnector * lastConnector = NULL;
+    std::vector<RigidBody*> bodies;
+    std::vector<Slave*> slaves;
+    std::vector<Connector*> connectors;
+    std::vector<Constraint*> constraints;
+    Connector * lastConnector = NULL;
     for (int i = 0; i < N; ++i){
 
         // Create body
-        scRigidBody * body = new scRigidBody();
+        RigidBody * body = new RigidBody();
         body->m_position[0] = (double)i;
         body->m_invMass = i==0 ? 0 : invMass;
         body->m_invInertia = i==0 ? 0 : invInertia;
 
         // Create slave
-        scSlave * slave = new scSlave();
+        Slave * slave = new Slave();
 
         // Create connector at center of mass of the body
-        scConnector * conn = new scConnector();
+        Connector * conn = new Connector();
         slave->addConnector(conn);
         conn->m_userData = (void*)body;
 
@@ -117,7 +119,7 @@ int main(int argc, char ** argv){
 
         // Create lock joint between this and last connector
         if(lastConnector != NULL){
-            scConstraint * constraint = new scLockConstraint(lastConnector, conn);
+            Constraint * constraint = new LockConstraint(lastConnector, conn);
             solver.addConstraint(constraint);
             constraints.push_back(constraint);
         }
@@ -133,7 +135,7 @@ int main(int argc, char ** argv){
     solver.setSpookParams(relaxation,compliance,dt);
 
     // Get system equations
-    std::vector<scEquation *> eqs;
+    std::vector<Equation *> eqs;
     solver.getEquations(&eqs);
 
     // Print CSV first column
@@ -147,19 +149,19 @@ int main(int argc, char ** argv){
         double t = i*dt;
 
         for (int j = 0; j < N; ++j){
-            scRigidBody * body = bodies[j];
-            scConnector * conn = connectors[j];
+            RigidBody * body = bodies[j];
+            Connector * conn = connectors[j];
 
             // Set connector values
-            scVec3::copy(conn->m_position,body->m_position);
-            scVec3::copy(conn->m_velocity,body->m_velocity);
+            Vec3::copy(conn->m_position,body->m_position);
+            Vec3::copy(conn->m_velocity,body->m_velocity);
         }
 
         for (int j = 0; j < eqs.size(); ++j){
-            scEquation * eq = eqs[j];
+            Equation * eq = eqs[j];
 
-            scRigidBody * bodyA = (scRigidBody *)eq->getConnA()->m_userData;
-            scRigidBody * bodyB = (scRigidBody *)eq->getConnB()->m_userData;
+            RigidBody * bodyA = (RigidBody *)eq->getConnA()->m_userData;
+            RigidBody * bodyB = (RigidBody *)eq->getConnB()->m_userData;
 
             double  spatSeed[3],
                     rotSeed[3],
@@ -192,13 +194,13 @@ int main(int argc, char ** argv){
             /*for (int k = 0; k < 3; ++k){
                 printf("f%d[%d] = %f (c_index=%d)\n",j,k,slaves[j]->getConnector(0)->m_force[k],slaves[j]->getConnector(0)->m_index);
             }*/
-            scVec3::copy( bodies[j]->m_force  , slaves[j]->getConnector(0)->m_force  );
-            scVec3::copy( bodies[j]->m_torque , slaves[j]->getConnector(0)->m_torque );
+            Vec3::copy( bodies[j]->m_force  , slaves[j]->getConnector(0)->m_force  );
+            Vec3::copy( bodies[j]->m_torque , slaves[j]->getConnector(0)->m_torque );
         }
 
         // Integrate bodies
         for (int j = 0; j < N; ++j){
-            scRigidBody * body = bodies[j];
+            RigidBody * body = bodies[j];
             body->integrate(dt);
         }
 

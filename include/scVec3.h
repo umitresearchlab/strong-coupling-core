@@ -3,7 +3,9 @@
 
 #include "stdlib.h"
 
-class scVec3 {
+namespace sc {
+
+class Vec3 {
 public:
     static double * alloc();
     static void free(double* v);
@@ -16,5 +18,7 @@ public:
     static void subtract(double* out, double * u, double * v);
     static void multiplyElementWise(double* out, double * u, double * v);
 };
+
+}
 
 #endif
