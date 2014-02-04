@@ -9,6 +9,7 @@ SET(SRCS
     src/Slave.cpp
     src/Solver.cpp
     src/Vec3.cpp
+    src/Mat3.cpp
 )
 
 SET(HEADERS
@@ -20,6 +21,7 @@ SET(HEADERS
     include/Slave.h
     include/Solver.h
     include/Vec3.h
+    include/Mat3.h
 )
 
 INCLUDE_DIRECTORIES(${UMFPACK_INCLUDE_DIR} include)

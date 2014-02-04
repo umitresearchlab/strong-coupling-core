@@ -66,7 +66,8 @@ int main(int argc, char ** argv){
             relaxation = 3,
             compliance = 0.001,
             invMass = 1,
-            invInertia = 1;
+            invInertia = 1,
+            gravityX = 0;
 
     // Parse arguments
     for (int i = 0; i < argc; ++i){
@@ -79,6 +80,7 @@ int main(int argc, char ** argv){
             if(!strcmp(a,"--compliance"))  compliance = atof(argv[i+1]);
             if(!strcmp(a,"--relaxation"))  relaxation = atof(argv[i+1]);
             if(!strcmp(a,"--timeStep"))    dt = atof(argv[i+1]);
+            if(!strcmp(a,"--gravityX"))    gravityX = atof(argv[i+1]);
         }
 
         if(strcmp(argv[i],"--help")==0 || strcmp(argv[i],"-h")==0){
@@ -105,6 +107,7 @@ int main(int argc, char ** argv){
         body->m_position[0] = (double)i;
         body->m_invMass = i==0 ? 0 : invMass;
         body->m_invInertia = i==0 ? 0 : invInertia;
+        body->m_gravity.set(gravityX,0,0);
 
         // Create slave
         Slave * slave = new Slave();
@@ -148,25 +151,25 @@ int main(int argc, char ** argv){
         // Simulation time
         double t = i*dt;
 
+        // Set connector values
         for (int j = 0; j < N; ++j){
             RigidBody * body = bodies[j];
             Connector * conn = connectors[j];
-
-            // Set connector values
-            Vec3::copy(conn->m_position,body->m_position);
-            Vec3::copy(conn->m_velocity,body->m_velocity);
+            conn->m_position.copy(body->m_position);
+            conn->m_velocity.copy(body->m_velocity);
         }
 
+        // Get jacobian information
         for (int j = 0; j < eqs.size(); ++j){
             Equation * eq = eqs[j];
 
             RigidBody * bodyA = (RigidBody *)eq->getConnA()->m_userData;
             RigidBody * bodyB = (RigidBody *)eq->getConnB()->m_userData;
 
-            double  spatSeed[3],
-                    rotSeed[3],
-                    ddSpatial[3],
-                    ddRotational[3];
+            Vec3 spatSeed,
+                 rotSeed,
+                 ddSpatial,
+                 ddRotational;
 
             // Set jacobians
             eq->getSpatialJacobianSeedA(spatSeed);
@@ -189,13 +192,10 @@ int main(int argc, char ** argv){
         // Solve system
         solver.solve();
 
-        // Add constraint forces to the bodies
+        // Add resulting constraint forces to the bodies
         for (int j = 0; j < slaves.size(); ++j){
-            /*for (int k = 0; k < 3; ++k){
-                printf("f%d[%d] = %f (c_index=%d)\n",j,k,slaves[j]->getConnector(0)->m_force[k],slaves[j]->getConnector(0)->m_index);
-            }*/
-            Vec3::copy( bodies[j]->m_force  , slaves[j]->getConnector(0)->m_force  );
-            Vec3::copy( bodies[j]->m_torque , slaves[j]->getConnector(0)->m_torque );
+            bodies[j]->m_force.copy(slaves[j]->getConnector(0)->m_force);
+            bodies[j]->m_torque.copy(slaves[j]->getConnector(0)->m_torque);
         }
 
         // Integrate bodies

@@ -4,7 +4,7 @@
 #include "stdio.h"
 #include "stdlib.h"
 
-namespace sc {
+using namespace sc;
 
 LockConstraint::LockConstraint(Connector* connA, Connector* connB) : Constraint(connA,connB){
 
@@ -23,6 +23,4 @@ LockConstraint::~LockConstraint() {
         delete m_equations.back();
         m_equations.pop_back();
     }
-}
-
 }

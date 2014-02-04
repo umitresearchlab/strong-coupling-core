@@ -1,7 +1,7 @@
 #include "Slave.h"
 #include "Connector.h"
 
-namespace sc {
+using namespace sc;
 
 Slave::Slave(){
 }
@@ -20,4 +20,3 @@ Connector * Slave::getConnector(int i){
     return m_connectors[i];
 }
 
-}

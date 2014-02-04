@@ -2,7 +2,7 @@
 #include "Constraint.h"
 #include "stdio.h"
 
-namespace sc {
+using namespace sc;
 
 Constraint::Constraint(Connector* connA, Connector* connB){
     m_connA = connA;
@@ -18,6 +18,4 @@ int Constraint::getNumEquations(){
 
 Equation * Constraint::getEquation(int i){
     return m_equations[i];
-}
-
 }

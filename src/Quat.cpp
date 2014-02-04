@@ -2,63 +2,63 @@
 #include "Vec3.h"
 #include "math.h"
 
-namespace sc {
+using namespace sc;
 
-double * Quat::alloc(){
-    double * q = (double*)malloc(4*sizeof(double));
-    Quat::set(q,0,0,0,0);
-    return q;
+Quat::Quat(){
+    m_data[0] = 0;
+    m_data[1] = 0;
+    m_data[2] = 0;
+    m_data[3] = 1;
+}
+Quat::~Quat(){}
+
+Vec3 Quat::getAxis() const {
+    return Vec3(m_data[0],m_data[1],m_data[2]);
+};
+
+Quat Quat::multiply(const Quat& p, const Quat& q) const {
+    Quat result;
+    Vec3 qAxis = q.getAxis();
+    Vec3 pAxis = p.getAxis();
+
+    result[3] = p[3]*q[3] - pAxis.dot(qAxis);
+
+    Vec3 vaxvb = p.getAxis().cross(q.getAxis());
+
+    result[0] = q[3] * q[0] + p[3]*p[0] + vaxvb[0];
+    result[1] = q[3] * q[1] + p[3]*p[1] + vaxvb[1];
+    result[2] = q[3] * q[2] + p[3]*p[2] + vaxvb[2];
+
+    return result;
+
 }
 
-void Quat::free(double* q){
-    free(q);
-}
-
-void Quat::multiply(double* p, double *q, double* target){
-    double vaxvb[3];
-    /*
-    va.set(this[0],this[1],this[2]);
-    vb.set(q[0],q[1],q[2]);
-    */
-
-    target[3] = p[3]*q[3] - Vec3::dot(p,q);
-
-    Vec3::cross(p,q,vaxvb);
-
-    target[0] = q[3] * q[0] + p[3]*p[0] + vaxvb[0];
-    target[1] = q[3] * q[1] + p[3]*p[1] + vaxvb[1];
-    target[2] = q[3] * q[2] + p[3]*p[2] + vaxvb[2];
-
-}
-
-void Quat::normalize(double* q, double *out){
-    double l = sqrt(q[0]*q[0]+q[1]*q[1]+q[2]*q[2]+q[3]*q[3]);
+void Quat::normalize(){
+    double l = sqrt(m_data[0]*m_data[0]+m_data[1]*m_data[1]+m_data[2]*m_data[2]+m_data[3]*m_data[3]);
     if ( l == 0 ) {
-        out[0] = 0;
-        out[1] = 0;
-        out[2] = 0;
-        out[3] = 0;
+        m_data[0] = 0;
+        m_data[1] = 0;
+        m_data[2] = 0;
+        m_data[3] = 1;
     } else {
         l = 1 / l;
-        out[0] *= l;
-        out[1] *= l;
-        out[2] *= l;
-        out[3] *= l;
+        m_data[0] *= l;
+        m_data[1] *= l;
+        m_data[2] *= l;
+        m_data[3] *= l;
     }
 }
 
-void Quat::set(double* out, double x, double y, double z, double w){
-    out[0] = x;
-    out[1] = y;
-    out[2] = z;
-    out[3] = w;
+void Quat::set(double x, double y, double z, double w){
+    m_data[0] = x;
+    m_data[1] = y;
+    m_data[2] = z;
+    m_data[3] = w;
 }
 
-void Quat::copy(double* out, double* q){
-    out[0] = q[0];
-    out[1] = q[1];
-    out[2] = q[2];
-    out[3] = q[3];
-}
-
+void Quat::copy(const Quat& q){
+    m_data[0] = q[0];
+    m_data[1] = q[1];
+    m_data[2] = q[2];
+    m_data[3] = q[3];
 }

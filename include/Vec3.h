@@ -6,17 +6,33 @@
 namespace sc {
 
 class Vec3 {
+private:
+    double m_data[3];
+
 public:
-    static double * alloc();
-    static void free(double* v);
-    static double dot(double* u, double *v);
-    static void cross(double* u, double *v, double* target);
-    static void set(double* v, double x, double y, double z);
-    static void copy(double* out, double* v);
-    static void scale(double* out, double scalar);
-    static void add(double* out, double * u, double * v);
-    static void subtract(double* out, double * u, double * v);
-    static void multiplyElementWise(double* out, double * u, double * v);
+    Vec3();
+    Vec3(double,double,double);
+    virtual ~Vec3();
+
+    Vec3 cross(const Vec3& u) const;
+    Vec3 add(const Vec3& v) const;
+    Vec3 subtract(const Vec3& u) const;
+    double dot(const Vec3& u);
+    double x() const;
+    double y() const;
+    double z() const;
+    void set(double x, double y, double z);
+    void copy(const Vec3&);
+
+    double& operator[] (const int i) {
+        return m_data[i];
+    };
+
+    void operator += (const Vec3& v) {
+        this->m_data[0] += v.x();
+        this->m_data[1] += v.y();
+        this->m_data[2] += v.z();
+    };
 };
 
 }

@@ -1,6 +1,10 @@
 #ifndef SCRIGIDBODY_H
 #define SCRIGIDBODY_H
 
+#include "Mat3.h"
+#include "Vec3.h"
+#include "Quat.h"
+
 namespace sc {
 
 class RigidBody {
@@ -8,34 +12,42 @@ class RigidBody {
 public:
 
     RigidBody();
-    ~RigidBody();
+    virtual ~RigidBody();
 
-    double m_position[3];
-    double m_velocity[3];
-    double m_angularVelocity[3];
-    double m_force[3];
-    double m_torque[3];
+    Mat3 m_invInertiaWorld;
+
+    Vec3 m_position;
+    Vec3 m_velocity;
+    Vec3 m_angularVelocity;
+    Vec3 m_force;
+    Vec3 m_torque;
+
+    Vec3 m_gravity;
 
     double m_invMass;
     double m_invInertia;
 
-    double m_quaternion[4];
-    double m_tmpQuat1[4];
-    double m_tmpQuat2[4];
+    Quat m_quaternion;
+    Quat m_tmpQuat1;
+    Quat m_tmpQuat2;
 
     // For storing states
-    double m_position2[3];
-    double m_velocity2[3];
-    double m_force2[3];
-    double m_torque2[3];
-    double m_angularVelocity2[3];
-    double m_quaternion2[4];
+    Vec3 m_position2;
+    Vec3 m_velocity2;
+    Vec3 m_force2;
+    Vec3 m_torque2;
+    Vec3 m_angularVelocity2;
+    Quat m_quaternion2;
 
     /// Move forward in time
     void integrate(double dt);
 
     void resetForces();
-    void getDirectionalDerivative(double * outS, double * outR, double * position, double * spatialDirection, double * rotationalDirection);
+    void getDirectionalDerivative(  Vec3& outSpatial,
+                                    Vec3& outRotational,
+                                    Vec3& position,
+                                    const Vec3& spatialDirection,
+                                    const Vec3& rotationalDirection);
     void saveState();
     void restoreState();
 };

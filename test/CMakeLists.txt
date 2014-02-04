@@ -1,13 +1,8 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 
-SET(SLAVE_SRCS
-    Slave.cpp
-)
-SET(SLAVE_HEADERS)
-
 SET(RIGID_SRCS
     RigidBody.cpp
-    particles.cpp
+    rigid.cpp
 )
 SET(RIGID_HEADERS
     RigidBody.h
@@ -16,8 +11,6 @@ SET(RIGID_HEADERS
 INCLUDE_DIRECTORIES(${UMFPACK_INCLUDE_DIR})
 LINK_DIRECTORIES(   ${UMFPACK_LIBRARY_DIR})
 
-ADD_EXECUTABLE(slave   ${SLAVE_HEADERS} ${SLAVE_SRCS})
 ADD_EXECUTABLE(rigid   ${RIGID_HEADERS} ${RIGID_SRCS})
 
-TARGET_LINK_LIBRARIES(slave     sc m umfpack amd cblas) #   atlas?
 TARGET_LINK_LIBRARIES(rigid     sc m umfpack amd cblas) #   atlas?

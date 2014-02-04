@@ -1,7 +1,7 @@
 #include "Equation.h"
 #include "stdio.h"
 
-namespace sc {
+using namespace sc;
 
 Equation::Equation(Connector * connA, Connector * connB){
     m_connA = connA;
@@ -33,7 +33,7 @@ void Equation::setSpookParams(double relaxation, double compliance, double timeS
 }
 
 double Equation::getViolation(){
-    double zero[] = {0,0,0};
+    Vec3 zero;
     return Gmult(   m_connA->m_position,
                     zero,
                     m_connB->m_position,
@@ -47,19 +47,19 @@ double Equation::getVelocity(){
                     m_connB->m_angularVelocity);
 }
 
-double Equation::Gmult(double x1[], double v1[], double x2[], double v2[]){
-    return  x1[0] * m_G[0] +
-            x1[1] * m_G[1] +
-            x1[2] * m_G[2] +
-            v1[0] * m_G[3] +
-            v1[1] * m_G[4] +
-            v1[2] * m_G[5] +
-            x2[0] * m_G[6] +
-            x2[1] * m_G[7] +
-            x2[2] * m_G[8] +
-            v2[0] * m_G[9] +
-            v2[1] * m_G[10] +
-            v2[2] * m_G[11];
+double Equation::Gmult(const Vec3& x1, const Vec3& v1, const Vec3& x2, const Vec3& v2){
+    return  x1.x() * m_G[0] +
+            x1.y() * m_G[1] +
+            x1.z() * m_G[2] +
+            v1.x() * m_G[3] +
+            v1.y() * m_G[4] +
+            v1.z() * m_G[5] +
+            x2.x() * m_G[6] +
+            x2.y() * m_G[7] +
+            x2.z() * m_G[8] +
+            v2.x() * m_G[9] +
+            v2.y() * m_G[10] +
+            v2.z() * m_G[11];
 }
 
 double Equation::GmultG(double G[]){
@@ -101,10 +101,10 @@ void Equation::setSpatialJacobianA(double x, double y, double z){
     m_invMGt[2] = z;
 }
 
-void Equation::setSpatialJacobianA(double * seed){
-    m_invMGt[0] = seed[0];
-    m_invMGt[1] = seed[1];
-    m_invMGt[2] = seed[2];
+void Equation::setSpatialJacobianA(const Vec3& seed){
+    m_invMGt[0] = seed.x();
+    m_invMGt[1] = seed.y();
+    m_invMGt[2] = seed.z();
 }
 
 void Equation::setRotationalJacobianA(double x, double y, double z){
@@ -113,10 +113,10 @@ void Equation::setRotationalJacobianA(double x, double y, double z){
     m_invMGt[5] = z;
 }
 
-void Equation::setRotationalJacobianA(double * seed){
-    m_invMGt[3] = seed[0];
-    m_invMGt[4] = seed[1];
-    m_invMGt[5] = seed[2];
+void Equation::setRotationalJacobianA(const Vec3& seed){
+    m_invMGt[3] = seed.x();
+    m_invMGt[4] = seed.y();
+    m_invMGt[5] = seed.z();
 }
 
 void Equation::setSpatialJacobianB(double x, double y, double z){
@@ -125,10 +125,10 @@ void Equation::setSpatialJacobianB(double x, double y, double z){
     m_invMGt[8] = z;
 }
 
-void Equation::setSpatialJacobianB(double * seed){
-    m_invMGt[6] = seed[0];
-    m_invMGt[7] = seed[1];
-    m_invMGt[8] = seed[2];
+void Equation::setSpatialJacobianB(const Vec3& seed){
+    m_invMGt[6] = seed.x();
+    m_invMGt[7] = seed.y();
+    m_invMGt[8] = seed.z();
 }
 
 void Equation::setRotationalJacobianB(double x, double y, double z){
@@ -137,34 +137,32 @@ void Equation::setRotationalJacobianB(double x, double y, double z){
     m_invMGt[11] = z;
 }
 
-void Equation::setRotationalJacobianB(double * seed){
-    m_invMGt[9] = seed[0];
-    m_invMGt[10] = seed[1];
-    m_invMGt[11] = seed[2];
+void Equation::setRotationalJacobianB(const Vec3& seed){
+    m_invMGt[9] =  seed.x();
+    m_invMGt[10] = seed.y();
+    m_invMGt[11] = seed.z();
 }
 
-void Equation::getSpatialJacobianSeedA(double * seed){
+void Equation::getSpatialJacobianSeedA(Vec3& seed){
     seed[0] = m_G[0];
     seed[1] = m_G[1];
     seed[2] = m_G[2];
 }
 
-void Equation::getRotationalJacobianSeedA(double * seed){
+void Equation::getRotationalJacobianSeedA(Vec3& seed){
     seed[0] = m_G[3];
     seed[1] = m_G[4];
     seed[2] = m_G[5];
 }
 
-void Equation::getSpatialJacobianSeedB(double * seed){
+void Equation::getSpatialJacobianSeedB(Vec3& seed){
     seed[0] = m_G[6];
     seed[1] = m_G[7];
     seed[2] = m_G[8];
 }
 
-void Equation::getRotationalJacobianSeedB(double * seed){
+void Equation::getRotationalJacobianSeedB(Vec3& seed){
     seed[0] = m_G[9];
     seed[1] = m_G[10];
     seed[2] = m_G[11];
-}
-
 }

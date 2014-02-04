@@ -9,7 +9,7 @@ extern "C" {
 #include "umfpack.h"
 }
 
-namespace sc {
+using namespace sc;
 
 Solver::Solver(){
     m_connectorIndexCounter = 0;
@@ -78,8 +78,8 @@ void Solver::setSpookParams(double relaxation, double compliance, double timeSte
 void Solver::resetConstraintForces(){
     for (int i = 0; i < m_connectors.size(); ++i){
         Connector * c = m_connectors[i];
-        Vec3::set(c->m_force,0,0,0);
-        Vec3::set(c->m_torque,0,0,0);
+        c->m_force.set(0,0,0);
+        c->m_torque.set(0,0,0);
     }
 }
 
@@ -281,10 +281,10 @@ void Solver::solve(){
         Equation * eq = eqs[i];
         double l = lambda[i] / eq->m_timeStep;
         double * G = eq->m_G;
-        double fA[3] = { l*G[0], l*G[1],  l*G[2] };
-        double tA[3] = { l*G[3], l*G[4],  l*G[5] };
-        double fB[3] = { l*G[6], l*G[7],  l*G[8] };
-        double tB[3] = { l*G[9], l*G[10], l*G[11] };
+        Vec3 fA(l*G[0], l*G[1],  l*G[2]);
+        Vec3 tA(l*G[3], l*G[4],  l*G[5]);
+        Vec3 fB(l*G[6], l*G[7],  l*G[8]);
+        Vec3 tB(l*G[9], l*G[10], l*G[11]);
 
         /*
         printf("Setting forces for index A=%d and B=%d: fA=(%f %f %f) fB=(%f %f %f), lambda=%f\n", eq->getConnA()->m_index, eq->getConnB()->m_index,l*G[0], l*G[1],  l*G[2],l*G[6], l*G[7],  l*G[8], l);
@@ -295,10 +295,17 @@ void Solver::solve(){
         */
 
         // We are on row i in the matrix
+
+        eq->getConnA()->m_force += fA;
+        eq->getConnA()->m_torque += tA;
+        eq->getConnB()->m_force += fB;
+        eq->getConnB()->m_torque += tB;
+        /*
         Vec3::add(eq->getConnA()->m_force, eq->getConnA()->m_force,  fA);
         Vec3::add(eq->getConnA()->m_torque,eq->getConnA()->m_torque, tA);
         Vec3::add(eq->getConnB()->m_force, eq->getConnB()->m_force,  fB);
         Vec3::add(eq->getConnB()->m_torque,eq->getConnB()->m_torque, tB);
+        */
     }
 
     // Print matrices
@@ -399,6 +406,4 @@ void Solver::solve(){
     free(Ax);
     umfpack_di_free_symbolic(&Symbolic);
     umfpack_di_free_numeric(&Numeric);
-}
-
 }

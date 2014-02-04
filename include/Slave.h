@@ -13,7 +13,7 @@ private:
 
 public:
     Slave();
-    ~Slave();
+    virtual ~Slave();
 
     /// Arbitrary user data
     void * userData;

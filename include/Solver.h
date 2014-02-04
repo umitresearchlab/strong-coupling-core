@@ -24,7 +24,7 @@ private:
 public:
 
     Solver();
-    ~Solver();
+    virtual ~Solver();
 
     /// Counter for connector index
     int m_connectorIndexCounter;

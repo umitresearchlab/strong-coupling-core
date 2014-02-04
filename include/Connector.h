@@ -1,6 +1,9 @@
 #ifndef SCCONNECTOR_H
 #define SCCONNECTOR_H
 
+#include "Vec3.h"
+#include "Quat.h"
+
 namespace sc {
 
 /**
@@ -13,7 +16,7 @@ private:
 
 public:
     Connector();
-    ~Connector();
+    virtual ~Connector();
 
     /// Index of the connector in the system matrix. Will be set by the scSolver it is added to.
     int m_index;
@@ -25,22 +28,22 @@ public:
     void * m_slave; // problems with #include'ing scSlave in here, how to fix?
 
     /// Physical position of the connector.
-    double m_position[3];
+    Vec3 m_position;
 
     /// Physical (linear) velocity of the connector.
-    double m_velocity[3];
+    Vec3 m_velocity;
 
     /// Quaternion orientation of this connector. Needed?
-    double m_quaternion[4];
+    Quat m_quaternion;
 
     /// Angular velocity of the connector.
-    double m_angularVelocity[3];
+    Vec3 m_angularVelocity;
 
     /// Resulting contraint force. Will be set by the scSolver in scSolver::solve().
-    double m_force[3];
+    Vec3 m_force;
 
     /// Resulting constraint torque.
-    double m_torque[3];
+    Vec3 m_torque;
 
     /// Set the position of this connector
     void setPosition(double x, double y, double z);

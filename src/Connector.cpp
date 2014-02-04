@@ -1,20 +1,9 @@
 #include "Connector.h"
 
-namespace sc {
+using namespace sc;
 
 Connector::Connector(){
     m_index = 0;
-    // Set all members to zero
-    for (int i = 0; i < 4; ++i){
-        m_quaternion[i] = 0;
-        if(i<3){
-            m_position[i] = 0;
-            m_velocity[i] = 0;
-            m_angularVelocity[i] = 0;
-            m_force[i] = 0;
-            m_torque[i] = 0;
-        }
-    }
 }
 
 Connector::~Connector(){
@@ -52,6 +41,4 @@ double Connector::getConstraintForce(int element){
 
 double Connector::getConstraintTorque(int element){
     return 0;
-}
-
 }

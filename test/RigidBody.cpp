@@ -1,29 +1,29 @@
 #include "RigidBody.h"
 #include "Quat.h"
 #include "Vec3.h"
+#include "Mat3.h"
 #include "stdio.h"
 
-namespace sc {
+using namespace sc;
 
 RigidBody::RigidBody(){
     m_invMass = 1;
     m_invInertia = 1;
-
-    Quat::set(m_quaternion,0,0,0,1);
-    Quat::set(m_tmpQuat1,0,0,0,1);
-    Quat::set(m_tmpQuat2,0,0,0,1);
-
-    Vec3::set(m_position,0,0,0);
-    Vec3::set(m_velocity,0,0,0);
-    Vec3::set(m_angularVelocity,0,0,0);
-    Vec3::set(m_force,0,0,0);
-    Vec3::set(m_torque,0,0,0);
+    m_invInertiaWorld.set(  1,0,0,
+                            0,1,0,
+                            0,0,1 );
 }
 
 RigidBody::~RigidBody(){}
 
 void RigidBody::integrate(double dt){
-    for (int i = 0; i < 3; ++i){
+
+    // Add some gravity
+    m_force += m_gravity;
+
+    // Integrate
+    int i;
+    for(i=0; i<3; i++){
 
         // Linear
         m_velocity[i] += m_invMass * m_force[i] * dt;
@@ -34,64 +34,72 @@ void RigidBody::integrate(double dt){
         m_position[i] += dt * m_angularVelocity[i];
     }
 
-    Quat::set(m_tmpQuat1, m_angularVelocity[0], m_angularVelocity[1], m_angularVelocity[2], 0.0);
-
-    Quat::multiply(m_tmpQuat1, m_quaternion, m_tmpQuat2);
-
+    // Integrate orientation
+    m_tmpQuat1.set(m_angularVelocity[0], m_angularVelocity[1], m_angularVelocity[2], 0.0);
+    m_tmpQuat1 = m_quaternion.multiply(m_quaternion, m_tmpQuat2);
     m_quaternion[0] += 0.5 * dt * m_tmpQuat2[0];
     m_quaternion[1] += 0.5 * dt * m_tmpQuat2[1];
     m_quaternion[2] += 0.5 * dt * m_tmpQuat2[2];
     m_quaternion[3] += 0.5 * dt * m_tmpQuat2[3];
+    m_quaternion.normalize();
 
-    Quat::normalize(m_quaternion,m_quaternion);
+    // Reset gravity
+    m_force.set(0,0,0);
 }
 
 void RigidBody::resetForces(){
-    Vec3::set(m_force,0,0,0);
-    Vec3::set(m_torque,0,0,0);
+    m_force.set(0,0,0);
+    m_torque.set(0,0,0);
 }
 
-void RigidBody::getDirectionalDerivative( double * outSpatial,
-                                            double * outRotational,
-                                            double * position,
-                                            double * spatialDirection,
-                                            double * rotationalDirection){
-    saveState();
+void RigidBody::getDirectionalDerivative(   Vec3& outSpatial,
+                                            Vec3& outRotational,
+                                            Vec3& position,
+                                            const Vec3& spatialDirection,
+                                            const Vec3& rotationalDirection){
+
+    Vec3 velo_noforce,
+         velo_withforce;
 
     // Just do spatial on the CM for now
-    Vec3::copy(position,m_position);
+    position.copy(m_position);
 
-    // Add force
-    Vec3::set(m_force,0,0,0);
-    Vec3::add(m_force,m_force,spatialDirection);
-
-    // Step
+    // Step with external force
+    saveState();
+    m_force.set(0,0,0);
+    m_force += spatialDirection;
     integrate(1);
+    velo_withforce.copy(m_velocity);
+    restoreState();
+
+    // Step without added force
+    saveState();
+    integrate(1);
+    velo_noforce.copy(m_velocity);
+    restoreState();
 
     // The derivative is difference in velocity
-    Vec3::subtract(outSpatial, m_velocity, m_velocity2);
+    outSpatial = velo_noforce.subtract(velo_withforce);
     //Vec3::multiplyElementWise(outSpatial,outSpatial,spatialDirection);
-    Vec3::set(outRotational,0,0,0);
+    outRotational.set(0,0,0);
 
-    restoreState();
 }
 
 void RigidBody::saveState(){
-    Vec3::copy(m_position2,m_position);
-    Vec3::copy(m_velocity2,m_velocity);
-    Vec3::copy(m_force2,m_force);
-    Vec3::copy(m_torque2,m_torque);
-    Vec3::copy(m_angularVelocity2,m_angularVelocity);
-    Quat::copy(m_quaternion2,m_quaternion);
+    m_position2.copy(m_position);
+    m_velocity2.copy(m_velocity);
+    m_force2.copy(m_force);
+    m_torque2.copy(m_torque);
+    m_angularVelocity2.copy(m_angularVelocity);
+    m_quaternion2.copy(m_quaternion);
 }
 
 void RigidBody::restoreState(){
-    Vec3::copy(m_position,m_position2);
-    Vec3::copy(m_velocity,m_velocity2);
-    Vec3::copy(m_force,m_force2);
-    Vec3::copy(m_torque,m_torque2);
-    Vec3::copy(m_angularVelocity,m_angularVelocity2);
-    Quat::copy(m_quaternion,m_quaternion2);
+    m_position.copy(m_position2);
+    m_velocity.copy(m_velocity2);
+    m_force.copy(m_force2);
+    m_torque.copy(m_torque2);
+    m_angularVelocity.copy(m_angularVelocity2);
+    m_quaternion.copy(m_quaternion2);
 }
 
-}

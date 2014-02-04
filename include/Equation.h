@@ -17,13 +17,16 @@ private:
 public:
 
     Equation(Connector*,Connector*);
-    ~Equation();
+    virtual ~Equation();
 
+    /// Get connector A
     Connector * getConnA();
+
+    /// Get connector B
     Connector * getConnB();
 
-    double m_G[12];         // TODO: Should be sparse!
-    double m_invMGt[12];    // TODO: Should be sparse!
+    double m_G[12];         // @todo should make own class for these
+    double m_invMGt[12];
 
     /// Spook parameter "a"
     double m_a;
@@ -52,7 +55,7 @@ public:
     double getVelocity();
 
     /// Multiply the 12 equation elements (G) with another 12-element vector
-    double Gmult(double x1[], double v1[], double x2[], double v2[]);
+    double Gmult(const Vec3& x1, const Vec3& v1, const Vec3& x2, const Vec3& v2);
 
     /// Multiply the 12 equation elements (G) with another 12-element vector
     double GmultG(double G[]);
@@ -64,19 +67,19 @@ public:
      * @param z
      */
     void setSpatialJacobianA   (double x, double y, double z);
-    void setSpatialJacobianA   (double * seed);
+    void setSpatialJacobianA   (const Vec3& seed);
 
     /// Set the rotational components of connector A jacobian.
     void setRotationalJacobianA(double x, double y, double z);
-    void setRotationalJacobianA(double * seed);
+    void setRotationalJacobianA(const Vec3& seed);
 
     /// Set the spatial components of connector B jacobian.
     void setSpatialJacobianB   (double x, double y, double z);
-    void setSpatialJacobianB   (double * seed);
+    void setSpatialJacobianB   (const Vec3& seed);
 
     /// Set the rotational components of connector B jacobian.
     void setRotationalJacobianB(double x, double y, double z);
-    void setRotationalJacobianB(double * seed);
+    void setRotationalJacobianB(const Vec3& seed);
 
     /// Set all jacobian elements at once.
     void setJacobian(double,double,double,double,double,double,double,double,double,double,double,double);
@@ -85,16 +88,16 @@ public:
      * @brief Get the spatial components of connector A jacobian seed.
      * @param seed
      */
-    void getSpatialJacobianSeedA   (double * seed);
+    void getSpatialJacobianSeedA   (Vec3& seed);
 
     /// Get the rotational components of connector A jacobian.
-    void getRotationalJacobianSeedA(double * seed);
+    void getRotationalJacobianSeedA(Vec3& seed);
 
     /// Get the spatial components of connector B jacobian.
-    void getSpatialJacobianSeedB   (double * seed);
+    void getSpatialJacobianSeedB   (Vec3& seed);
 
     /// Get the rotational components of connector B jacobian.
-    void getRotationalJacobianSeedB(double * seed);
+    void getRotationalJacobianSeedB(Vec3& seed);
 
 };
 
