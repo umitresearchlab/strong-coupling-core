@@ -6,11 +6,11 @@ in co-simulation, where each slave has mechanical connector points.
 
 The library should have support for a number of constraints:
 
-* scLockConstraint
-* scDistanceConstraint
-* scHingeConstraint
-* scBalljointConstraint
-* scPrismaticConstraint
+* sc::LockConstraint
+* sc::DistanceConstraint
+* sc::HingeConstraint
+* sc::BalljointConstraint
+* sc::PrismaticConstraint
 
 These can be used to mechanically constrain the connectors to each other.
 
@@ -18,22 +18,22 @@ These can be used to mechanically constrain the connectors to each other.
 
 The code is typically used like so:
 
-1.  Create slaves (scSlave instances). These correspond to subsystems in your
+1.  Create slaves (sc::Slave instances). These correspond to subsystems in your
     co-simulation.
-2.  Create connectors (scConnector instances) and add them to the slaves. The
+2.  Create connectors (sc::Connector instances) and add them to the slaves. The
     connectors are points on which you can connect to other subsystem connectors.
-3.  Constrain two connectors by creating instances of scConstraint.
-4.  Add slaves, connectors, constraints to the solver (scSolver).
+3.  Constrain two connectors by creating instances of sc::Constraint.
+4.  Add slaves, connectors, constraints to the solver (sc::Solver).
 5.  For each time step in your stepping loop:
     1.  Set positions and velocities of the connectors.
-    2.  Set the jacobian for each equation in the system (each scConstraint
-        contains at least one scEquation). The Jacobian can be imagined as the
+    2.  Set the jacobian for each equation in the system (each sc::Constraint
+        contains at least one sc::Equation). The Jacobian can be imagined as the
         connector inertia in all directions.
-    3.  Solve the system (scSolver::solve()).
+    3.  Solve the system (sc::Solver::solve()).
     4.  Get resulting constraint force from the connectors. Apply these forces to your
         co-simulation slaves, step, and then go to 5.
 
-Sample code can be found in test/scSlave.cpp
+Sample code can be found in test/Slave.cpp
 
 # Install
 
