@@ -2,6 +2,7 @@
 #define EQUATION_H
 
 #include "Connector.h"
+#include "JacobianElement.h"
 
 namespace sc {
 
@@ -13,6 +14,9 @@ class Equation {
 private:
     Connector * m_connA;
     Connector * m_connB;
+
+    JacobianElement G_A;
+    JacobianElement G_B;
 
 public:
 
