@@ -14,23 +14,28 @@ class Equation {
 private:
     Connector * m_connA;
     Connector * m_connB;
-
-    JacobianElement G_A;
-    JacobianElement G_B;
+    JacobianElement m_G_A;
+    JacobianElement m_G_B;
+    JacobianElement m_invMGt_A;
+    JacobianElement m_invMGt_B;
 
 public:
 
+    Equation();
     Equation(Connector*,Connector*);
     virtual ~Equation();
 
-    /// Get connector A
     Connector * getConnA();
-
-    /// Get connector B
     Connector * getConnB();
+    void setDefault();
+    void setConnA(Connector *);
+    void setConnB(Connector *);
+    void setConnectors(Connector *,Connector *);
 
-    double m_G[12];         // @todo should make own class for these
-    double m_invMGt[12];
+    JacobianElement getGA();
+    JacobianElement getGB();
+    JacobianElement getddA();
+    JacobianElement getddB();
 
     /// Spook parameter "a"
     double m_a;
@@ -53,16 +58,10 @@ public:
     void setSpookParams(double relaxation, double compliance, double timeStep);
 
     /// Get constraint violation, g
-    double getViolation();
+    virtual double getViolation();
 
     /// Get constraint velocity, G*W
     double getVelocity();
-
-    /// Multiply the 12 equation elements (G) with another 12-element vector
-    double Gmult(const Vec3& x1, const Vec3& v1, const Vec3& x2, const Vec3& v2);
-
-    /// Multiply the 12 equation elements (G) with another 12-element vector
-    double GmultG(double G[]);
 
     /**
      * @brief Set the spatial components of connector A jacobian.
@@ -102,6 +101,11 @@ public:
 
     /// Get the rotational components of connector B jacobian.
     void getRotationalJacobianSeedB(Vec3& seed);
+
+    void setG(  double,double,double,
+                double,double,double,
+                double,double,double,
+                double,double,double);
 
 };
 

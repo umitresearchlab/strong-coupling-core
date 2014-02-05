@@ -79,7 +79,7 @@ void RigidBody::getDirectionalDerivative(   Vec3& outSpatial,
     restoreState();
 
     // The derivative is difference in velocity
-    outSpatial = velo_noforce.subtract(velo_withforce);
+    outSpatial = velo_withforce.subtract(velo_noforce);
     //Vec3::multiplyElementWise(outSpatial,outSpatial,spatialDirection);
     outRotational.set(0,0,0);
 

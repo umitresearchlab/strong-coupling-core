@@ -28,7 +28,7 @@ Vec3 Vec3::cross(const Vec3& u) const {
     return result;
 }
 
-double Vec3::dot(const Vec3& u) {
+double Vec3::dot(const Vec3& u) const {
     return  u.x() * m_data[0] +
             u.y() * m_data[1] +
             u.z() * m_data[2];

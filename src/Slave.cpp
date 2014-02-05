@@ -3,8 +3,7 @@
 
 using namespace sc;
 
-Slave::Slave(){
-}
+Slave::Slave(){}
 Slave::~Slave(){}
 
 void Slave::addConnector(Connector * conn){

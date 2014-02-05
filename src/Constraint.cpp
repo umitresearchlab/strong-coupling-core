@@ -9,13 +9,8 @@ Constraint::Constraint(Connector* connA, Connector* connB){
     m_connB = connB;
 }
 
-Constraint::~Constraint(){
-}
+Constraint::~Constraint(){}
 
 int Constraint::getNumEquations(){
     return m_equations.size();
-}
-
-Equation * Constraint::getEquation(int i){
-    return m_equations[i];
 }

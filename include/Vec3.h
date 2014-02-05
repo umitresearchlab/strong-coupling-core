@@ -17,7 +17,7 @@ public:
     Vec3 cross(const Vec3& u) const;
     Vec3 add(const Vec3& v) const;
     Vec3 subtract(const Vec3& u) const;
-    double dot(const Vec3& u);
+    double dot(const Vec3& u) const;
     double x() const;
     double y() const;
     double z() const;
@@ -32,6 +32,11 @@ public:
         this->m_data[0] += v.x();
         this->m_data[1] += v.y();
         this->m_data[2] += v.z();
+    };
+    Vec3 operator * (float s) const {
+        return Vec3(this->m_data[0]*s,
+                    this->m_data[1]*s,
+                    this->m_data[2]*s);
     };
 };
 

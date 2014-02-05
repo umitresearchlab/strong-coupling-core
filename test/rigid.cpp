@@ -138,12 +138,13 @@ int main(int argc, char ** argv){
     solver.setSpookParams(relaxation,compliance,dt);
 
     // Get system equations
-    std::vector<Equation *> eqs;
+    std::vector<Equation*> eqs;
     solver.getEquations(&eqs);
 
     // Print CSV first column
     if(!quiet) printFirstCSVRow(bodies);
     if(!quiet) printCSVRow(0,bodies);
+
 
     // Time loop
     for (int i = 0; i < NT; ++i){
@@ -175,18 +176,19 @@ int main(int argc, char ** argv){
             eq->getSpatialJacobianSeedA(spatSeed);
             eq->getRotationalJacobianSeedA(rotSeed);
             bodyA->getDirectionalDerivative(ddSpatial,ddRotational,bodyA->m_position,spatSeed,rotSeed);
+            //printf("Eq %d:\n", j);
+            //printf("A = (%f %f %f)\n", ddSpatial[0], ddSpatial[1], ddSpatial[2]);
             eq->setSpatialJacobianA(ddSpatial);
             eq->setRotationalJacobianA(ddRotational);
 
-            //printf("A = (%f %f %f)\n", ddSpatial[0], ddSpatial[1], ddSpatial[2]);
+            ////printf("A = (%f %f %f)\n", ddRotational[0], ddRotational[1], ddRotational[2]);
 
             eq->getSpatialJacobianSeedB(spatSeed);
             eq->getRotationalJacobianSeedB(rotSeed);
             bodyB->getDirectionalDerivative(ddSpatial,ddRotational,bodyB->m_position,spatSeed,rotSeed);
-            eq->setSpatialJacobianB(spatSeed);
-            eq->setRotationalJacobianB(rotSeed);
-
-            //printf("B = (%f %f %f)\n", ddSpatial[0], ddSpatial[1], ddSpatial[2]);
+            //printf("B: dd=(%f %f %f), seed=(%f %f %f)\n", ddSpatial[0], ddSpatial[1], ddSpatial[2], spatSeed[0], spatSeed[1], spatSeed[2]);
+            eq->setSpatialJacobianB(ddSpatial);
+            eq->setRotationalJacobianB(ddRotational);
         }
 
         // Solve system
@@ -194,6 +196,7 @@ int main(int argc, char ** argv){
 
         // Add resulting constraint forces to the bodies
         for (int j = 0; j < slaves.size(); ++j){
+            //printf("%f\n",slaves[j]->getConnector(0)->m_force[0]);
             bodies[j]->m_force.copy(slaves[j]->getConnector(0)->m_force);
             bodies[j]->m_torque.copy(slaves[j]->getConnector(0)->m_torque);
         }

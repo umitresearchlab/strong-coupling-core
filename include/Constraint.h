@@ -27,10 +27,10 @@ public:
     Connector * m_connB;
 
     /// Get number of equations in this constraint
-    int getNumEquations();
+    virtual int getNumEquations();
 
     /// Get one of the equations
-    Equation * getEquation(int i);
+    virtual Equation * getEquation(int i) = 0;
 };
 
 }
