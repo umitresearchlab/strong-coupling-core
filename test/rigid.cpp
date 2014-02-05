@@ -67,8 +67,9 @@ int main(int argc, char ** argv){
             relaxation = 3,
             compliance = 0.001,
             invMass = 1,
-            invInertia = 1,
             gravityX = 0;
+
+    Vec3 invInertia(1,1,1);
 
     // Parse arguments
     for (int i = 0; i < argc; ++i){
@@ -107,7 +108,11 @@ int main(int argc, char ** argv){
         RigidBody * body = new RigidBody();
         body->m_position[0] = (double)i * 1.1;
         body->m_invMass = i==0 ? 0 : invMass;
-        body->m_invInertia = i==0 ? 0 : invInertia;
+        if(i==0){
+            body->m_invInertia.set(0,0,0);
+        } else {
+            body->m_invInertia.copy(invInertia);
+        }
         body->m_gravity.set(gravityX,0,0);
 
         // Create slave
@@ -123,7 +128,8 @@ int main(int argc, char ** argv){
 
         // Create lock joint between this and last connector
         if(lastConnector != NULL){
-            Constraint * constraint = new BallJointConstraint(lastConnector, conn, Vec3(0.5,0,0), Vec3(-0.5,0,0));
+            Constraint * constraint = new LockConstraint(lastConnector, conn);
+            //Constraint * constraint = new BallJointConstraint(lastConnector, conn, Vec3(0.5,0,0), Vec3(-0.5,0,0));
             solver.addConstraint(constraint);
             constraints.push_back(constraint);
         }

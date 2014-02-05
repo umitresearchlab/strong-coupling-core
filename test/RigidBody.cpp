@@ -8,7 +8,7 @@ using namespace sc;
 
 RigidBody::RigidBody(){
     m_invMass = 1;
-    m_invInertia = 1;
+    m_invInertia.set(1,1,1);
     m_invInertiaWorld.set(  1,0,0,
                             0,1,0,
                             0,0,1 );
@@ -23,16 +23,13 @@ void RigidBody::integrate(double dt){
 
     // Integrate
     int i;
-    for(i=0; i<3; i++){
 
-        // Linear
-        m_velocity[i] += m_invMass * m_force[i] * dt;
-        m_position[i] += dt * m_velocity[i];
+    // Linear
+    m_velocity += m_force * dt * m_invMass;
+    m_position += m_velocity * dt;
 
-        // Angular
-        m_angularVelocity[i] += m_invInertia * m_torque[i] * dt;
-        m_position[i] += dt * m_angularVelocity[i];
-    }
+    // Angular
+    m_angularVelocity += m_invInertiaWorld * m_torque * dt;
 
     // Integrate orientation
     m_tmpQuat1.set(m_angularVelocity[0], m_angularVelocity[1], m_angularVelocity[2], 0.0);
@@ -43,8 +40,13 @@ void RigidBody::integrate(double dt){
     m_quaternion[3] += 0.5 * dt * m_tmpQuat2[3];
     m_quaternion.normalize();
 
-    // Reset gravity
-    m_force.set(0,0,0);
+    // Update world inertia according to new orientation
+    Mat3 R(m_quaternion);
+    Mat3 Rt = R.transpose();
+    R = R.scale(m_invInertia);
+    m_invInertiaWorld = R * Rt;
+
+    resetForces();
 }
 
 void RigidBody::resetForces(){
@@ -92,6 +94,10 @@ void RigidBody::saveState(){
     m_torque2.copy(m_torque);
     m_angularVelocity2.copy(m_angularVelocity);
     m_quaternion2.copy(m_quaternion);
+    m_invMass2 = m_invMass;
+    m_gravity2.copy(m_gravity);
+    m_invInertia2.copy(m_invInertia);
+    m_invInertiaWorld2.copy(m_invInertiaWorld);
 }
 
 void RigidBody::restoreState(){
@@ -101,5 +107,9 @@ void RigidBody::restoreState(){
     m_torque.copy(m_torque2);
     m_angularVelocity.copy(m_angularVelocity2);
     m_quaternion.copy(m_quaternion2);
+    m_invMass = m_invMass2;
+    m_gravity.copy(m_gravity2);
+    m_invInertia.copy(m_invInertia2);
+    m_invInertiaWorld.copy(m_invInertiaWorld2);
 }
 

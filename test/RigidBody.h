@@ -7,6 +7,7 @@
 
 namespace sc {
 
+/// Simple rigid body class for testing.
 class RigidBody {
 
 public:
@@ -25,7 +26,7 @@ public:
     Vec3 m_gravity;
 
     double m_invMass;
-    double m_invInertia;
+    Vec3 m_invInertia;
 
     Quat m_quaternion;
     Quat m_tmpQuat1;
@@ -38,6 +39,11 @@ public:
     Vec3 m_torque2;
     Vec3 m_angularVelocity2;
     Quat m_quaternion2;
+
+    Vec3 m_gravity2;
+    double m_invMass2;
+    Vec3 m_invInertia2;
+    Mat3 m_invInertiaWorld2;
 
     /// Move forward in time
     void integrate(double dt);
