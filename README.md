@@ -7,9 +7,9 @@ in co-simulation, where each slave has mechanical connector points.
 The library should have support for a number of constraints:
 
 * sc::LockConstraint
+* sc::BallJointConstraint
 * sc::DistanceConstraint
 * sc::HingeConstraint
-* sc::BalljointConstraint
 * sc::PrismaticConstraint
 
 These can be used to mechanically constrain the connectors to each other.
@@ -91,3 +91,10 @@ documentation. Build the documentation by doing this:
 
 # Project info
 Funded in part by VINNOVA through project Simovate (dnr 2012-01235) and Umeå University, Umeå, Sweden.
+
+# Change log
+
+*0.1.0*
+
+* Added sc::BallJointConstraint
+* Started change log
