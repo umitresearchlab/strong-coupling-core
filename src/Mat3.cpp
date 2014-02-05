@@ -8,6 +8,10 @@ Mat3::Mat3(){
         0,0,0);
 }
 
+Mat3::Mat3(const Quat& q){
+    setRotationFromQuaternion(q);
+}
+
 Mat3::~Mat3(){}
 
 void Mat3::set( double a11, double a12, double a13,
@@ -22,6 +26,34 @@ void Mat3::set( double a11, double a12, double a13,
     m_data[6] = a31;
     m_data[7] = a32;
     m_data[8] = a33;
+}
+
+Mat3 Mat3::transpose() const {
+    Mat3 result;
+    for(int i=0; i<3; i++){
+        for(int j=0; j<3; j++){
+            result.setElement(i,j, this->getElement(j,i));
+        }
+    }
+    return result;
+}
+
+void Mat3::copy(const Mat3& m){
+    for(int i=0; i<3; i++)
+        for(int j=0; j<3; j++)
+            this->setElement(i,j,m.getElement(i,j));
+}
+
+void Mat3::setRotationFromQuaternion(const Quat& q){
+    double  x = q.x(), y = q.y(), z = q.z(), w = q.w(),
+            x2 = x + x, y2 = y + y, z2 = z + z,
+            xx = x * x2, xy = x * y2, xz = x * z2,
+            yy = y * y2, yz = y * z2, zz = z * z2,
+            wx = w * x2, wy = w * y2, wz = w * z2;
+
+    set(1 - ( yy + zz ) ,   xy - wz,            xz + wy,
+        xy + wz         ,   1 - ( xx + zz ),    yz - wx,
+        xz - wy         ,   yz + wx,            1 - ( xx + yy ) );
 }
 
 Vec3 Mat3::multiplyVector(const Vec3& v) const {
