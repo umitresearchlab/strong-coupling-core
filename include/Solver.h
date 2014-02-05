@@ -10,10 +10,7 @@
 
 namespace sc {
 
-/**
- * Holds all slaves and constraints in the system, and solves for constraint
- * forces.
- */
+/// Holds all slaves and constraints in the system, and solves for constraint forces.
 class Solver {
 
 private:

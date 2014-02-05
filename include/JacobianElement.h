@@ -5,6 +5,7 @@
 
 namespace sc {
 
+    /// An element containing 6 entries, 3 spatial and 3 rotational degrees of freedom.
     class JacobianElement {
 
         private:

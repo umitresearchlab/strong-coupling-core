@@ -8,7 +8,7 @@
 namespace sc {
 
 /**
- * Base class for constraints.
+ * @brief Base class for constraints.
  */
 class Constraint {
 

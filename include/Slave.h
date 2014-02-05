@@ -6,6 +6,7 @@
 
 namespace sc {
 
+/// Represents a subsystem and holds connectors.
 class Slave {
 
 private:

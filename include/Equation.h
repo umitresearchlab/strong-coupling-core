@@ -6,9 +6,7 @@
 
 namespace sc {
 
-/**
- * Base class for equations. Constrains two instances of Connector.
- */
+/// Base class for equations. Constrains two instances of Connector.
 class Equation {
 
 private:

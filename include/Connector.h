@@ -7,8 +7,8 @@
 namespace sc {
 
 /**
- * The connector is a handle in each slave, which can be constrained. The connector
- * could be the slave center of mass (in the rigid body case) or something else.
+ * @brief The connector is a handle in each slave, which can be constrained.
+ * The connector could be the slave center of mass (in the rigid body case) or something else. Depends on your subsystem.
  */
 class Connector {
 
