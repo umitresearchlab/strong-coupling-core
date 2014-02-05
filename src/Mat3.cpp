@@ -8,9 +8,7 @@ Mat3::Mat3(){
         0,0,0);
 }
 
-Mat3::~Mat3(){
-
-}
+Mat3::~Mat3(){}
 
 void Mat3::set( double a11, double a12, double a13,
                 double a21, double a22, double a23,
@@ -26,42 +24,42 @@ void Mat3::set( double a11, double a12, double a13,
     m_data[8] = a33;
 }
 
-    /*
 Vec3 Mat3::multiplyVector(const Vec3& v) const {
-    Vec3 result;
-    result.set( e[0]*x + e[1]*y + e[2]*z,
-                e[3]*x + e[4]*y + e[5]*z,
-                e[6]*x + e[7]*y + e[8]*z);
-    return result;
+    return Vec3(getColumn(0).dot(v), getColumn(1).dot(v), getColumn(2).dot(v));
 };
-    */
+
+Vec3 Mat3::getColumn(int i) const {
+    return Vec3(m_data[3*0 + i],m_data[3*1 + i],m_data[3*2 + i]);
+};
 
 Mat3 Mat3::multiplyMatrix(const Mat3& m) const {
     Mat3 result;
-    /*
-    for(var i=0; i<3; i++){
-        for(var j=0; j<3; j++){
-            var sum = 0.0;
-            for(var k=0; k<3; k++){
-                sum += m.elements[i+k*3] * this.elements[k+j*3];
+    for(int i=0; i<3; i++){
+        for(int j=0; j<3; j++){
+            double sum = 0.0;
+            for(int k=0; k<3; k++){
+                sum += m.getElement(k,i) * this->getElement(j,k);
             }
-            r.elements[i+j*3] = sum;
+            result.setElement(j,i,sum);
         }
     }
-    */
     return result;
 };
 
-    /*
-Mat3 Mat3::scale(const Vec3& v) const{
+Mat3 Mat3::scale(const Vec3& v) {
     Mat3 result;
-    var e = this.elements,
-        t = target.elements;
-    for(var i=0; i!==3; i++){
-        t[3*i + 0] = v.x * e[3*i + 0];
-        t[3*i + 1] = v.y * e[3*i + 1];
-        t[3*i + 2] = v.z * e[3*i + 2];
+    for(int i=0; i<3; i++){
+        result.setElement(i,0, v.x() * this->getElement(i,0));
+        result.setElement(i,1, v.y() * this->getElement(i,1));
+        result.setElement(i,2, v.z() * this->getElement(i,2));
     }
     return result;
 };
-    */
+
+double Mat3::getElement(int row, int column) const {
+    return m_data[3*row + column];
+}
+
+void Mat3::setElement(int row, int column, double value){
+    m_data[3*row + column] = value;
+}
