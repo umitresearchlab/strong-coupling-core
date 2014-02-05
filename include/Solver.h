@@ -57,6 +57,7 @@ public:
     /**
      * @brief Solves the system of equation. Sets the constraint forces in each connector.
      */
+    void solve(int printDebugInfo);
     void solve();
 
     /**

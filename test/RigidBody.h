@@ -56,6 +56,7 @@ public:
                                     const Vec3& rotationalDirection);
     void saveState();
     void restoreState();
+    void setLocalInertiaAsBox(double mass, const Vec3& halfExtents);
 };
 
 }

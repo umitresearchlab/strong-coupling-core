@@ -21,14 +21,11 @@ void RigidBody::integrate(double dt){
     // Add some gravity
     m_force += m_gravity;
 
-    // Integrate
-    int i;
-
-    // Linear
+    // Integrate linear
     m_velocity += m_force * dt * m_invMass;
     m_position += m_velocity * dt;
 
-    // Angular
+    // Integrate angular velocity
     m_angularVelocity += m_invInertiaWorld * m_torque * dt;
 
     // Integrate orientation
@@ -52,6 +49,12 @@ void RigidBody::integrate(double dt){
 void RigidBody::resetForces(){
     m_force.set(0,0,0);
     m_torque.set(0,0,0);
+}
+
+void RigidBody::setLocalInertiaAsBox(double mass, const Vec3& halfExtents){
+    m_invInertia.set( 1.0 / (  1.0 / 12.0 * mass * (   2*halfExtents.y()*2*halfExtents.y() + 2*halfExtents.z()*2*halfExtents.z() ) ),
+                      1.0 / (  1.0 / 12.0 * mass * (   2*halfExtents.x()*2*halfExtents.x() + 2*halfExtents.z()*2*halfExtents.z() ) ),
+                      1.0 / (  1.0 / 12.0 * mass * (   2*halfExtents.y()*2*halfExtents.y() + 2*halfExtents.x()*2*halfExtents.x() ) )  );
 }
 
 void RigidBody::getDirectionalDerivative(   Vec3& outSpatial,

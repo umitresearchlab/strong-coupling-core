@@ -7,9 +7,24 @@
 #include "Constraint.h"
 #include "LockConstraint.h"
 #include "BallJointConstraint.h"
-#include "stdio.h"
 #include <vector>
-#include "string.h"
+#include <stdio.h>
+#include <string.h>
+
+#ifdef SC_USE_OSG
+#include <osg/Node>
+#include <osg/Group>
+#include <osg/Geode>
+#include <osg/Geometry>
+#include <osg/Texture2D>
+#include <osgDB/ReadFile>
+#include <osgViewer/Viewer>
+#include <osg/ShapeDrawable>
+#include <osg/PositionAttitudeTransform>
+#include <osgGA/TrackballManipulator>
+#include <osgUtil/Version>
+#include <osg/Version>
+#endif
 
 using namespace sc;
 
@@ -62,7 +77,8 @@ void printCSVRow(double t, std::vector<RigidBody*> bodies){
 int main(int argc, char ** argv){
     int N = 2,
         NT = 10,
-        quiet = 0;
+        quiet = 0,
+        render = 0;
     double  dt = 0.01,
             relaxation = 3,
             compliance = 0.001,
@@ -77,6 +93,7 @@ int main(int argc, char ** argv){
         int last = (i == argc-1);
 
         if(!last){
+            if(!strcmp(a,"--osg"))         render = 1;
             if(!strcmp(a,"--numBodies"))   N = atoi(argv[i+1]);
             if(!strcmp(a,"--numSteps"))    NT = atoi(argv[i+1]);
             if(!strcmp(a,"--compliance"))  compliance = atof(argv[i+1]);
@@ -128,8 +145,8 @@ int main(int argc, char ** argv){
 
         // Create lock joint between this and last connector
         if(lastConnector != NULL){
-            Constraint * constraint = new LockConstraint(lastConnector, conn);
-            //Constraint * constraint = new BallJointConstraint(lastConnector, conn, Vec3(0.5,0,0), Vec3(-0.5,0,0));
+            //Constraint * constraint = new LockConstraint(lastConnector, conn);
+            Constraint * constraint = new BallJointConstraint(lastConnector, conn, Vec3(0.5,0,0), Vec3(-0.5,0,0));
             solver.addConstraint(constraint);
             constraints.push_back(constraint);
         }
@@ -152,6 +169,45 @@ int main(int argc, char ** argv){
     if(!quiet) printFirstCSVRow(bodies);
     if(!quiet) printCSVRow(0,bodies);
 
+    #ifdef SC_USE_OSG
+        osgViewer::Viewer * viewer;
+        std::vector<osg::PositionAttitudeTransform *> transforms;
+
+        if(render){
+
+            printf("OpenSceneGraph %s\n",osgUtilGetVersion());
+
+            // Create viewer
+            viewer = new osgViewer::Viewer();
+
+            // Root group
+            osg::Group* root = new osg::Group();
+
+            // Create boxes for each body
+            for(int i=0; i<bodies.size(); i++){
+                osg::Geode* boxGeode = new osg::Geode();
+                osg::Box* box = new osg::Box( osg::Vec3(0,0,0), 1.0f, 1.0f, 6.0f);
+                box->setDataVariance(osg::Object::DYNAMIC);
+                osg::ShapeDrawable* boxDrawable = new osg::ShapeDrawable(box);
+                boxGeode->addDrawable(boxDrawable);
+                osg::PositionAttitudeTransform * transform = new osg::PositionAttitudeTransform();
+                root->addChild(transform);
+                transform->addChild(boxGeode);
+
+                // Store transform for later
+                transforms.push_back(transform);
+            }
+
+            // Enable lighting
+            root->getOrCreateStateSet()->setMode(GL_LIGHTING, osg::StateAttribute::ON);
+
+            // Init viewer
+            viewer->setSceneData( root );
+            viewer->setCameraManipulator(new osgGA::TrackballManipulator());
+            viewer->realize();
+
+        }
+    #endif
 
     // Time loop
     for (int i = 0; i < NT; ++i){
@@ -219,6 +275,22 @@ int main(int argc, char ** argv){
 
         // Print results
         if(!quiet) printCSVRow(t,bodies);
+
+        #ifdef SC_USE_OSG
+            if(render && !viewer->done()){
+
+                double t = viewer->elapsedTime();
+
+                // Update box transforms
+                for(int j=0; j<bodies.size(); j++){
+                    Vec3 p = bodies[j]->m_position;
+                    transforms[j]->setPosition(osg::Vec3(p[0],p[1],p[2]));
+                }
+
+                // render
+                viewer->frame();
+            }
+        #endif
     }
 
     deleteVectorContent(bodies);

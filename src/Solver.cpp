@@ -88,6 +88,10 @@ void Solver::updateConstraints(){
 }
 
 void Solver::solve(){
+    solve(0);
+}
+
+void Solver::solve(int printDebugInfo){
     int i, j, k, l;
     std::vector<Equation*> eqs;
     getEquations(&eqs);
@@ -266,7 +270,7 @@ void Solver::solve(){
     }
 
     // Print matrices
-    if(SCSOLVER_DEBUGPRINTS){
+    if(printDebugInfo){
 
         char empty = '0';
         char tab = '\t';

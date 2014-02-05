@@ -11,6 +11,16 @@ SET(RIGID_HEADERS
 INCLUDE_DIRECTORIES(${UMFPACK_INCLUDE_DIR})
 LINK_DIRECTORIES(   ${UMFPACK_LIBRARY_DIR})
 
-ADD_EXECUTABLE(rigid   ${RIGID_HEADERS} ${RIGID_SRCS})
+OPTION(USE_OSG "Enables OSG viewing of the rigid demo")
+IF(USE_OSG)
+ADD_DEFINITIONS(-DSC_USE_OSG)
+ENDIF()
 
-TARGET_LINK_LIBRARIES(rigid     sc m umfpack amd cblas) #   atlas?
+ADD_EXECUTABLE(rigid       ${RIGID_HEADERS} ${RIGID_SRCS})
+
+IF(USE_OSG)
+    TARGET_LINK_LIBRARIES(rigid      sc m umfpack amd cblas osg osgViewer osgGA osgUtil)
+ELSE()
+    TARGET_LINK_LIBRARIES(rigid      sc m umfpack amd cblas )
+ENDIF()
+
