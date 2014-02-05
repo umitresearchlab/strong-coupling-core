@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['slave',['Slave',['../classsc_1_1_slave.html',1,'sc']]],
-  ['solver',['Solver',['../classsc_1_1_solver.html',1,'sc']]]
+  ['mat3',['Mat3',['../classsc_1_1_mat3.html',1,'sc']]]
 ];

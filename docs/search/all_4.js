@@ -1,4 +1,7 @@
 var searchData=
 [
-  ['free',['free',['../classsc_1_1_quat.html#abe5470c7ebce67559d3e2a6510858c81',1,'sc::Quat::free()'],['../classsc_1_1_vec3.html#ab551923c489461b2c2e900b8cfd31842',1,'sc::Vec3::free()']]]
+  ['equation',['Equation',['../classsc_1_1_equation.html',1,'sc']]],
+  ['equation',['Equation',['../classsc_1_1_equation.html#a68511fc719250ed80f86c50de9136733',1,'sc::Equation::Equation()'],['../classsc_1_1_equation.html#a192c0cca846b8fd9ab59887c0d8882b3',1,'sc::Equation::Equation(Connector *, Connector *)']]],
+  ['equation_2ecpp',['Equation.cpp',['../_equation_8cpp.html',1,'']]],
+  ['equation_2eh',['Equation.h',['../_equation_8h.html',1,'']]]
 ];

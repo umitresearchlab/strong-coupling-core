@@ -39,6 +39,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
@@ -97,36 +98,41 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 
+<p>Holds all slaves and constraints in the system, and solves for constraint forces.  
+ <a href="classsc_1_1_solver.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="_solver_8h_source.html">Solver.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a574333a1c1313112d28104758ee9d5e3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsc_1_1_solver.html#a574333a1c1313112d28104758ee9d5e3">Solver</a> ()</td></tr>
-<tr class="separator:a574333a1c1313112d28104758ee9d5e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a778bd6c4f850291920484414a0607a57"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsc_1_1_solver.html#a778bd6c4f850291920484414a0607a57">~Solver</a> ()</td></tr>
-<tr class="separator:a778bd6c4f850291920484414a0607a57"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a564b778bef02c8aafb69b6d1e6e0b0c1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsc_1_1_solver.html#a564b778bef02c8aafb69b6d1e6e0b0c1">addSlave</a> (<a class="el" href="classsc_1_1_slave.html">Slave</a> *slave)</td></tr>
-<tr class="memdesc:a564b778bef02c8aafb69b6d1e6e0b0c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a slave to the solver.  <a href="#a564b778bef02c8aafb69b6d1e6e0b0c1">More...</a><br/></td></tr>
-<tr class="separator:a564b778bef02c8aafb69b6d1e6e0b0c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae0e7881e151fe8a77895043d07431302"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsc_1_1_solver.html#ae0e7881e151fe8a77895043d07431302">addConstraint</a> (<a class="el" href="classsc_1_1_constraint.html">Constraint</a> *constraint)</td></tr>
-<tr class="memdesc:ae0e7881e151fe8a77895043d07431302"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a constraint to the solver.  <a href="#ae0e7881e151fe8a77895043d07431302">More...</a><br/></td></tr>
-<tr class="separator:ae0e7881e151fe8a77895043d07431302"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a779e7a60bdf4cf1493a01d52956cceb9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsc_1_1_solver.html#a779e7a60bdf4cf1493a01d52956cceb9">getSystemMatrixRows</a> ()</td></tr>
-<tr class="memdesc:a779e7a60bdf4cf1493a01d52956cceb9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the number of rows in the system matrix.  <a href="#a779e7a60bdf4cf1493a01d52956cceb9">More...</a><br/></td></tr>
-<tr class="separator:a779e7a60bdf4cf1493a01d52956cceb9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6787e89f74a7e0ae798aedf40fb9e2ca"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsc_1_1_solver.html#a6787e89f74a7e0ae798aedf40fb9e2ca">getSystemMatrixCols</a> ()</td></tr>
-<tr class="memdesc:a6787e89f74a7e0ae798aedf40fb9e2ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get number of columns in the system matrix.  <a href="#a6787e89f74a7e0ae798aedf40fb9e2ca">More...</a><br/></td></tr>
-<tr class="separator:a6787e89f74a7e0ae798aedf40fb9e2ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae77ceb3b9088c99c8ee7e2aa06fc4bf6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsc_1_1_solver.html#ae77ceb3b9088c99c8ee7e2aa06fc4bf6">getEquations</a> (std::vector&lt; <a class="el" href="classsc_1_1_equation.html">Equation</a> * &gt; *eqs)</td></tr>
-<tr class="memdesc:ae77ceb3b9088c99c8ee7e2aa06fc4bf6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get all equations in a vector.  <a href="#ae77ceb3b9088c99c8ee7e2aa06fc4bf6">More...</a><br/></td></tr>
-<tr class="separator:ae77ceb3b9088c99c8ee7e2aa06fc4bf6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2d3a6050e3cdba64ccf29747027e8162"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsc_1_1_solver.html#a2d3a6050e3cdba64ccf29747027e8162">solve</a> ()</td></tr>
-<tr class="memdesc:a2d3a6050e3cdba64ccf29747027e8162"><td class="mdescLeft">&#160;</td><td class="mdescRight">Solves the system of equation. Sets the constraint forces in each connector.  <a href="#a2d3a6050e3cdba64ccf29747027e8162">More...</a><br/></td></tr>
-<tr class="separator:a2d3a6050e3cdba64ccf29747027e8162"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8f4e3b6424b7533c30e2001b46c7078f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsc_1_1_solver.html#a8f4e3b6424b7533c30e2001b46c7078f">setSpookParams</a> (double relaxation, double compliance, double timeStep)</td></tr>
-<tr class="separator:a8f4e3b6424b7533c30e2001b46c7078f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a85f6a15a65cae0da2900c2740619402a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsc_1_1_solver.html#a85f6a15a65cae0da2900c2740619402a">resetConstraintForces</a> ()</td></tr>
-<tr class="separator:a85f6a15a65cae0da2900c2740619402a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9dfe7ae9ce617e8a6398be34284c907a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsc_1_1_solver.html#a9dfe7ae9ce617e8a6398be34284c907a">Solver</a> ()</td></tr>
+<tr class="separator:a9dfe7ae9ce617e8a6398be34284c907a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba52d3c92fafceb6fe39f937f2d73db3"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsc_1_1_solver.html#aba52d3c92fafceb6fe39f937f2d73db3">~Solver</a> ()</td></tr>
+<tr class="separator:aba52d3c92fafceb6fe39f937f2d73db3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8628085cd3d4f68f66525e598780d3dc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsc_1_1_solver.html#a8628085cd3d4f68f66525e598780d3dc">addSlave</a> (<a class="el" href="classsc_1_1_slave.html">Slave</a> *slave)</td></tr>
+<tr class="memdesc:a8628085cd3d4f68f66525e598780d3dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a slave to the solver.  <a href="#a8628085cd3d4f68f66525e598780d3dc">More...</a><br/></td></tr>
+<tr class="separator:a8628085cd3d4f68f66525e598780d3dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aad705a16c4e45df364fcb3e97ffdd1de"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsc_1_1_solver.html#aad705a16c4e45df364fcb3e97ffdd1de">addConstraint</a> (<a class="el" href="classsc_1_1_constraint.html">Constraint</a> *constraint)</td></tr>
+<tr class="memdesc:aad705a16c4e45df364fcb3e97ffdd1de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a constraint to the solver.  <a href="#aad705a16c4e45df364fcb3e97ffdd1de">More...</a><br/></td></tr>
+<tr class="separator:aad705a16c4e45df364fcb3e97ffdd1de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac762208fe0aad36cc98aa7441dca983f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsc_1_1_solver.html#ac762208fe0aad36cc98aa7441dca983f">getSystemMatrixRows</a> ()</td></tr>
+<tr class="memdesc:ac762208fe0aad36cc98aa7441dca983f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the number of rows in the system matrix.  <a href="#ac762208fe0aad36cc98aa7441dca983f">More...</a><br/></td></tr>
+<tr class="separator:ac762208fe0aad36cc98aa7441dca983f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaae6d898b71c758f6de5f838ebfba068"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsc_1_1_solver.html#aaae6d898b71c758f6de5f838ebfba068">getSystemMatrixCols</a> ()</td></tr>
+<tr class="memdesc:aaae6d898b71c758f6de5f838ebfba068"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get number of columns in the system matrix.  <a href="#aaae6d898b71c758f6de5f838ebfba068">More...</a><br/></td></tr>
+<tr class="separator:aaae6d898b71c758f6de5f838ebfba068"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a528da38ba27702516d9c8c69c38207e6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsc_1_1_solver.html#a528da38ba27702516d9c8c69c38207e6">getEquations</a> (std::vector&lt; <a class="el" href="classsc_1_1_equation.html">Equation</a> * &gt; *eqs)</td></tr>
+<tr class="memdesc:a528da38ba27702516d9c8c69c38207e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get all equations in a vector.  <a href="#a528da38ba27702516d9c8c69c38207e6">More...</a><br/></td></tr>
+<tr class="separator:a528da38ba27702516d9c8c69c38207e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab651560a089c3beaf420deb61ea4bd87"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsc_1_1_solver.html#ab651560a089c3beaf420deb61ea4bd87">solve</a> ()</td></tr>
+<tr class="memdesc:ab651560a089c3beaf420deb61ea4bd87"><td class="mdescLeft">&#160;</td><td class="mdescRight">Solves the system of equation. Sets the constraint forces in each connector.  <a href="#ab651560a089c3beaf420deb61ea4bd87">More...</a><br/></td></tr>
+<tr class="separator:ab651560a089c3beaf420deb61ea4bd87"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a088030985df2de87b0e3bf902af4395f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsc_1_1_solver.html#a088030985df2de87b0e3bf902af4395f">setSpookParams</a> (double relaxation, double compliance, double timeStep)</td></tr>
+<tr class="separator:a088030985df2de87b0e3bf902af4395f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace2f65267c40a54046d5cc1b8e7937bd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsc_1_1_solver.html#ace2f65267c40a54046d5cc1b8e7937bd">resetConstraintForces</a> ()</td></tr>
+<tr class="separator:ace2f65267c40a54046d5cc1b8e7937bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4c30364b8ea7cd7b37783e26f6cda84f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsc_1_1_solver.html#a4c30364b8ea7cd7b37783e26f6cda84f">updateConstraints</a> ()</td></tr>
+<tr class="separator:a4c30364b8ea7cd7b37783e26f6cda84f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -137,12 +143,12 @@ Public Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Holds all slaves and constraints in the system, and solves for constraint forces. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a574333a1c1313112d28104758ee9d5e3"></a>
+<a class="anchor" id="a9dfe7ae9ce617e8a6398be34284c907a"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">sc::Solver::Solver </td>
+          <td class="memname">Solver::Solver </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -152,28 +158,36 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a778bd6c4f850291920484414a0607a57"></a>
+<a class="anchor" id="aba52d3c92fafceb6fe39f937f2d73db3"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">sc::Solver::~Solver </td>
+          <td class="memname">Solver::~Solver </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="ae0e7881e151fe8a77895043d07431302"></a>
+<a class="anchor" id="aad705a16c4e45df364fcb3e97ffdd1de"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void sc::Solver::addConstraint </td>
+          <td class="memname">void Solver::addConstraint </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classsc_1_1_constraint.html">Constraint</a> *&#160;</td>
           <td class="paramname"><em>constraint</em></td><td>)</td>
@@ -192,12 +206,12 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a564b778bef02c8aafb69b6d1e6e0b0c1"></a>
+<a class="anchor" id="a8628085cd3d4f68f66525e598780d3dc"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void sc::Solver::addSlave </td>
+          <td class="memname">void Solver::addSlave </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classsc_1_1_slave.html">Slave</a> *&#160;</td>
           <td class="paramname"><em>slave</em></td><td>)</td>
@@ -216,12 +230,12 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ae77ceb3b9088c99c8ee7e2aa06fc4bf6"></a>
+<a class="anchor" id="a528da38ba27702516d9c8c69c38207e6"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void sc::Solver::getEquations </td>
+          <td class="memname">void Solver::getEquations </td>
           <td>(</td>
           <td class="paramtype">std::vector&lt; <a class="el" href="classsc_1_1_equation.html">Equation</a> * &gt; *&#160;</td>
           <td class="paramname"><em>eqs</em></td><td>)</td>
@@ -240,12 +254,12 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a6787e89f74a7e0ae798aedf40fb9e2ca"></a>
+<a class="anchor" id="aaae6d898b71c758f6de5f838ebfba068"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int sc::Solver::getSystemMatrixCols </td>
+          <td class="memname">int Solver::getSystemMatrixCols </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -257,12 +271,12 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a779e7a60bdf4cf1493a01d52956cceb9"></a>
+<a class="anchor" id="ac762208fe0aad36cc98aa7441dca983f"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int sc::Solver::getSystemMatrixRows </td>
+          <td class="memname">int Solver::getSystemMatrixRows </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -274,12 +288,12 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a85f6a15a65cae0da2900c2740619402a"></a>
+<a class="anchor" id="ace2f65267c40a54046d5cc1b8e7937bd"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void sc::Solver::resetConstraintForces </td>
+          <td class="memname">void Solver::resetConstraintForces </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -290,12 +304,12 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a8f4e3b6424b7533c30e2001b46c7078f"></a>
+<a class="anchor" id="a088030985df2de87b0e3bf902af4395f"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void sc::Solver::setSpookParams </td>
+          <td class="memname">void Solver::setSpookParams </td>
           <td>(</td>
           <td class="paramtype">double&#160;</td>
           <td class="paramname"><em>relaxation</em>, </td>
@@ -331,12 +345,12 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a2d3a6050e3cdba64ccf29747027e8162"></a>
+<a class="anchor" id="ab651560a089c3beaf420deb61ea4bd87"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void sc::Solver::solve </td>
+          <td class="memname">void Solver::solve </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -345,6 +359,22 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Solves the system of equation. Sets the constraint forces in each connector. </p>
+
+</div>
+</div>
+<a class="anchor" id="a4c30364b8ea7cd7b37783e26f6cda84f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Solver::updateConstraints </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Updates all constraints. </p>
 
 </div>
 </div>
@@ -370,7 +400,7 @@ Public Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Feb 4 2014 08:47:26 for Strong Coupling Core by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Feb 5 2014 15:47:37 for Strong Coupling Core by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

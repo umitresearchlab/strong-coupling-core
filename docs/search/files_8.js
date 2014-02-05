@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['vec3_2ecpp',['Vec3.cpp',['../_vec3_8cpp.html',1,'']]],
-  ['vec3_2eh',['Vec3.h',['../_vec3_8h.html',1,'']]]
+  ['slave_2ecpp',['Slave.cpp',['../_slave_8cpp.html',1,'']]],
+  ['slave_2eh',['Slave.h',['../_slave_8h.html',1,'']]],
+  ['solver_2ecpp',['Solver.cpp',['../_solver_8cpp.html',1,'']]],
+  ['solver_2eh',['Solver.h',['../_solver_8h.html',1,'']]]
 ];

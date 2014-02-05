@@ -39,6 +39,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
@@ -94,33 +95,64 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define SCQUAT_H</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;</div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;stdlib.h&quot;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span>sc {</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;</div>
-<div class="line"><a name="l00008"></a><span class="lineno"><a class="line" href="classsc_1_1_quat.html">    8</a></span>&#160;<span class="keyword">class </span><a class="code" href="classsc_1_1_quat.html">Quat</a> {</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">double</span> * <a class="code" href="classsc_1_1_quat.html#afbcae7523709d8198fa1bd12c4f02fc2">alloc</a>();</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classsc_1_1_quat.html#abe5470c7ebce67559d3e2a6510858c81">free</a>(<span class="keywordtype">double</span>* q);</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classsc_1_1_quat.html#a38b4182059813a90bb9490b6f925014c">multiply</a>(<span class="keywordtype">double</span>* p, <span class="keywordtype">double</span> *q, <span class="keywordtype">double</span> *target);</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classsc_1_1_quat.html#aa1063d1392ee55d80cbb5c656eb4f0a4">normalize</a>(<span class="keywordtype">double</span>* q, <span class="keywordtype">double</span> *out);</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classsc_1_1_quat.html#a7abc11f9207a8f39ca0da16e02f3f47a">set</a>(<span class="keywordtype">double</span>* q, <span class="keywordtype">double</span> x, <span class="keywordtype">double</span> y, <span class="keywordtype">double</span> z, <span class="keywordtype">double</span> w);</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classsc_1_1_quat.html#ae4772d6f61b17094eda158bf2453673c">copy</a>(<span class="keywordtype">double</span>* out, <span class="keywordtype">double</span>* q);</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;};</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;}</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_vec3_8h.html">Vec3.h</a>&quot;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>sc {</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;</div>
+<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="classsc_1_1_quat.html">   10</a></span>&#160;<span class="keyword">class </span><a class="code" href="classsc_1_1_quat.html">Quat</a> {</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <span class="keywordtype">double</span> m_data[4];</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <a class="code" href="classsc_1_1_quat.html#afe432f2aac598c876a51b16dce29aa13">Quat</a>();</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <a class="code" href="classsc_1_1_quat.html#afe432f2aac598c876a51b16dce29aa13">Quat</a>(<span class="keywordtype">double</span> <a class="code" href="classsc_1_1_quat.html#ad8247c09dbb0bda915b8d55ae1d5ae3d">x</a>, <span class="keywordtype">double</span> <a class="code" href="classsc_1_1_quat.html#a168c314b2694e533e7be19ad7654f40d">y</a>, <span class="keywordtype">double</span> <a class="code" href="classsc_1_1_quat.html#a1c5367a24fc8e6920c164707d17aafa0">z</a>, <span class="keywordtype">double</span> <a class="code" href="classsc_1_1_quat.html#a0b6c1f403fbee2710e8a2a431e6eda9d">w</a>);</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="classsc_1_1_quat.html#a944342ae3eb03be422e801073e3bfd0b">~Quat</a>();</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="classsc_1_1_quat_html_afbcae7523709d8198fa1bd12c4f02fc2"><div class="ttname"><a href="classsc_1_1_quat.html#afbcae7523709d8198fa1bd12c4f02fc2">sc::Quat::alloc</a></div><div class="ttdeci">static double * alloc()</div><div class="ttdef"><b>Definition:</b> Quat.cpp:7</div></div>
-<div class="ttc" id="classsc_1_1_quat_html"><div class="ttname"><a href="classsc_1_1_quat.html">sc::Quat</a></div><div class="ttdef"><b>Definition:</b> Quat.h:8</div></div>
-<div class="ttc" id="classsc_1_1_quat_html_aa1063d1392ee55d80cbb5c656eb4f0a4"><div class="ttname"><a href="classsc_1_1_quat.html#aa1063d1392ee55d80cbb5c656eb4f0a4">sc::Quat::normalize</a></div><div class="ttdeci">static void normalize(double *q, double *out)</div><div class="ttdef"><b>Definition:</b> Quat.cpp:34</div></div>
-<div class="ttc" id="classsc_1_1_quat_html_a7abc11f9207a8f39ca0da16e02f3f47a"><div class="ttname"><a href="classsc_1_1_quat.html#a7abc11f9207a8f39ca0da16e02f3f47a">sc::Quat::set</a></div><div class="ttdeci">static void set(double *q, double x, double y, double z, double w)</div><div class="ttdef"><b>Definition:</b> Quat.cpp:50</div></div>
-<div class="ttc" id="classsc_1_1_quat_html_abe5470c7ebce67559d3e2a6510858c81"><div class="ttname"><a href="classsc_1_1_quat.html#abe5470c7ebce67559d3e2a6510858c81">sc::Quat::free</a></div><div class="ttdeci">static void free(double *q)</div><div class="ttdef"><b>Definition:</b> Quat.cpp:13</div></div>
-<div class="ttc" id="classsc_1_1_quat_html_a38b4182059813a90bb9490b6f925014c"><div class="ttname"><a href="classsc_1_1_quat.html#a38b4182059813a90bb9490b6f925014c">sc::Quat::multiply</a></div><div class="ttdeci">static void multiply(double *p, double *q, double *target)</div><div class="ttdef"><b>Definition:</b> Quat.cpp:17</div></div>
-<div class="ttc" id="classsc_1_1_quat_html_ae4772d6f61b17094eda158bf2453673c"><div class="ttname"><a href="classsc_1_1_quat.html#ae4772d6f61b17094eda158bf2453673c">sc::Quat::copy</a></div><div class="ttdeci">static void copy(double *out, double *q)</div><div class="ttdef"><b>Definition:</b> Quat.cpp:57</div></div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="classsc_1_1_quat.html#add23380f9b4d7ba3a854007f0c423099">   21</a></span>&#160;    <span class="keywordtype">double</span>&amp; <a class="code" href="classsc_1_1_quat.html#add23380f9b4d7ba3a854007f0c423099">operator[] </a>(<span class="keyword">const</span> <span class="keywordtype">int</span> i)<span class="keyword"> const  </span>{</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        this-&gt;m_data[i];</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    };</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <a class="code" href="classsc_1_1_quat.html">Quat</a> <a class="code" href="classsc_1_1_quat.html#acee273fc68413dcfe01b8d19adf75661">multiply</a>(<span class="keyword">const</span> <a class="code" href="classsc_1_1_quat.html">Quat</a>&amp; p, <span class="keyword">const</span> <a class="code" href="classsc_1_1_quat.html">Quat</a>&amp; q) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <a class="code" href="classsc_1_1_vec3.html">Vec3</a> <a class="code" href="classsc_1_1_quat.html#a9699cc154a697c7c86fdaa4523404ede">multiplyVector</a>(<span class="keyword">const</span> <a class="code" href="classsc_1_1_vec3.html">Vec3</a>&amp; v) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <a class="code" href="classsc_1_1_vec3.html">Vec3</a> <a class="code" href="classsc_1_1_quat.html#ad15c2e3d7af05d622e14b8f3bb0ea1db">getAxis</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classsc_1_1_quat.html#a4fd2ed1eb85f002a730f137054e02f1e">normalize</a>();</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classsc_1_1_quat.html#ac4b58103531a1f9daf7be73ea09b1513">set</a>(<span class="keywordtype">double</span> x, <span class="keywordtype">double</span> y, <span class="keywordtype">double</span> z, <span class="keywordtype">double</span> w);</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classsc_1_1_quat.html#a05e12d41c390590846629fae059819ce">copy</a>(<span class="keyword">const</span> <a class="code" href="classsc_1_1_quat.html">Quat</a>&amp; q);</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordtype">double</span> <a class="code" href="classsc_1_1_quat.html#ad8247c09dbb0bda915b8d55ae1d5ae3d">x</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keywordtype">double</span> <a class="code" href="classsc_1_1_quat.html#a168c314b2694e533e7be19ad7654f40d">y</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordtype">double</span> <a class="code" href="classsc_1_1_quat.html#a1c5367a24fc8e6920c164707d17aafa0">z</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordtype">double</span> <a class="code" href="classsc_1_1_quat.html#a0b6c1f403fbee2710e8a2a431e6eda9d">w</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;};</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;}</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="classsc_1_1_quat_html_afe432f2aac598c876a51b16dce29aa13"><div class="ttname"><a href="classsc_1_1_quat.html#afe432f2aac598c876a51b16dce29aa13">sc::Quat::Quat</a></div><div class="ttdeci">Quat()</div><div class="ttdef"><b>Definition:</b> Quat.cpp:7</div></div>
+<div class="ttc" id="classsc_1_1_quat_html_ac4b58103531a1f9daf7be73ea09b1513"><div class="ttname"><a href="classsc_1_1_quat.html#ac4b58103531a1f9daf7be73ea09b1513">sc::Quat::set</a></div><div class="ttdeci">void set(double x, double y, double z, double w)</div><div class="ttdoc">Set all values. </div><div class="ttdef"><b>Definition:</b> Quat.cpp:98</div></div>
+<div class="ttc" id="classsc_1_1_quat_html_a168c314b2694e533e7be19ad7654f40d"><div class="ttname"><a href="classsc_1_1_quat.html#a168c314b2694e533e7be19ad7654f40d">sc::Quat::y</a></div><div class="ttdeci">double y() const </div><div class="ttdef"><b>Definition:</b> Quat.cpp:26</div></div>
+<div class="ttc" id="classsc_1_1_quat_html_a9699cc154a697c7c86fdaa4523404ede"><div class="ttname"><a href="classsc_1_1_quat.html#a9699cc154a697c7c86fdaa4523404ede">sc::Quat::multiplyVector</a></div><div class="ttdeci">Vec3 multiplyVector(const Vec3 &amp;v) const </div><div class="ttdoc">Transform vector. </div><div class="ttdef"><b>Definition:</b> Quat.cpp:57</div></div>
+<div class="ttc" id="classsc_1_1_quat_html"><div class="ttname"><a href="classsc_1_1_quat.html">sc::Quat</a></div><div class="ttdoc">Quaternion class. </div><div class="ttdef"><b>Definition:</b> Quat.h:10</div></div>
+<div class="ttc" id="classsc_1_1_quat_html_ad8247c09dbb0bda915b8d55ae1d5ae3d"><div class="ttname"><a href="classsc_1_1_quat.html#ad8247c09dbb0bda915b8d55ae1d5ae3d">sc::Quat::x</a></div><div class="ttdeci">double x() const </div><div class="ttdef"><b>Definition:</b> Quat.cpp:23</div></div>
+<div class="ttc" id="classsc_1_1_quat_html_a0b6c1f403fbee2710e8a2a431e6eda9d"><div class="ttname"><a href="classsc_1_1_quat.html#a0b6c1f403fbee2710e8a2a431e6eda9d">sc::Quat::w</a></div><div class="ttdeci">double w() const </div><div class="ttdef"><b>Definition:</b> Quat.cpp:32</div></div>
+<div class="ttc" id="classsc_1_1_quat_html_ad15c2e3d7af05d622e14b8f3bb0ea1db"><div class="ttname"><a href="classsc_1_1_quat.html#ad15c2e3d7af05d622e14b8f3bb0ea1db">sc::Quat::getAxis</a></div><div class="ttdeci">Vec3 getAxis() const </div><div class="ttdef"><b>Definition:</b> Quat.cpp:36</div></div>
+<div class="ttc" id="_vec3_8h_html"><div class="ttname"><a href="_vec3_8h.html">Vec3.h</a></div></div>
+<div class="ttc" id="classsc_1_1_quat_html_acee273fc68413dcfe01b8d19adf75661"><div class="ttname"><a href="classsc_1_1_quat.html#acee273fc68413dcfe01b8d19adf75661">sc::Quat::multiply</a></div><div class="ttdeci">Quat multiply(const Quat &amp;p, const Quat &amp;q) const </div><div class="ttdoc">Multiply with other quaternion. </div><div class="ttdef"><b>Definition:</b> Quat.cpp:40</div></div>
+<div class="ttc" id="classsc_1_1_quat_html_a05e12d41c390590846629fae059819ce"><div class="ttname"><a href="classsc_1_1_quat.html#a05e12d41c390590846629fae059819ce">sc::Quat::copy</a></div><div class="ttdeci">void copy(const Quat &amp;q)</div><div class="ttdoc">Copy state from other quaternion. </div><div class="ttdef"><b>Definition:</b> Quat.cpp:105</div></div>
+<div class="ttc" id="classsc_1_1_vec3_html"><div class="ttname"><a href="classsc_1_1_vec3.html">sc::Vec3</a></div><div class="ttdoc">3D vector class </div><div class="ttdef"><b>Definition:</b> Vec3.h:9</div></div>
+<div class="ttc" id="classsc_1_1_quat_html_a4fd2ed1eb85f002a730f137054e02f1e"><div class="ttname"><a href="classsc_1_1_quat.html#a4fd2ed1eb85f002a730f137054e02f1e">sc::Quat::normalize</a></div><div class="ttdeci">void normalize()</div><div class="ttdoc">Normalize this vector. Will change state. </div><div class="ttdef"><b>Definition:</b> Quat.cpp:82</div></div>
+<div class="ttc" id="classsc_1_1_quat_html_add23380f9b4d7ba3a854007f0c423099"><div class="ttname"><a href="classsc_1_1_quat.html#add23380f9b4d7ba3a854007f0c423099">sc::Quat::operator[]</a></div><div class="ttdeci">double &amp; operator[](const int i) const </div><div class="ttdoc">Element access. </div><div class="ttdef"><b>Definition:</b> Quat.h:21</div></div>
+<div class="ttc" id="classsc_1_1_quat_html_a944342ae3eb03be422e801073e3bfd0b"><div class="ttname"><a href="classsc_1_1_quat.html#a944342ae3eb03be422e801073e3bfd0b">sc::Quat::~Quat</a></div><div class="ttdeci">virtual ~Quat()</div><div class="ttdef"><b>Definition:</b> Quat.cpp:21</div></div>
+<div class="ttc" id="classsc_1_1_quat_html_a1c5367a24fc8e6920c164707d17aafa0"><div class="ttname"><a href="classsc_1_1_quat.html#a1c5367a24fc8e6920c164707d17aafa0">sc::Quat::z</a></div><div class="ttdeci">double z() const </div><div class="ttdef"><b>Definition:</b> Quat.cpp:29</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Feb 4 2014 08:47:26 for Strong Coupling Core by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Feb 5 2014 15:47:37 for Strong Coupling Core by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

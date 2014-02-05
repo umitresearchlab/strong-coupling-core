@@ -39,6 +39,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
@@ -91,12 +92,16 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="classsc_1_1_constraint-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">sc::Constraint Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Base class for constraints.  
+ <a href="classsc_1_1_constraint.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="_constraint_8h_source.html">Constraint.h</a>&gt;</code></p>
 <div class="dynheader">
@@ -105,47 +110,60 @@ Inheritance diagram for sc::Constraint:</div>
  <div class="center">
   <img src="classsc_1_1_constraint.png" usemap="#sc::Constraint_map" alt=""/>
   <map id="sc::Constraint_map" name="sc::Constraint_map">
-<area href="classsc_1_1_lock_constraint.html" alt="sc::LockConstraint" shape="rect" coords="0,56,115,80"/>
+<area href="classsc_1_1_ball_joint_constraint.html" title="Connects the connectors with a ball joint. " alt="sc::BallJointConstraint" shape="rect" coords="0,56,136,80"/>
+<area href="classsc_1_1_lock_constraint.html" title="Locks all 6 degrees of freedom between two connectors. " alt="sc::LockConstraint" shape="rect" coords="146,56,282,80"/>
 </map>
  </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a2c68b07a7974ee05078e953f9d60f0ae"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsc_1_1_constraint.html#a2c68b07a7974ee05078e953f9d60f0ae">Constraint</a> (<a class="el" href="classsc_1_1_connector.html">Connector</a> *, <a class="el" href="classsc_1_1_connector.html">Connector</a> *)</td></tr>
-<tr class="separator:a2c68b07a7974ee05078e953f9d60f0ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a76a81b40861c862e7acaca8ad97eb49f"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsc_1_1_constraint.html#a76a81b40861c862e7acaca8ad97eb49f">~Constraint</a> ()</td></tr>
-<tr class="separator:a76a81b40861c862e7acaca8ad97eb49f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad6f60973d4bd9911b8a55210bac67282"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsc_1_1_constraint.html#ad6f60973d4bd9911b8a55210bac67282">getNumEquations</a> ()</td></tr>
-<tr class="memdesc:ad6f60973d4bd9911b8a55210bac67282"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get number of equations in this constraint.  <a href="#ad6f60973d4bd9911b8a55210bac67282">More...</a><br/></td></tr>
-<tr class="separator:ad6f60973d4bd9911b8a55210bac67282"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a873f081613222fcff3c678dfc20b343f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classsc_1_1_equation.html">Equation</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsc_1_1_constraint.html#a873f081613222fcff3c678dfc20b343f">getEquation</a> (int i)</td></tr>
-<tr class="memdesc:a873f081613222fcff3c678dfc20b343f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get one of the equations.  <a href="#a873f081613222fcff3c678dfc20b343f">More...</a><br/></td></tr>
-<tr class="separator:a873f081613222fcff3c678dfc20b343f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad614cce22e4b7ce6e120aac191c09d0c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsc_1_1_constraint.html#ad614cce22e4b7ce6e120aac191c09d0c">Constraint</a> (<a class="el" href="classsc_1_1_connector.html">Connector</a> *, <a class="el" href="classsc_1_1_connector.html">Connector</a> *)</td></tr>
+<tr class="separator:ad614cce22e4b7ce6e120aac191c09d0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae827fc88061ee544aca1cbe95a2c8389"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsc_1_1_constraint.html#ae827fc88061ee544aca1cbe95a2c8389">~Constraint</a> ()</td></tr>
+<tr class="separator:ae827fc88061ee544aca1cbe95a2c8389"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac7ad233dd41773201a1299cad61ecdf3"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsc_1_1_constraint.html#ac7ad233dd41773201a1299cad61ecdf3">getNumEquations</a> ()</td></tr>
+<tr class="memdesc:ac7ad233dd41773201a1299cad61ecdf3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get number of equations in this constraint.  <a href="#ac7ad233dd41773201a1299cad61ecdf3">More...</a><br/></td></tr>
+<tr class="separator:ac7ad233dd41773201a1299cad61ecdf3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a70e6864a9c7e205e219b6bf34aab5d2a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classsc_1_1_equation.html">Equation</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsc_1_1_constraint.html#a70e6864a9c7e205e219b6bf34aab5d2a">getEquation</a> (int i)</td></tr>
+<tr class="memdesc:a70e6864a9c7e205e219b6bf34aab5d2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get one of the equations.  <a href="#a70e6864a9c7e205e219b6bf34aab5d2a">More...</a><br/></td></tr>
+<tr class="separator:a70e6864a9c7e205e219b6bf34aab5d2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3db64440222aa216c8e72d262372971f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classsc_1_1_connector.html">Connector</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsc_1_1_constraint.html#a3db64440222aa216c8e72d262372971f">getConnA</a> ()</td></tr>
+<tr class="memdesc:a3db64440222aa216c8e72d262372971f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get connectors.  <a href="#a3db64440222aa216c8e72d262372971f">More...</a><br/></td></tr>
+<tr class="separator:a3db64440222aa216c8e72d262372971f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7413b1ae3e81a73d28dd1d4cc0c01776"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classsc_1_1_connector.html">Connector</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsc_1_1_constraint.html#a7413b1ae3e81a73d28dd1d4cc0c01776">getConnB</a> ()</td></tr>
+<tr class="separator:a7413b1ae3e81a73d28dd1d4cc0c01776"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace09ec9067ad3bb1bed34cee3268308d"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsc_1_1_constraint.html#ace09ec9067ad3bb1bed34cee3268308d">update</a> ()</td></tr>
+<tr class="separator:ace09ec9067ad3bb1bed34cee3268308d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a54ca825a3f247b4f84375a43e23b6c3e"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsc_1_1_constraint.html#a54ca825a3f247b4f84375a43e23b6c3e">userData</a></td></tr>
 <tr class="memdesc:a54ca825a3f247b4f84375a43e23b6c3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Arbitrary data from the user.  <a href="#a54ca825a3f247b4f84375a43e23b6c3e">More...</a><br/></td></tr>
 <tr class="separator:a54ca825a3f247b4f84375a43e23b6c3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6bccb98529325beae10e0f82d303d77c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classsc_1_1_connector.html">Connector</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsc_1_1_constraint.html#a6bccb98529325beae10e0f82d303d77c">m_connA</a></td></tr>
-<tr class="separator:a6bccb98529325beae10e0f82d303d77c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4698cd08dd4057c8563f294162ce9528"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classsc_1_1_connector.html">Connector</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsc_1_1_constraint.html#a4698cd08dd4057c8563f294162ce9528">m_connB</a></td></tr>
-<tr class="separator:a4698cd08dd4057c8563f294162ce9528"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:ac802f0d94d7bab4fa3230e4a11e7ca6a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsc_1_1_constraint.html#ac802f0d94d7bab4fa3230e4a11e7ca6a">addEquation</a> (<a class="el" href="classsc_1_1_equation.html">Equation</a> *eq)</td></tr>
+<tr class="separator:ac802f0d94d7bab4fa3230e4a11e7ca6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
 <tr class="memitem:a047b6f8d71a5d504ccff126b6663ffec"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="classsc_1_1_equation.html">Equation</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsc_1_1_constraint.html#a047b6f8d71a5d504ccff126b6663ffec">m_equations</a></td></tr>
 <tr class="separator:a047b6f8d71a5d504ccff126b6663ffec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6bccb98529325beae10e0f82d303d77c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classsc_1_1_connector.html">Connector</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsc_1_1_constraint.html#a6bccb98529325beae10e0f82d303d77c">m_connA</a></td></tr>
+<tr class="separator:a6bccb98529325beae10e0f82d303d77c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4698cd08dd4057c8563f294162ce9528"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classsc_1_1_connector.html">Connector</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsc_1_1_constraint.html#a4698cd08dd4057c8563f294162ce9528">m_connB</a></td></tr>
+<tr class="separator:a4698cd08dd4057c8563f294162ce9528"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Base class for constraints. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a2c68b07a7974ee05078e953f9d60f0ae"></a>
+<a class="anchor" id="ad614cce22e4b7ce6e120aac191c09d0c"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">sc::Constraint::Constraint </td>
+          <td class="memname">Constraint::Constraint </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classsc_1_1_connector.html">Connector</a> *&#160;</td>
           <td class="paramname"><em>connA</em>, </td>
@@ -166,7 +184,7 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a76a81b40861c862e7acaca8ad97eb49f"></a>
+<a class="anchor" id="ae827fc88061ee544aca1cbe95a2c8389"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -174,7 +192,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">sc::Constraint::~Constraint </td>
+          <td class="memname">Constraint::~Constraint </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -190,12 +208,68 @@ Protected Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="a873f081613222fcff3c678dfc20b343f"></a>
+<a class="anchor" id="ac802f0d94d7bab4fa3230e4a11e7ca6a"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Constraint::addEquation </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classsc_1_1_equation.html">Equation</a> *&#160;</td>
+          <td class="paramname"><em>eq</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a3db64440222aa216c8e72d262372971f"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classsc_1_1_equation.html">Equation</a> * sc::Constraint::getEquation </td>
+          <td class="memname"><a class="el" href="classsc_1_1_connector.html">Connector</a> * Constraint::getConnA </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get connectors. </p>
+
+</div>
+</div>
+<a class="anchor" id="a7413b1ae3e81a73d28dd1d4cc0c01776"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classsc_1_1_connector.html">Connector</a> * Constraint::getConnB </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a70e6864a9c7e205e219b6bf34aab5d2a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classsc_1_1_equation.html">Equation</a> * Constraint::getEquation </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>i</em></td><td>)</td>
@@ -208,12 +282,12 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ad6f60973d4bd9911b8a55210bac67282"></a>
+<a class="anchor" id="ac7ad233dd41773201a1299cad61ecdf3"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int sc::Constraint::getNumEquations </td>
+          <td class="memname">int Constraint::getNumEquations </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -225,15 +299,48 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ace09ec9067ad3bb1bed34cee3268308d"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Constraint::update </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reimplemented in <a class="el" href="classsc_1_1_ball_joint_constraint.html#abefa4a2b84695b6de590989883d4d5dc">sc::BallJointConstraint</a>, and <a class="el" href="classsc_1_1_lock_constraint.html#a23bd7b9aab6fcfb8e7b224287f364bc5">sc::LockConstraint</a>.</p>
+
+</div>
+</div>
 <h2 class="groupheader">Member Data Documentation</h2>
 <a class="anchor" id="a6bccb98529325beae10e0f82d303d77c"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="classsc_1_1_connector.html">Connector</a>* sc::Constraint::m_connA</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
@@ -241,11 +348,19 @@ Protected Attributes</h2></td></tr>
 <a class="anchor" id="a4698cd08dd4057c8563f294162ce9528"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="classsc_1_1_connector.html">Connector</a>* sc::Constraint::m_connB</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
@@ -291,7 +406,7 @@ Protected Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Feb 4 2014 08:47:26 for Strong Coupling Core by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Feb 5 2014 15:47:37 for Strong Coupling Core by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

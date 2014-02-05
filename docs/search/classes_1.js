@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['equation',['Equation',['../classsc_1_1_equation.html',1,'sc']]]
+  ['connector',['Connector',['../classsc_1_1_connector.html',1,'sc']]],
+  ['constraint',['Constraint',['../classsc_1_1_constraint.html',1,'sc']]]
 ];

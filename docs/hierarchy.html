@@ -39,6 +39,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
@@ -90,21 +91,24 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="contents">
 <div class="textblock">This inheritance list is sorted roughly, but not completely, alphabetically:</div><div class="directory">
 <div class="levels">[detail level <span onclick="javascript:toggleLevel(1);">1</span><span onclick="javascript:toggleLevel(2);">2</span>]</div><table class="directory">
-<tr id="row_0_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classsc_1_1_connector.html" target="_self">sc::Connector</a></td><td class="desc"></td></tr>
-<tr id="row_1_"><td class="entry"><span style="width:0px;display:inline-block;">&#160;</span><span id="arr_1_" class="arrow" onclick="toggleFolder('1_')">&#9660;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classsc_1_1_constraint.html" target="_self">sc::Constraint</a></td><td class="desc"></td></tr>
-<tr id="row_1_0_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classsc_1_1_lock_constraint.html" target="_self">sc::LockConstraint</a></td><td class="desc"></td></tr>
-<tr id="row_2_"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classsc_1_1_equation.html" target="_self">sc::Equation</a></td><td class="desc"></td></tr>
-<tr id="row_3_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classsc_1_1_quat.html" target="_self">sc::Quat</a></td><td class="desc"></td></tr>
-<tr id="row_4_"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classsc_1_1_rigid_body.html" target="_self">sc::RigidBody</a></td><td class="desc"></td></tr>
-<tr id="row_5_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classsc_1_1_slave.html" target="_self">sc::Slave</a></td><td class="desc"></td></tr>
-<tr id="row_6_"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classsc_1_1_solver.html" target="_self">sc::Solver</a></td><td class="desc"></td></tr>
-<tr id="row_7_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classsc_1_1_vec3.html" target="_self">sc::Vec3</a></td><td class="desc"></td></tr>
+<tr id="row_0_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classsc_1_1_connector.html" target="_self">sc::Connector</a></td><td class="desc">The connector is a handle in each slave, which can be constrained. The connector could be the slave center of mass (in the rigid body case) or something else. Depends on your subsystem </td></tr>
+<tr id="row_1_"><td class="entry"><span style="width:0px;display:inline-block;">&#160;</span><span id="arr_1_" class="arrow" onclick="toggleFolder('1_')">&#9660;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classsc_1_1_constraint.html" target="_self">sc::Constraint</a></td><td class="desc">Base class for constraints </td></tr>
+<tr id="row_1_0_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classsc_1_1_ball_joint_constraint.html" target="_self">sc::BallJointConstraint</a></td><td class="desc">Connects the connectors with a ball joint </td></tr>
+<tr id="row_1_1_"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classsc_1_1_lock_constraint.html" target="_self">sc::LockConstraint</a></td><td class="desc">Locks all 6 degrees of freedom between two connectors </td></tr>
+<tr id="row_2_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classsc_1_1_equation.html" target="_self">sc::Equation</a></td><td class="desc">Base class for equations. Constrains two instances of <a class="el" href="classsc_1_1_connector.html" title="The connector is a handle in each slave, which can be constrained. The connector could be the slave c...">Connector</a> </td></tr>
+<tr id="row_3_"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classsc_1_1_jacobian_element.html" target="_self">sc::JacobianElement</a></td><td class="desc">An element containing 6 entries, 3 spatial and 3 rotational degrees of freedom </td></tr>
+<tr id="row_4_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classsc_1_1_mat3.html" target="_self">sc::Mat3</a></td><td class="desc">3x3 Matrix class </td></tr>
+<tr id="row_5_"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classsc_1_1_quat.html" target="_self">sc::Quat</a></td><td class="desc">Quaternion class </td></tr>
+<tr id="row_6_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classsc_1_1_rigid_body.html" target="_self">sc::RigidBody</a></td><td class="desc">Simple rigid body class for testing </td></tr>
+<tr id="row_7_"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classsc_1_1_slave.html" target="_self">sc::Slave</a></td><td class="desc">Represents a subsystem and holds connectors </td></tr>
+<tr id="row_8_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classsc_1_1_solver.html" target="_self">sc::Solver</a></td><td class="desc">Holds all slaves and constraints in the system, and solves for constraint forces </td></tr>
+<tr id="row_9_"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classsc_1_1_vec3.html" target="_self">sc::Vec3</a></td><td class="desc">3D vector class </td></tr>
 </table>
 </div><!-- directory -->
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Feb 4 2014 08:47:26 for Strong Coupling Core by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Feb 5 2014 15:47:37 for Strong Coupling Core by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>
