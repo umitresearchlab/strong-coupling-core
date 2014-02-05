@@ -21,8 +21,7 @@ private:
 public:
     LockConstraint(Connector* connA, Connector* connB);
     virtual ~LockConstraint();
-    int getNumEquations();
-    Equation * getEquation(int i);
+    void update();
 };
 
 }

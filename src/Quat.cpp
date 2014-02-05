@@ -8,9 +8,30 @@ Quat::Quat(){
     m_data[0] = 0;
     m_data[1] = 0;
     m_data[2] = 0;
+
     m_data[3] = 1;
 }
+Quat::Quat( double x, double y, double z, double w){
+    m_data[0] = x;
+    m_data[1] = y;
+    m_data[2] = z;
+
+    m_data[3] = w;
+}
 Quat::~Quat(){}
+
+double Quat::x() const {
+    return m_data[0];
+}
+double Quat::y() const {
+    return m_data[1];
+}
+double Quat::z() const {
+    return m_data[2];
+}
+double Quat::w() const {
+    return m_data[3];
+}
 
 Vec3 Quat::getAxis() const {
     return Vec3(m_data[0],m_data[1],m_data[2]);
@@ -31,6 +52,31 @@ Quat Quat::multiply(const Quat& p, const Quat& q) const {
 
     return result;
 
+}
+
+Vec3 Quat::multiplyVector(const Vec3& v) const {
+    Vec3 result;
+
+    double  x = v.x(),
+            y = v.y(),
+            z = v.z();
+
+    double  qx = this->x(),
+            qy = this->y(),
+            qz = this->z(),
+            qw = this->w();
+
+    // q*v
+    double  ix =  qw * x + qy * z - qz * y,
+            iy =  qw * y + qz * x - qx * z,
+            iz =  qw * z + qx * y - qy * x,
+            iw = -qx * x - qy * y - qz * z;
+
+    result.set( ix * qw + iw * -qx + iy * -qz - iz * -qy,
+                iy * qw + iw * -qy + iz * -qx - ix * -qz,
+                iz * qw + iw * -qz + ix * -qy - iy * -qx);
+
+    return result;
 }
 
 void Quat::normalize(){

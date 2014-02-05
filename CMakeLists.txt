@@ -1,29 +1,31 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 
 SET(SRCS
+    src/BallJointConstraint.cpp
     src/Connector.cpp
     src/Constraint.cpp
     src/Equation.cpp
+    src/JacobianElement.cpp
     src/LockConstraint.cpp
+    src/Mat3.cpp
     src/Quat.cpp
     src/Slave.cpp
     src/Solver.cpp
     src/Vec3.cpp
-    src/Mat3.cpp
-    src/JacobianElement.cpp
 )
 
 SET(HEADERS
+    include/BallJointConstraint.h
     include/Connector.h
     include/Constraint.h
     include/Equation.h
+    include/JacobianElement.h
     include/LockConstraint.h
+    include/Mat3.h
     include/Quat.h
     include/Slave.h
     include/Solver.h
     include/Vec3.h
-    include/Mat3.h
-    include/JacobianElement.h
 )
 
 INCLUDE_DIRECTORIES(${UMFPACK_INCLUDE_DIR} include)

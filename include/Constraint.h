@@ -14,6 +14,9 @@ class Constraint {
 
 protected:
     std::vector<Equation*> m_equations;
+    void addEquation(Equation * eq);
+    Connector * m_connA;
+    Connector * m_connB;
 
 public:
 
@@ -23,14 +26,19 @@ public:
     /// Arbitrary data from the user
     void * userData;
 
-    Connector * m_connA;
-    Connector * m_connB;
 
     /// Get number of equations in this constraint
-    virtual int getNumEquations();
+    int getNumEquations();
 
     /// Get one of the equations
-    virtual Equation * getEquation(int i) = 0;
+    Equation * getEquation(int i);
+
+    /// Get connectors
+    Connector * getConnA();
+    Connector * getConnB();
+
+    // Update the internal stuff
+    virtual void update();
 };
 
 }

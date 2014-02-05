@@ -81,43 +81,40 @@ void Solver::resetConstraintForces(){
     }
 }
 
+void Solver::updateConstraints(){
+    for(int i=0; i<m_constraints.size(); i++){
+        m_constraints[i]->update();
+    }
+}
+
 void Solver::solve(){
-
-    /*
-    Need to compute
-          lambda = (S + E) \ ( - a*g - b*G*W - Z );
-     where
-          S = G1 * inv(M1) * transpose(G1) + G2 * inv(M2) * transpose(G2) + ...
-    */
-
     int i, j, k, l;
     std::vector<Equation*> eqs;
     getEquations(&eqs);
     int numRows = getSystemMatrixRows(),
         neq = eqs.size(),
         nconstraints=m_constraints.size();
-    double * rhs = (double*)malloc(numRows*sizeof(double));
 
     // Compute RHS
+    double * rhs = (double*)malloc(numRows*sizeof(double));
     for(i=0; i<neq; ++i){
         Equation * eq = eqs[i];
-        rhs[i] = -eq->m_a * eq->getViolation() -eq->m_b * eq->getVelocity(); // Z?
+        rhs[i] = -eq->m_a * eq->getViolation() -eq->m_b * eq->getVelocity(); // RHS = -a*g -G*W
     }
 
-    // Compute matrix S+E
+    // Compute matrix S + Epsilon
     // Should be easy, since we already got the entries from the user
-    // If these were sparse, we could easily skip the zeros
     std::vector<int> Srow;
     std::vector<int> Scol;
     std::vector<double> Sval;
-    for (i = 0; i < nconstraints; ++i){ // Loop over all 6x6 blocks in S
+    for (i = 0; i < nconstraints; ++i){ // Loop over all blocks in S
         Constraint * c0 = m_constraints[i];
 
         for (j = 0; j < nconstraints; ++j){
             Constraint * c1 = m_constraints[j];
 
-            int block_row = i;
-            int block_col = j;
+            int block_row = i,
+                block_col = j;
 
             if(i == j){
                 // Diagonal block, simple
@@ -141,9 +138,8 @@ void Solver::solve(){
 
             } else {
                 // Off diagonal block
-
-                int neqA = c0->getNumEquations();
-                int neqB = c1->getNumEquations();
+                int neqA = c0->getNumEquations(),
+                    neqB = c1->getNumEquations();
 
                 for (k = 0; k < neqA; ++k){
                     Equation * eqA = c0->getEquation(k);
@@ -153,16 +149,16 @@ void Solver::solve(){
                         int row = block_row * 6 + l,
                             col = block_col * 6 + k;
                         double val = 0;
-                        if(c0->m_connA == c1->m_connA){
+                        if(c0->getConnA() == c1->getConnA()){
                             val += eqA->getGA().multiply(eqB->getddA());
                         }
-                        if(c0->m_connA == c1->m_connB){
+                        if(c0->getConnA() == c1->getConnB()){
                             val += eqA->getGA().multiply(eqB->getddB());
                         }
-                        if(c0->m_connB == c1->m_connA){
+                        if(c0->getConnB() == c1->getConnA()){
                             val += eqA->getGB().multiply(eqB->getddA());
                         }
-                        if(c0->m_connB == c1->m_connB){
+                        if(c0->getConnB() == c1->getConnB()){
                             val += eqA->getGB().multiply(eqB->getddB());
                         }
 

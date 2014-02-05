@@ -38,10 +38,18 @@ void Equation::setSpookParams(double relaxation, double compliance, double timeS
     m_timeStep = timeStep;
 }
 
-double Equation::getViolation(){
+void Equation::setDefaultViolation(){
     Vec3 zero;
-    return  m_G_A.multiply(m_connA->m_position, zero) +
-            m_G_B.multiply(m_connB->m_position, zero);
+    m_g = m_G_A.multiply(m_connA->m_position, zero) +
+          m_G_B.multiply(m_connB->m_position, zero);
+}
+
+double Equation::getViolation(){
+    return m_g;
+}
+
+double Equation::setViolation(double g){
+    m_g = g;
 }
 
 double Equation::getVelocity(){

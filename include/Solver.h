@@ -74,6 +74,11 @@ public:
      * Resets all constraint forces on all connnectors added.
      */
     void resetConstraintForces();
+
+    /**
+     * Updates all constraints.
+     */
+    void updateConstraints();
 };
 
 }

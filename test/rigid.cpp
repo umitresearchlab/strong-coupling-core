@@ -6,6 +6,7 @@
 #include "Connector.h"
 #include "Constraint.h"
 #include "LockConstraint.h"
+#include "BallJointConstraint.h"
 #include "stdio.h"
 #include <vector>
 #include "string.h"
@@ -104,7 +105,7 @@ int main(int argc, char ** argv){
 
         // Create body
         RigidBody * body = new RigidBody();
-        body->m_position[0] = (double)i;
+        body->m_position[0] = (double)i * 1.1;
         body->m_invMass = i==0 ? 0 : invMass;
         body->m_invInertia = i==0 ? 0 : invInertia;
         body->m_gravity.set(gravityX,0,0);
@@ -122,7 +123,7 @@ int main(int argc, char ** argv){
 
         // Create lock joint between this and last connector
         if(lastConnector != NULL){
-            Constraint * constraint = new LockConstraint(lastConnector, conn);
+            Constraint * constraint = new BallJointConstraint(lastConnector, conn, Vec3(0.5,0,0), Vec3(-0.5,0,0));
             solver.addConstraint(constraint);
             constraints.push_back(constraint);
         }
@@ -159,6 +160,9 @@ int main(int argc, char ** argv){
             conn->m_position.copy(body->m_position);
             conn->m_velocity.copy(body->m_velocity);
         }
+
+        // Must be called whenever connector values are changed
+        solver.updateConstraints();
 
         // Get jacobian information
         for (int j = 0; j < eqs.size(); ++j){

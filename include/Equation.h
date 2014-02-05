@@ -18,6 +18,7 @@ private:
     JacobianElement m_G_B;
     JacobianElement m_invMGt_A;
     JacobianElement m_invMGt_B;
+    double m_g;
 
 public:
 
@@ -31,6 +32,7 @@ public:
     void setConnA(Connector *);
     void setConnB(Connector *);
     void setConnectors(Connector *,Connector *);
+
 
     JacobianElement getGA();
     JacobianElement getGB();
@@ -58,7 +60,9 @@ public:
     void setSpookParams(double relaxation, double compliance, double timeStep);
 
     /// Get constraint violation, g
-    virtual double getViolation();
+    double getViolation();
+    double setViolation(double g);
+    void setDefaultViolation();
 
     /// Get constraint velocity, G*W
     double getVelocity();

@@ -33,10 +33,23 @@ public:
         this->m_data[1] += v.y();
         this->m_data[2] += v.z();
     };
+
     Vec3 operator * (float s) const {
         return Vec3(this->m_data[0]*s,
                     this->m_data[1]*s,
                     this->m_data[2]*s);
+    };
+
+    Vec3 operator + (const Vec3 v) const {
+        return Vec3(this->m_data[0] + v.x(),
+                    this->m_data[1] + v.y(),
+                    this->m_data[2] + v.z());
+    };
+
+    Vec3 operator - (const Vec3 v) const {
+        return Vec3(this->m_data[0] - v.x(),
+                    this->m_data[1] - v.y(),
+                    this->m_data[2] - v.z());
     };
 };
 
