@@ -12,6 +12,7 @@ RigidBody::RigidBody(){
     m_invInertiaWorld.set(  1,0,0,
                             0,1,0,
                             0,0,1 );
+    m_quaternion.set(0,0,0,1);
 }
 
 RigidBody::~RigidBody(){}
@@ -30,7 +31,7 @@ void RigidBody::integrate(double dt){
 
     // Integrate orientation
     m_tmpQuat1.set(m_angularVelocity[0], m_angularVelocity[1], m_angularVelocity[2], 0.0);
-    m_tmpQuat1 = m_quaternion.multiply(m_quaternion, m_tmpQuat2);
+    m_tmpQuat2 = m_quaternion.multiply(m_quaternion);
     m_quaternion[0] += 0.5 * dt * m_tmpQuat2[0];
     m_quaternion[1] += 0.5 * dt * m_tmpQuat2[1];
     m_quaternion[2] += 0.5 * dt * m_tmpQuat2[2];

@@ -150,8 +150,8 @@ int main(int argc, char ** argv){
 
         // Create lock joint between this and last connector
         if(lastConnector != NULL){
-            Constraint * constraint = new LockConstraint(lastConnector, conn);
-            //Constraint * constraint = new BallJointConstraint(lastConnector, conn, Vec3(0.5,0,0), Vec3(-0.5,0,0));
+            //Constraint * constraint = new LockConstraint(lastConnector, conn);
+            Constraint * constraint = new BallJointConstraint(lastConnector, conn, Vec3(0.5,0,0), Vec3(-0.5,0,0));
             solver.addConstraint(constraint);
             constraints.push_back(constraint);
         }
@@ -289,6 +289,9 @@ int main(int argc, char ** argv){
                 // Update box transforms
                 for(int j=0; j<bodies.size(); j++){
                     Vec3 p = bodies[j]->m_position;
+                    Quat q = bodies[j]->m_quaternion;
+                    //printf("%g %g %g %g\n", q[0],q[1],q[2],q[3]);
+                    transforms[j]->setAttitude(osg::Quat(q[0],q[1],q[2],q[3]));
                     transforms[j]->setPosition(osg::Vec3(p[0],p[1],p[2]));
                 }
 

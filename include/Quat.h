@@ -17,13 +17,18 @@ public:
     Quat(double x, double y, double z, double w);
     virtual ~Quat();
 
-    /// Element access
-    double& operator[] (const int i) const  {
-        this->m_data[i];
+    /// \return a reference to the i:th element of the quaternion in the order x,y,z,w
+    double& operator [] ( int i ){
+        return m_data[i];
+    };
+
+    /// \return the value of the i:th element of the quaternion in the order x,y,z,w
+    double  operator [] ( int i ) const {
+        return m_data[i];
     };
 
     /// Multiply with other quaternion
-    Quat multiply(const Quat& p, const Quat& q) const;
+    Quat multiply(const Quat& p) const;
 
     /// Transform vector
     Vec3 multiplyVector(const Vec3& v) const;
@@ -42,7 +47,6 @@ public:
     double y() const;
     double z() const;
     double w() const;
-
 };
 
 }

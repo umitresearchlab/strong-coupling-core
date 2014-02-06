@@ -1,15 +1,16 @@
 #include "Quat.h"
 #include "Vec3.h"
 #include "math.h"
+#include "stdio.h"
 
 using namespace sc;
 
 Quat::Quat(){
-    m_data[0] = 0;
-    m_data[1] = 0;
-    m_data[2] = 0;
+    m_data[0] = 0; // x
+    m_data[1] = 0; // y
+    m_data[2] = 0; // z
 
-    m_data[3] = 1;
+    m_data[3] = 1; // w
 }
 Quat::Quat( double x, double y, double z, double w){
     m_data[0] = x;
@@ -37,18 +38,22 @@ Vec3 Quat::getAxis() const {
     return Vec3(m_data[0],m_data[1],m_data[2]);
 };
 
-Quat Quat::multiply(const Quat& p, const Quat& q) const {
+Quat Quat::multiply(const Quat& q) const {
     Quat result;
     Vec3 qAxis = q.getAxis();
-    Vec3 pAxis = p.getAxis();
+    Vec3 pAxis = this->getAxis();
+    double x = m_data[0];
+    double y = m_data[1];
+    double z = m_data[2];
+    double w = m_data[3];
 
-    result[3] = p[3]*q[3] - pAxis.dot(qAxis);
+    result[3] = w * q[3] - pAxis.dot(qAxis);
 
-    Vec3 vaxvb = p.getAxis().cross(q.getAxis());
+    Vec3 vaxvb = this->getAxis().cross(q.getAxis());
 
-    result[0] = q[3] * q[0] + p[3]*p[0] + vaxvb[0];
-    result[1] = q[3] * q[1] + p[3]*p[1] + vaxvb[1];
-    result[2] = q[3] * q[2] + p[3]*p[2] + vaxvb[2];
+    result[0] = q[3] * q[0] + w*x + vaxvb[0];
+    result[1] = q[3] * q[1] + w*y + vaxvb[1];
+    result[2] = q[3] * q[2] + w*z + vaxvb[2];
 
     return result;
 
