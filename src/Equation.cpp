@@ -72,6 +72,16 @@ void Equation::setG(double sxA, double syA, double szA,
     m_G_B.setRotational (rxB, ryB, rzB);
 }
 
+void Equation::setG(const Vec3& spatialA,
+                    const Vec3& rotationalA,
+                    const Vec3& spatialB,
+                    const Vec3& rotationalB){
+    m_G_A.setSpatial(spatialA);
+    m_G_A.setRotational(rotationalA);
+    m_G_B.setSpatial(spatialB);
+    m_G_B.setRotational(rotationalB);
+}
+
 void Equation::setJacobian( double G1,
                             double G2,
                             double G3,

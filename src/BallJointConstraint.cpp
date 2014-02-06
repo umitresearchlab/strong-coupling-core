@@ -19,17 +19,17 @@ BallJointConstraint::BallJointConstraint(
     m_localAnchorA.copy(localAnchorA);
     m_localAnchorB.copy(localAnchorB);
 
-    for(int i=0; i<getNumEquations(); i++){
-        getEquation(i)->setConnectors(connA,connB);
-        getEquation(i)->setDefault();
-    }
+    m_x.setConnectors(connA,connB);
+    m_y.setConnectors(connA,connB);
+    m_z.setConnectors(connA,connB);
+    m_x.setDefault();
+    m_y.setDefault();
+    m_z.setDefault();
 }
 
 BallJointConstraint::~BallJointConstraint(){}
 
 void BallJointConstraint::update(){
-
-
     // 3 equations
 
     // Gx = [ -x   -(ri x x)   x   (rj x x)]
@@ -75,4 +75,5 @@ void BallJointConstraint::update(){
     m_x.setG(-1, 0, 0, ri_x_x.x(), ri_x_x.y(), ri_x_x.z(),    1, 0, 0,  -rj_x_x.x(), -rj_x_x.y(), -rj_x_x.z());
     m_y.setG( 0,-1, 0, ri_x_y.x(), ri_x_y.y(), ri_x_y.z(),    0, 1, 0,  -rj_x_y.x(), -rj_x_y.y(), -rj_x_y.z());
     m_z.setG( 0, 0,-1, ri_x_z.x(), ri_x_z.y(), ri_x_z.z(),    0, 0, 1,  -rj_x_z.x(), -rj_x_z.y(), -rj_x_z.z());
+
 }

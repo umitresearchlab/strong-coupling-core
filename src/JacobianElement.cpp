@@ -21,6 +21,14 @@ void JacobianElement::setRotational(double x, double y, double z){
     m_rotational.set(x,y,z);
 }
 
+void JacobianElement::setSpatial(const Vec3& spatial){
+    m_spatial.copy(spatial);
+}
+
+void JacobianElement::setRotational(const Vec3& rotational){
+    m_rotational.copy(rotational);
+}
+
 Vec3 JacobianElement::getSpatial() const {
     return m_spatial;
 }

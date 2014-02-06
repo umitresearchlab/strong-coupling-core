@@ -114,10 +114,10 @@ void Solver::solve(int printDebugInfo){
     std::vector<int> Scol;
     std::vector<double> Sval;
     for (i = 0; i < nconstraints; ++i){ // Loop over all blocks in S
-        Constraint * c0 = m_constraints[i];
+        Constraint * ci = m_constraints[i];
 
         for (j = 0; j < nconstraints; ++j){
-            Constraint * c1 = m_constraints[j];
+            Constraint * cj = m_constraints[j];
 
             int block_row = i,
                 block_col = j;
@@ -125,11 +125,11 @@ void Solver::solve(int printDebugInfo){
             if(i == j){
                 // Diagonal block, simple
 
-                int neq = c1->getNumEquations();
+                int neq = cj->getNumEquations();
                 for (k = 0; k < neq; ++k){
-                    Equation * eqA = c0->getEquation(k);
+                    Equation * eqA = ci->getEquation(k);
                     for (l = 0; l < neq; ++l){
-                        Equation * eqB = c1->getEquation(l);
+                        Equation * eqB = cj->getEquation(l);
                         int row = block_row * neq + l;
                         int col = block_col * neq + k;
 
@@ -144,29 +144,29 @@ void Solver::solve(int printDebugInfo){
 
             } else {
                 // Off diagonal block
-                int neqA = c0->getNumEquations(),
-                    neqB = c1->getNumEquations();
+                int neqA = ci->getNumEquations(),
+                    neqB = cj->getNumEquations();
 
                 for (k = 0; k < neqA; ++k){
-                    Equation * eqA = c0->getEquation(k);
+                    Equation * eqA = ci->getEquation(k);
 
                     for (l = 0; l < neqB; ++l){
-                        Equation * eqB = c1->getEquation(l);
+                        Equation * eqB = cj->getEquation(l);
 
                         int row = block_row * neqA + l,
                             col = block_col * neqB + k;
 
                         double val = 0;
-                        if(c0->getConnA() == c1->getConnA()){
+                        if(ci->getConnA() == cj->getConnA()){
                             val += eqA->getGA().multiply(eqB->getddA());
                         }
-                        if(c0->getConnA() == c1->getConnB()){
+                        if(ci->getConnA() == cj->getConnB()){
                             val += eqA->getGA().multiply(eqB->getddB());
                         }
-                        if(c0->getConnB() == c1->getConnA()){
+                        if(ci->getConnB() == cj->getConnA()){
                             val += eqA->getGB().multiply(eqB->getddA());
                         }
-                        if(c0->getConnB() == c1->getConnB()){
+                        if(ci->getConnB() == cj->getConnB()){
                             val += eqA->getGB().multiply(eqB->getddB());
                         }
                         Sval.push_back(val);
@@ -302,6 +302,10 @@ void Solver::solve(int printDebugInfo){
 
     // Print matrices
     if(printDebugInfo){
+
+        for (int i = 0; i < Srow.size(); ++i){
+            printf("(%d,%d) => %g\n",Scol[i],Srow[i],Sval[i]);
+        }
 
         char empty = '0';
         char tab = '\t';

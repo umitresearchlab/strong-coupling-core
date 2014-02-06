@@ -7,13 +7,14 @@ namespace sc {
 
 /// Connects the connectors with a ball joint
 class BallJointConstraint : public Constraint {
+protected:
+    Vec3 m_localAnchorA;
+    Vec3 m_localAnchorB;
 
 private:
     Equation m_x;
     Equation m_y;
     Equation m_z;
-    Vec3 m_localAnchorA;
-    Vec3 m_localAnchorB;
 
 public:
 
@@ -30,7 +31,7 @@ public:
     virtual ~BallJointConstraint();
 
     /// Update equations and violations. Should be called whenever the connector states changed.
-    void update();
+    virtual void update();
 };
 
 }

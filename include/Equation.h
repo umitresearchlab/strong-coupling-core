@@ -108,6 +108,10 @@ public:
                 double,double,double,
                 double,double,double,
                 double,double,double);
+    void setG(  const Vec3& spatialA,
+                const Vec3& rotationalA,
+                const Vec3& spatialB,
+                const Vec3& rotationalB);
 
 };
 

@@ -22,6 +22,9 @@ namespace sc {
 
             void setSpatial(double,double,double);
             void setRotational(double,double,double);
+            void setSpatial(const Vec3&);
+            void setRotational(const Vec3&);
+
             Vec3 getSpatial() const;
             Vec3 getRotational() const;
             void print();
