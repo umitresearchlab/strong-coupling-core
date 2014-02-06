@@ -31,7 +31,6 @@ public:
     void setConnB(Connector *);
     void setConnectors(Connector *,Connector *);
 
-
     JacobianElement getGA();
     JacobianElement getGB();
     JacobianElement getddA();
@@ -64,6 +63,7 @@ public:
 
     /// Get constraint velocity, G*W
     double getVelocity();
+    double getFutureVelocity();
 
     /**
      * @brief Set the spatial components of connector A jacobian.

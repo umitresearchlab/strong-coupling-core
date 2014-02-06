@@ -32,13 +32,13 @@ void BallJointConstraint::update(){
 
     // 3 equations
 
-    // Gx = [ -x   -(rj x x)   x   (ri x x)]
-    // Gy = [ -y   -(rj x y)   y   (ri x y)]
-    // Gz = [ -z   -(rj x z)   z   (ri x z)]
+    // Gx = [ -x   -(ri x x)   x   (rj x x)]
+    // Gy = [ -y   -(ri x y)   y   (rj x y)]
+    // Gz = [ -z   -(ri x z)   z   (rj x z)]
 
     // or:
 
-    // G = [    I   rj*    -I   -ri*    ]
+    // G = [    -I   -ri*    I   rj*    ]
 
     Vec3 x(1,0,0);
     Vec3 y(0,1,0);
@@ -47,6 +47,9 @@ void BallJointConstraint::update(){
     // Get world oriented attachment vectors
     Vec3 ri = m_connA->m_quaternion.multiplyVector(m_localAnchorA);
     Vec3 rj = m_connB->m_quaternion.multiplyVector(m_localAnchorB);
+
+    //printf("ri=%g %g %g\n", ri[0], ri[1], ri[2]);
+    //printf("rj=%g %g %g\n", rj[0], rj[1], rj[2]);
 
     // gvec = ( xj + rj - xi - ri )
     // gx = gvec . dot ( x )
@@ -57,14 +60,19 @@ void BallJointConstraint::update(){
     m_y.setViolation(gvec.dot(y));
     m_z.setViolation(gvec.dot(z));
 
+    //printf("gvec=%g %g %g\n", gvec[0], gvec[1], gvec[2]);
+
     Vec3 ri_x_x = ri.cross(x);
     Vec3 ri_x_y = ri.cross(y);
     Vec3 ri_x_z = ri.cross(z);
+
     Vec3 rj_x_x = rj.cross(x);
     Vec3 rj_x_y = rj.cross(y);
     Vec3 rj_x_z = rj.cross(z);
 
-    m_x.setG(-1, 0, 0, -rj_x_x.x(), -rj_x_x.y(), -rj_x_x.z(),    1, 0, 0,  ri_x_x.x(), ri_x_x.y(), ri_x_x.z());
-    m_y.setG( 0,-1, 0, -rj_x_y.x(), -rj_x_y.y(), -rj_x_y.z(),    0, 1, 0,  ri_x_y.x(), ri_x_y.y(), ri_x_y.z());
-    m_z.setG( 0, 0,-1, -rj_x_z.x(), -rj_x_z.y(), -rj_x_z.z(),    0, 0, 1,  ri_x_z.x(), ri_x_z.y(), ri_x_z.z());
+    //printf("ri_x_z=%g %g %g\n", ri_x_z[0], ri_x_z[1], ri_x_z[2]);
+
+    m_x.setG(-1, 0, 0, ri_x_x.x(), ri_x_x.y(), ri_x_x.z(),    1, 0, 0,  -rj_x_x.x(), -rj_x_x.y(), -rj_x_x.z());
+    m_y.setG( 0,-1, 0, ri_x_y.x(), ri_x_y.y(), ri_x_y.z(),    0, 1, 0,  -rj_x_y.x(), -rj_x_y.y(), -rj_x_y.z());
+    m_z.setG( 0, 0,-1, ri_x_z.x(), ri_x_z.y(), ri_x_z.z(),    0, 0, 1,  -rj_x_z.x(), -rj_x_z.y(), -rj_x_z.z());
 }

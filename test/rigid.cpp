@@ -76,7 +76,7 @@ void printCSVRow(double t, std::vector<RigidBody*> bodies){
 
 int main(int argc, char ** argv){
     int N = 2,
-        NT = 10,
+        NT = INT_MAX,
         quiet = 0,
         debug = 0,
         render = 0;
@@ -84,7 +84,9 @@ int main(int argc, char ** argv){
             relaxation = 3,
             compliance = 0.001,
             invMass = 1,
-            gravityX = 0;
+            gravityX = 0,
+            gravityY = 0,
+            gravityZ = 0;
 
     Vec3 invInertia(1,1,1);
 
@@ -101,6 +103,8 @@ int main(int argc, char ** argv){
             if(!strcmp(a,"--relaxation"))  relaxation = atof(argv[i+1]);
             if(!strcmp(a,"--timeStep"))    dt = atof(argv[i+1]);
             if(!strcmp(a,"--gravityX"))    gravityX = atof(argv[i+1]);
+            if(!strcmp(a,"--gravityY"))    gravityY = atof(argv[i+1]);
+            if(!strcmp(a,"--gravityZ"))    gravityZ = atof(argv[i+1]);
         }
 
         // Flags without args
@@ -128,14 +132,14 @@ int main(int argc, char ** argv){
 
         // Create body
         RigidBody * body = new RigidBody();
-        body->m_position[0] = (double)i * 1.1;
+        body->m_position[0] = (double)i;
         body->m_invMass = i==0 ? 0 : invMass;
         if(i==0){
-            body->m_invInertia.set(0,0,0);
+            body->setLocalInertiaAsBox(0,Vec3(0.5,0.05,0.05));
         } else {
-            body->m_invInertia.copy(invInertia);
+            body->setLocalInertiaAsBox(1,Vec3(0.5,0.05,0.05));
         }
-        body->m_gravity.set(gravityX,0,0);
+        body->m_gravity.set(gravityX,gravityY,gravityZ);
 
         // Create slave
         Slave * slave = new Slave();
@@ -191,7 +195,7 @@ int main(int argc, char ** argv){
             // Create boxes for each body
             for(int i=0; i<bodies.size(); i++){
                 osg::Geode* boxGeode = new osg::Geode();
-                osg::Box* box = new osg::Box( osg::Vec3(0,0,0), 1.0f, 1.0f, 6.0f);
+                osg::Box* box = new osg::Box( osg::Vec3(0,0,0), 1.0f, 0.1f, 0.1f);
                 box->setDataVariance(osg::Object::DYNAMIC);
                 osg::ShapeDrawable* boxDrawable = new osg::ShapeDrawable(box);
                 boxGeode->addDrawable(boxDrawable);
@@ -224,57 +228,84 @@ int main(int argc, char ** argv){
         for (int j = 0; j < N; ++j){
             RigidBody * body = bodies[j];
             Connector * conn = connectors[j];
-            conn->m_position.copy(body->m_position);
-            conn->m_velocity.copy(body->m_velocity);
+            conn->m_position       .copy(body->m_position);
+            conn->m_quaternion     .copy(body->m_quaternion);
+            conn->m_velocity       .copy(body->m_velocity);
+            conn->m_angularVelocity.copy(body->m_angularVelocity);
         }
 
         // Must be called whenever connector values are changed
         solver.updateConstraints();
 
-        // Get jacobian information
-        for (int j = 0; j < eqs.size(); ++j){
-            Equation * eq = eqs[j];
+        if( eqs.size() > 0 ) {
 
-            RigidBody * bodyA = (RigidBody *)eq->getConnA()->m_userData;
-            RigidBody * bodyB = (RigidBody *)eq->getConnB()->m_userData;
+            // Get future velocities - without setting constraint forces
+            for (int j = 0; j < N; ++j){
+                RigidBody * body = bodies[j];
+                Connector * conn = connectors[j];
 
-            Vec3 spatSeed,
-                 rotSeed,
-                 ddSpatial,
-                 ddRotational;
+                //printf("t=%f w=(%g %g %g)\n",t,body->m_angularVelocity[0],body->m_angularVelocity[1],body->m_angularVelocity[2]);
 
-            // Set jacobians
-            eq->getSpatialJacobianSeedA(spatSeed);
-            eq->getRotationalJacobianSeedA(rotSeed);
-            bodyA->getDirectionalDerivative(ddSpatial,ddRotational,bodyA->m_position,spatSeed,rotSeed);
-            //printf("Eq %d:\n", j);
-            //printf("A = (%f %f %f)\n", ddSpatial[0], ddSpatial[1], ddSpatial[2]);
-            eq->setSpatialJacobianA(ddSpatial);
-            eq->setRotationalJacobianA(ddRotational);
+                body->saveState();
+                body->integrate(dt);
+                conn->setFutureVelocity(body->m_velocity,body->m_angularVelocity);
+                body->restoreState();
 
-            ////printf("A = (%f %f %f)\n", ddRotational[0], ddRotational[1], ddRotational[2]);
+                //printf("t=%f w=(%g %g %g)\n",t,body->m_angularVelocity[0],body->m_angularVelocity[1],body->m_angularVelocity[2]);
+            }
 
-            eq->getSpatialJacobianSeedB(spatSeed);
-            eq->getRotationalJacobianSeedB(rotSeed);
-            bodyB->getDirectionalDerivative(ddSpatial,ddRotational,bodyB->m_position,spatSeed,rotSeed);
-            //printf("B: dd=(%f %f %f), seed=(%f %f %f)\n", ddSpatial[0], ddSpatial[1], ddSpatial[2], spatSeed[0], spatSeed[1], spatSeed[2]);
-            eq->setSpatialJacobianB(ddSpatial);
-            eq->setRotationalJacobianB(ddRotational);
-        }
+            // Get jacobian information
+            for (int j = 0; j < eqs.size(); ++j){
+                Equation * eq = eqs[j];
 
-        // Solve system
-        solver.solve(debug);
+                RigidBody * bodyA = (RigidBody *)eq->getConnA()->m_userData;
+                RigidBody * bodyB = (RigidBody *)eq->getConnB()->m_userData;
 
-        // Add resulting constraint forces to the bodies
-        for (int j = 0; j < slaves.size(); ++j){
-            //printf("%f\n",slaves[j]->getConnector(0)->m_force[0]);
-            bodies[j]->m_force.copy(slaves[j]->getConnector(0)->m_force);
-            bodies[j]->m_torque.copy(slaves[j]->getConnector(0)->m_torque);
+                Vec3 spatSeed,
+                     rotSeed,
+                     ddSpatial,
+                     ddRotational;
+
+                // Set jacobians
+                eq->getSpatialJacobianSeedA(spatSeed);
+                eq->getRotationalJacobianSeedA(rotSeed);
+                bodyA->getDirectionalDerivative(ddSpatial,ddRotational,bodyA->m_position,spatSeed,rotSeed);
+                //printf("Eq %d:\n", j);
+                //printf("A = (%f %f %f)\n", ddSpatial[0], ddSpatial[1], ddSpatial[2]);
+                eq->setSpatialJacobianA(ddSpatial);
+                eq->setRotationalJacobianA(ddRotational);
+
+                ////printf("A = (%f %f %f)\n", ddRotational[0], ddRotational[1], ddRotational[2]);
+
+                eq->getSpatialJacobianSeedB(spatSeed);
+                eq->getRotationalJacobianSeedB(rotSeed);
+                bodyB->getDirectionalDerivative(ddSpatial,ddRotational,bodyB->m_position,spatSeed,rotSeed);
+                //printf("B: dd=(%f %f %f), seed=(%f %f %f)\n", ddSpatial[0], ddSpatial[1], ddSpatial[2], spatSeed[0], spatSeed[1], spatSeed[2]);
+                eq->setSpatialJacobianB(ddSpatial);
+                eq->setRotationalJacobianB(ddRotational);
+
+                //printf("t=%f wA=(%g %g %g)\n",t,bodyA->m_torque[0],bodyA->m_torque[1],bodyA->m_torque[2]);
+                //printf("t=%f wB=(%g %g %g)\n",t,bodyB->m_torque[0],bodyB->m_torque[1],bodyB->m_torque[2]);
+            }
+
+            // Solve system
+            solver.solve(debug);
+
+            // Add resulting constraint forces to the bodies
+            for (int j = 0; j < slaves.size(); ++j){
+                //printf("%f\n",slaves[j]->getConnector(0)->m_force[0]);
+                bodies[j]->m_force .copy(slaves[j]->getConnector(0)->m_force );
+                bodies[j]->m_torque.copy(slaves[j]->getConnector(0)->m_torque);
+
+                //printf("f[%d] = (%g %g %g)\n",j,bodies[j]->m_force[0], bodies[j]->m_force[1], bodies[j]->m_force[2]);
+                //printf("t[%d] = (%g %g %g)\n",j,bodies[j]->m_torque[0],bodies[j]->m_torque[1],bodies[j]->m_torque[2]);
+            }
         }
 
         // Integrate bodies
         for (int j = 0; j < N; ++j){
             RigidBody * body = bodies[j];
+            //printf("integrating body %d...\n",j);
             body->integrate(dt);
         }
 
@@ -290,13 +321,15 @@ int main(int argc, char ** argv){
                 for(int j=0; j<bodies.size(); j++){
                     Vec3 p = bodies[j]->m_position;
                     Quat q = bodies[j]->m_quaternion;
-                    //printf("%g %g %g %g\n", q[0],q[1],q[2],q[3]);
                     transforms[j]->setAttitude(osg::Quat(q[0],q[1],q[2],q[3]));
                     transforms[j]->setPosition(osg::Vec3(p[0],p[1],p[2]));
                 }
 
                 // render
                 viewer->frame();
+            } else if(render && viewer->done()){
+                // Escape
+                break;
             }
         #endif
     }

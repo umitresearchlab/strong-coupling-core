@@ -29,8 +29,6 @@ public:
     Vec3 m_invInertia;
 
     Quat m_quaternion;
-    Quat m_tmpQuat1;
-    Quat m_tmpQuat2;
 
     // For storing states
     Vec3 m_position2;
@@ -57,6 +55,7 @@ public:
     void saveState();
     void restoreState();
     void setLocalInertiaAsBox(double mass, const Vec3& halfExtents);
+    void updateWorldInertia();
 };
 
 }

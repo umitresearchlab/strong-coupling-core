@@ -39,23 +39,25 @@ Vec3 Quat::getAxis() const {
 };
 
 Quat Quat::multiply(const Quat& q) const {
-    Quat result;
-    Vec3 qAxis = q.getAxis();
-    Vec3 pAxis = this->getAxis();
-    double x = m_data[0];
-    double y = m_data[1];
-    double z = m_data[2];
-    double w = m_data[3];
+    Vec3 va(m_data[0],m_data[1],m_data[2]);
+    Vec3 vb(q[0],q[1],q[2]);
 
-    result[3] = w * q[3] - pAxis.dot(qAxis);
+    double wa = m_data[3],
+           wb = q[3];
 
-    Vec3 vaxvb = this->getAxis().cross(q.getAxis());
+    Vec3 vaxvb = va.cross(vb);
 
-    result[0] = q[3] * q[0] + w*x + vaxvb[0];
-    result[1] = q[3] * q[1] + w*y + vaxvb[1];
-    result[2] = q[3] * q[2] + w*z + vaxvb[2];
+    /*
+    target.x = w * vb.x + q.w*va.x + vaxvb.x;
+    target.y = w * vb.y + q.w*va.y + vaxvb.y;
+    target.z = w * vb.z + q.w*va.z + vaxvb.z;
+    target.w = w*q.w - va.dot(vb);
+    */
 
-    return result;
+    return Quat(wa * vb[0] + wb*va[0] + vaxvb[0],
+                wa * vb[1] + wb*va[1] + vaxvb[1],
+                wa * vb[2] + wb*va[2] + vaxvb[2],
+                wa * wb - va.dot(vb));
 
 }
 

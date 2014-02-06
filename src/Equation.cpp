@@ -57,6 +57,11 @@ double Equation::getVelocity(){
             m_G_B.multiply(m_connB->m_velocity, m_connB->m_angularVelocity);
 }
 
+double Equation::getFutureVelocity(){
+    return  m_G_A.multiply(m_connA->m_futureVelocity, m_connA->m_futureAngularVelocity) +
+            m_G_B.multiply(m_connB->m_futureVelocity, m_connB->m_futureAngularVelocity);
+}
+
 void Equation::setG(double sxA, double syA, double szA,
                     double rxA, double ryA, double rzA,
                     double sxB, double syB, double szB,

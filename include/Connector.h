@@ -32,6 +32,8 @@ public:
 
     /// Physical (linear) velocity of the connector.
     Vec3 m_velocity;
+    Vec3 m_futureVelocity;
+    Vec3 m_futureAngularVelocity;
 
     /// Quaternion orientation of this connector. Needed?
     Quat m_quaternion;
@@ -50,6 +52,8 @@ public:
 
     /// Set velocity of the connector
     void setVelocity(double vx, double vy, double vz);
+
+    void setFutureVelocity(const Vec3& velocity, const Vec3& angularVelocity);
 
     /// Set orientation of the connector
     void setOrientation(double x, double y, double z, double w);

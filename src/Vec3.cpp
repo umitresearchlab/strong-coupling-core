@@ -21,11 +21,9 @@ double Vec3::z() const {
 }
 
 Vec3 Vec3::cross(const Vec3& u) const {
-    Vec3 result;
-    result.set( (u.x() * m_data[2]) - (u.x() * m_data[1]),
-                (u.y() * m_data[0]) - (u.y() * m_data[2]),
-                (u.z() * m_data[1]) - (u.z() * m_data[0])  );
-    return result;
+    return Vec3((u.y() * m_data[2]) - (u.z() * m_data[1]),
+                (u.z() * m_data[0]) - (u.x() * m_data[2]),
+                (u.x() * m_data[1]) - (u.y() * m_data[0])  );
 }
 
 double Vec3::dot(const Vec3& u) const {

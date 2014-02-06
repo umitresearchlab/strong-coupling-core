@@ -103,7 +103,9 @@ void Solver::solve(int printDebugInfo){
     double * rhs = (double*)malloc(numRows*sizeof(double));
     for(i=0; i<neq; ++i){
         Equation * eq = eqs[i];
-        rhs[i] = -eq->m_a * eq->getViolation() -eq->m_b * eq->getVelocity(); // RHS = -a*g -G*W
+        double Z = eq->getFutureVelocity() - eq->getVelocity();
+        //printf("%g\n", Z);
+        rhs[i] = -eq->m_a * eq->getViolation() -eq->m_b * eq->getVelocity() - Z; // RHS = -a*g -b*G*W -Z
     }
 
     // Compute matrix S + Epsilon
@@ -284,10 +286,18 @@ void Solver::solve(int printDebugInfo){
         Vec3 tB = eq->getGB().getRotational() * l;
 
         // We are on row i in the matrix
-        eq->getConnA()->m_force += fA;
+        eq->getConnA()->m_force  += fA;
         eq->getConnA()->m_torque += tA;
-        eq->getConnB()->m_force += fB;
+        eq->getConnB()->m_force  += fB;
         eq->getConnB()->m_torque += tB;
+
+        /*
+        printf("torqueA = %g %g %g\n",tA[0],tA[1],tA[2]);
+        printf("forceA = %g %g %g\n", fA[0],fA[1],fA[2]);
+        printf("torqueB = %g %g %g\n",tB[0],tB[1],tB[2]);
+        printf("forceB = %g %g %g\n", fB[0],fB[1],fB[2]);
+        printf("\n");
+        */
     }
 
     // Print matrices
