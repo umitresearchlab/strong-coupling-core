@@ -78,6 +78,7 @@ int main(int argc, char ** argv){
     int N = 2,
         NT = 10,
         quiet = 0,
+        debug = 0,
         render = 0;
     double  dt = 0.01,
             relaxation = 3,
@@ -92,8 +93,8 @@ int main(int argc, char ** argv){
         char * a = argv[i];
         int last = (i == argc-1);
 
+        // Flags with args
         if(!last){
-            if(!strcmp(a,"--osg"))         render = 1;
             if(!strcmp(a,"--numBodies"))   N = atoi(argv[i+1]);
             if(!strcmp(a,"--numSteps"))    NT = atoi(argv[i+1]);
             if(!strcmp(a,"--compliance"))  compliance = atof(argv[i+1]);
@@ -101,6 +102,10 @@ int main(int argc, char ** argv){
             if(!strcmp(a,"--timeStep"))    dt = atof(argv[i+1]);
             if(!strcmp(a,"--gravityX"))    gravityX = atof(argv[i+1]);
         }
+
+        // Flags without args
+        if(!strcmp(a,"--osg"))      render = 1;
+        if(!strcmp(a,"--debug"))    debug =  1;
 
         if(strcmp(argv[i],"--help")==0 || strcmp(argv[i],"-h")==0){
             printHelp(argv[0]);
@@ -145,8 +150,8 @@ int main(int argc, char ** argv){
 
         // Create lock joint between this and last connector
         if(lastConnector != NULL){
-            //Constraint * constraint = new LockConstraint(lastConnector, conn);
-            Constraint * constraint = new BallJointConstraint(lastConnector, conn, Vec3(0.5,0,0), Vec3(-0.5,0,0));
+            Constraint * constraint = new LockConstraint(lastConnector, conn);
+            //Constraint * constraint = new BallJointConstraint(lastConnector, conn, Vec3(0.5,0,0), Vec3(-0.5,0,0));
             solver.addConstraint(constraint);
             constraints.push_back(constraint);
         }
@@ -258,7 +263,7 @@ int main(int argc, char ** argv){
         }
 
         // Solve system
-        solver.solve();
+        solver.solve(debug);
 
         // Add resulting constraint forces to the bodies
         for (int j = 0; j < slaves.size(); ++j){

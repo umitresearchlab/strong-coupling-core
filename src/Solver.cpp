@@ -128,8 +128,8 @@ void Solver::solve(int printDebugInfo){
                     Equation * eqA = c0->getEquation(k);
                     for (l = 0; l < neq; ++l){
                         Equation * eqB = c1->getEquation(l);
-                        int row = block_row * 6 + l;
-                        int col = block_col * 6 + k;
+                        int row = block_row * neq + l;
+                        int col = block_col * neq + k;
 
                         // Multiply diagonal blocks
                         double val = eqA->getGA().multiply(eqB->getddA()) + eqA->getGB().multiply(eqB->getddB());
@@ -150,8 +150,10 @@ void Solver::solve(int printDebugInfo){
 
                     for (l = 0; l < neqB; ++l){
                         Equation * eqB = c1->getEquation(l);
-                        int row = block_row * 6 + l,
-                            col = block_col * 6 + k;
+
+                        int row = block_row * neqA + l,
+                            col = block_col * neqB + k;
+
                         double val = 0;
                         if(c0->getConnA() == c1->getConnA()){
                             val += eqA->getGA().multiply(eqB->getddA());
@@ -165,7 +167,6 @@ void Solver::solve(int printDebugInfo){
                         if(c0->getConnB() == c1->getConnB()){
                             val += eqA->getGB().multiply(eqB->getddB());
                         }
-
                         Sval.push_back(val);
                         Srow.push_back(row);
                         Scol.push_back(col);
@@ -179,11 +180,23 @@ void Solver::solve(int printDebugInfo){
     for (int i = 0; i < eqs.size(); ++i){
         double eps = eqs[i]->m_epsilon;
         if(eps > 0){
+
+            int found = 0;
+
+            // Find the corresponding triplet
             for(int j = 0; j < Srow.size(); ++j){
                 if(Srow[j] == i && Scol[j] == i){
                     Sval[j] += eps;
+                    found = 1;
                     break;
                 }
+            }
+
+            // Could not find triplet. Add it.
+            if(!found){
+                Sval.push_back(eps);
+                Srow.push_back(i);
+                Scol.push_back(i);
             }
         }
     }
@@ -196,6 +209,8 @@ void Solver::solve(int printDebugInfo){
         aSval[i] = Sval[i];
         aScol[i] = Scol[i];
         aSrow[i] = Srow[i];
+
+        //printf("(%d,%d) = %g\n", Srow[i], Scol[i], Sval[i]);
     }
 
     void *Symbolic, *Numeric;
@@ -216,11 +231,14 @@ void Solver::solve(int printDebugInfo){
         fprintf(stderr, "out of memory\n") ;
     }
 
+    //printf("n=%d, nz=%d\n",n, nz);
+
     // Triplet form to column form
     int status = umfpack_di_triplet_to_col (n, n, nz, aSrow, aScol, aSval, Ap, Ai, Ax, (int *) NULL) ;
     if (status < 0){
         umfpack_di_report_status (Control, status) ;
         fprintf(stderr, "umfpack_di_triplet_to_col failed\n") ;
+        exit(1);
     }
 
     // symbolic factorization
@@ -229,6 +247,7 @@ void Solver::solve(int printDebugInfo){
         umfpack_di_report_info (Control, Info) ;
         umfpack_di_report_status (Control, status) ;
         fprintf(stderr,"umfpack_di_symbolic failed\n") ;
+        exit(1);
     }
 
     // numeric factorization
@@ -237,6 +256,7 @@ void Solver::solve(int printDebugInfo){
         umfpack_di_report_info (Control, Info) ;
         umfpack_di_report_status (Control, status) ;
         fprintf(stderr,"umfpack_di_numeric failed\n") ;
+        exit(1);
     }
 
     // solve S*lambda = B
@@ -245,6 +265,7 @@ void Solver::solve(int printDebugInfo){
     umfpack_di_report_status (Control, status) ;
     if (status < 0){
         fprintf(stderr,"umfpack_di_solve failed\n") ;
+        exit(1);
     }
 
     // Set current connector forces to zero
