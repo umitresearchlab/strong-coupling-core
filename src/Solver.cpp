@@ -103,77 +103,49 @@ void Solver::solve(int printDebugInfo){
     double * rhs = (double*)malloc(numRows*sizeof(double));
     for(i=0; i<neq; ++i){
         Equation * eq = eqs[i];
-        double Z = eq->getFutureVelocity() - eq->getVelocity();
-        //printf("%g\n", Z);
-        rhs[i] = -eq->m_a * eq->getViolation() -eq->m_b * eq->getVelocity() - Z; // RHS = -a*g -b*G*W -Z
+        double  Z = eq->getFutureVelocity() - eq->getVelocity(),
+                GW = eq->getVelocity(),
+                g = eq->getViolation(),
+                a = eq->m_a,
+                b = eq->m_b;
+        rhs[i] = -a * g  - b * GW  - Z; // RHS = -a*g -b*G*W -Z
     }
 
-    // Compute matrix S + Epsilon
+    // Compute matrix S = G * inv(M) * G' = G * z
     // Should be easy, since we already got the entries from the user
     std::vector<int> Srow;
     std::vector<int> Scol;
     std::vector<double> Sval;
-    for (i = 0; i < nconstraints; ++i){ // Loop over all blocks in S
-        Constraint * ci = m_constraints[i];
 
-        for (j = 0; j < nconstraints; ++j){
-            Constraint * cj = m_constraints[j];
+    for (int i = 0; i < neq; ++i){
+        for (int j = 0; j < neq; ++j){
+            // We are at element i,j in S
+            Equation * ei = eqs[i];
+            Equation * ej = eqs[j];
 
-            int block_row = i,
-                block_col = j;
+            double val = 0;
+            int nonzero = 0;
+            if(ei->getConnA() == ej->getConnA()){
+                val += ei->getGA().multiply(ej->getddA());
+                nonzero = 1;
+            }
+            if(ei->getConnA() == ej->getConnB()){
+                val += ei->getGA().multiply(ej->getddB());
+                nonzero = 1;
+            }
+            if(ei->getConnB() == ej->getConnA()){
+                val += ei->getGB().multiply(ej->getddA());
+                nonzero = 1;
+            }
+            if(ei->getConnB() == ej->getConnB()){
+                val += ei->getGB().multiply(ej->getddB());
+                nonzero = 1;
+            }
 
-            if(i == j){
-                // Diagonal block, simple
-
-                int neq = cj->getNumEquations();
-                for (k = 0; k < neq; ++k){
-                    Equation * eqA = ci->getEquation(k);
-                    for (l = 0; l < neq; ++l){
-                        Equation * eqB = cj->getEquation(l);
-                        int row = block_row * neq + l;
-                        int col = block_col * neq + k;
-
-                        // Multiply diagonal blocks
-                        double val = eqA->getGA().multiply(eqB->getddA()) + eqA->getGB().multiply(eqB->getddB());
-
-                        Srow.push_back(row);
-                        Scol.push_back(col);
-                        Sval.push_back(val);
-                    }
-                }
-
-            } else {
-                // Off diagonal block
-                int neqA = ci->getNumEquations(),
-                    neqB = cj->getNumEquations();
-
-                for (k = 0; k < neqA; ++k){
-                    Equation * eqA = ci->getEquation(k);
-
-                    for (l = 0; l < neqB; ++l){
-                        Equation * eqB = cj->getEquation(l);
-
-                        int row = block_row * neqA + l,
-                            col = block_col * neqB + k;
-
-                        double val = 0;
-                        if(ci->getConnA() == cj->getConnA()){
-                            val += eqA->getGA().multiply(eqB->getddA());
-                        }
-                        if(ci->getConnA() == cj->getConnB()){
-                            val += eqA->getGA().multiply(eqB->getddB());
-                        }
-                        if(ci->getConnB() == cj->getConnA()){
-                            val += eqA->getGB().multiply(eqB->getddA());
-                        }
-                        if(ci->getConnB() == cj->getConnB()){
-                            val += eqA->getGB().multiply(eqB->getddB());
-                        }
-                        Sval.push_back(val);
-                        Srow.push_back(row);
-                        Scol.push_back(col);
-                    }
-                }
+            if(nonzero){
+                Srow.push_back(i);
+                Scol.push_back(j);
+                Sval.push_back(val);
             }
         }
     }
@@ -203,6 +175,165 @@ void Solver::solve(int printDebugInfo){
         }
     }
 
+
+    // Print matrices
+    if(printDebugInfo){
+        for (int i = 0; i < Srow.size(); ++i){
+            printf("(%d,%d) => %g\n",Scol[i],Srow[i],Sval[i]);
+        }
+        char empty = '0';
+        char tab = '\t';
+        printf("G = [\n");
+        for(int i=0; i<eqs.size(); ++i){
+            Equation * eq = eqs[i];
+            Connector * connA = eq->getConnA();
+            Connector * connB = eq->getConnB();
+
+            //printf("%d %d\n",connA->m_index,connB->m_index);
+
+            int swapped = 0;
+            if(connA->m_index > connB->m_index){
+                Connector * temp = connA;
+                connA = connB;
+                connB = temp;
+                swapped = 1;
+            }
+
+            // Print empty until first
+            for (int j = 0; j < 6*connA->m_index; ++j){
+                printf("%c\t",empty);
+            }
+
+            // Print contents of first ( 6 jacobian entries )
+            JacobianElement G = !swapped ? eq->getGA() : eq->getGB();
+            printf("%g%c%g%c%g%c%g%c%g%c%g%c",
+                G.getSpatial().x(),tab,
+                G.getSpatial().y(),tab,
+                G.getSpatial().z(),tab,
+                G.getRotational().x(),tab,
+                G.getRotational().y(),tab,
+                G.getRotational().z(),tab);
+
+            // Print empty until second
+            for (int j = 6*(connA->m_index+1); j < 6*connB->m_index; ++j){
+                printf("%c\t",empty);
+            }
+
+            // Print contents of second ( 6 jacobian entries )
+            JacobianElement G2 = !swapped ? eq->getGB() : eq->getGA();
+            printf("%g%c%g%c%g%c%g%c%g%c%g%c",
+                G2.getSpatial().x(),tab,
+                G2.getSpatial().y(),tab,
+                G2.getSpatial().z(),tab,
+                G2.getRotational().x(),tab,
+                G2.getRotational().y(),tab,
+                G2.getRotational().z(),tab);
+
+            // Print empty until end of row
+            for (int j = 6*(connB->m_index+1); j < getSystemMatrixCols(); ++j){
+                printf("%c\t",empty);
+            }
+
+            if(i == eqs.size()-1)
+                printf("]\n");
+            else
+                printf(";\n");
+        }
+
+        printf("D = [\n");
+        for(int i=0; i<eqs.size(); ++i){
+            Equation * eq = eqs[i];
+            Connector * connA = eq->getConnA();
+            Connector * connB = eq->getConnB();
+
+            //printf("%d %d\n",connA->m_index,connB->m_index);
+
+            int swapped = 0;
+            if(connA->m_index > connB->m_index){
+                Connector * temp = connA;
+                connA = connB;
+                connB = temp;
+                swapped = 1;
+            }
+
+            // Print empty until first
+            for (int j = 0; j < 6*connA->m_index; ++j){
+                printf("%c\t",empty);
+            }
+
+            // Print contents of first ( 6 jacobian entries )
+            JacobianElement G = !swapped ? eq->getddA() : eq->getddB();
+            printf("%g%c%g%c%g%c%g%c%g%c%g%c",
+                G.getSpatial().x(),tab,
+                G.getSpatial().y(),tab,
+                G.getSpatial().z(),tab,
+                G.getRotational().x(),tab,
+                G.getRotational().y(),tab,
+                G.getRotational().z(),tab);
+
+            // Print empty until second
+            for (int j = 6*(connA->m_index+1); j < 6*connB->m_index; ++j){
+                printf("%c\t",empty);
+            }
+
+            // Print contents of second ( 6 jacobian entries )
+            JacobianElement G2 = !swapped ? eq->getddB() : eq->getddA();
+            printf("%g%c%g%c%g%c%g%c%g%c%g%c",
+                G2.getSpatial().x(),tab,
+                G2.getSpatial().y(),tab,
+                G2.getSpatial().z(),tab,
+                G2.getRotational().x(),tab,
+                G2.getRotational().y(),tab,
+                G2.getRotational().z(),tab);
+
+            // Print empty until end of row
+            for (int j = 6*(connB->m_index+1); j < getSystemMatrixCols(); ++j){
+                printf("%c\t",empty);
+            }
+
+            if(i == eqs.size()-1)
+                printf("]\n");
+            else
+                printf(";\n");
+        }
+
+        printf("E = [\n");
+        for (int i = 0; i < eqs.size(); ++i){ // Rows
+            for (int j = 0; j < eqs.size(); ++j){ // Cols
+                if(i==j)
+                    printf("%g\t", eqs[i]->m_epsilon);
+                else
+                    printf("0\t");
+            }
+            if(i == eqs.size()-1)
+                printf("]\n");
+            else
+                printf(";\n");
+        }
+
+        printf("S = [\n");
+        for (int i = 0; i < eqs.size(); ++i){ // Rows
+            for (int j = 0; j < eqs.size(); ++j){ // Cols
+
+                // Find element i,j
+                int found = 0;
+                for(int k = 0; k < Srow.size(); ++k){
+                    if(Srow[k] == i && Scol[k] == j){
+                        printf("%g\t", Sval[k]);
+                        found = 1;
+                        break;
+                    }
+                }
+                if(!found)
+                    printf("%c\t",empty);
+            }
+            if(i == eqs.size()-1)
+                printf("]\n");
+            else
+                printf(";\n");
+        }
+    }
+
     // convert vectors to arrays
     int * aSrow =    (int *)    malloc ((Srow.size()+1) * sizeof (int));
     int * aScol =    (int *)    malloc ((Scol.size()+1) * sizeof (int));
@@ -222,9 +353,9 @@ void Solver::solve(int printDebugInfo){
     umfpack_di_defaults (Control) ;
 
     // convert to column form
-    int nz = Sval.size();       // Non-zeros
-    int n = eqs.size();         // Number of equations
-    int nz1 = std::max(nz,1) ;  // ensure arrays are not of size zero.
+    int nz = Sval.size(),       // Non-zeros
+        n = eqs.size(),         // Number of equations
+        nz1 = std::max(nz,1) ;  // ensure arrays are not of size zero.
     int * Ap = (int *) malloc ((n+1) * sizeof (int)) ;
     int * Ai = (int *) malloc (nz1 * sizeof (int)) ;
     double * lambda = (double *) malloc (n * sizeof (double)) ;
@@ -233,7 +364,8 @@ void Solver::solve(int printDebugInfo){
         fprintf(stderr, "out of memory\n") ;
     }
 
-    //printf("n=%d, nz=%d\n",n, nz);
+    if(printDebugInfo)
+        printf("n=%d, nz=%d\n",n, nz);
 
     // Triplet form to column form
     int status = umfpack_di_triplet_to_col (n, n, nz, aSrow, aScol, aSval, Ap, Ai, Ax, (int *) NULL) ;
@@ -280,10 +412,12 @@ void Solver::solve(int printDebugInfo){
         Equation * eq = eqs[i];
         double l = lambda[i] / eq->m_timeStep;
 
-        Vec3 fA = eq->getGA().getSpatial()    * l;
-        Vec3 tA = eq->getGA().getRotational() * l;
-        Vec3 fB = eq->getGB().getSpatial()    * l;
-        Vec3 tB = eq->getGB().getRotational() * l;
+        JacobianElement GA = eq->getGA();
+        JacobianElement GB = eq->getGB();
+        Vec3 fA = GA.getSpatial()    * l;
+        Vec3 tA = GA.getRotational() * l;
+        Vec3 fB = GB.getSpatial()    * l;
+        Vec3 tB = GB.getRotational() * l;
 
         // We are on row i in the matrix
         eq->getConnA()->m_force  += fA;
@@ -292,108 +426,23 @@ void Solver::solve(int printDebugInfo){
         eq->getConnB()->m_torque += tB;
 
         /*
-        printf("torqueA = %g %g %g\n",tA[0],tA[1],tA[2]);
-        printf("forceA = %g %g %g\n", fA[0],fA[1],fA[2]);
-        printf("torqueB = %g %g %g\n",tB[0],tB[1],tB[2]);
-        printf("forceB = %g %g %g\n", fB[0],fB[1],fB[2]);
+        printf("forceA  += %g %g %g\n", fA[0], fA[1], fA[2]);
+        printf("torqueA += %g %g %g\n", tA[0], tA[1], tA[2]);
+        printf("forceB  += %g %g %g\n", fB[0], fB[1], fB[2]);
+        printf("torqueB += %g %g %g\n", tB[0], tB[1], tB[2]);
+
+
+        printf("   GAs = %g %g %g\n", GA.getSpatial()[0], GA.getSpatial()[1], GA.getSpatial()[2]);
+        printf("   GBs = %g %g %g\n", GB.getSpatial()[0], GB.getSpatial()[1], GB.getSpatial()[2]);
+        printf("   GAr = %g %g %g\n", GA.getRotational()[0], GA.getRotational()[1], GA.getRotational()[2]);
+        printf("   GBr = %g %g %g\n", GB.getRotational()[0], GB.getRotational()[1], GB.getRotational()[2]);
+
         printf("\n");
         */
     }
 
     // Print matrices
     if(printDebugInfo){
-
-        for (int i = 0; i < Srow.size(); ++i){
-            printf("(%d,%d) => %g\n",Scol[i],Srow[i],Sval[i]);
-        }
-
-        char empty = '0';
-        char tab = '\t';
-        printf("G = [\n");
-        for(int i=0; i<eqs.size(); ++i){
-            Equation * eq = eqs[i];
-            Connector * connA = eq->getConnA();
-            Connector * connB = eq->getConnB();
-
-            //printf("%d %d\n",connA->m_index,connB->m_index);
-
-            int swapped = 0;
-            if(connA->m_index > connB->m_index){
-                Connector * temp = connA;
-                connA = connB;
-                connB = temp;
-                swapped = 1;
-            }
-
-            // Print empty until first
-            for (int j = 0; j < 6*connA->m_index; ++j){
-                printf("%c\t",empty);
-            }
-
-            // Print contents of first ( 6 jacobian entries )
-            JacobianElement G = swapped ? eq->getGA() : eq->getGB();
-            printf("%g%c%g%c%g%c%g%c%g%c%g%c",
-                G.getSpatial().x(),tab,
-                G.getSpatial().y(),tab,
-                G.getSpatial().z(),tab,
-                G.getRotational().x(),tab,
-                G.getRotational().y(),tab,
-                G.getRotational().z(),tab);
-            /*for (int j = 0; j < 6; ++j){
-                printf("%g\t", eq->m_G[j + swapped*6]);
-                //printf("%g\t", eq->m_G[j + swapped*6]);
-            }*/
-
-            // Print empty until second
-            for (int j = 6*(connA->m_index+1); j < 6*connB->m_index; ++j){
-                printf("%c\t",empty);
-            }
-
-            // Print contents of second ( 6 jacobian entries )
-            JacobianElement G2 = swapped ? eq->getGB() : eq->getGA();
-            printf("%g%c%g%c%g%c%g%c%g%c%g%c",
-                G2.getSpatial().x(),tab,
-                G2.getSpatial().y(),tab,
-                G2.getSpatial().z(),tab,
-                G2.getRotational().x(),tab,
-                G2.getRotational().y(),tab,
-                G2.getRotational().z(),tab);
-            for (int j = 0; j < 6; ++j){
-                //printf("%g\t", eq->m_G[6 + j - swapped*6]);
-            }
-
-            // Print empty until end of row
-            for (int j = 6*(connB->m_index+1); j < getSystemMatrixCols(); ++j){
-                printf("%c\t",empty);
-            }
-
-            if(i == eqs.size()-1)
-                printf("]\n");
-            else
-                printf(";\n");
-        }
-
-        printf("S = [\n");
-        for (int i = 0; i < eqs.size(); ++i){ // Rows
-            for (int j = 0; j < eqs.size(); ++j){ // Cols
-
-                // Find element i,j
-                int found = 0;
-                for(int k = 0; k < Srow.size(); ++k){
-                    if(Srow[k] == i && Scol[k] == j){
-                        printf("%g\t", Sval[k]);
-                        found = 1;
-                        break;
-                    }
-                }
-                if(!found)
-                    printf("%c\t",empty);
-            }
-            if(i == eqs.size()-1)
-                printf("]\n");
-            else
-                printf(";\n");
-        }
 
         printf("RHS = [\n");
         for (int i = 0; i < eqs.size(); ++i){
@@ -408,6 +457,24 @@ void Solver::solve(int printDebugInfo){
         printf("]\n");
 
         printf("octaveSolution = S \\ RHS\n");
+
+
+        printf("Gt_lambda = [\n");
+        int numSlaves = m_slaves.size();
+        for(int i=0; i<numSlaves; ++i){
+            int Nconns = m_slaves[i]->numConnectors();
+            for(int j=0; j<Nconns; ++j){
+                Connector * c = m_slaves[i]->getConnector(j);
+                printf("%g\n%g\n%g\n%g\n%g\n%g\n",
+                    c->m_force[0],
+                    c->m_force[1],
+                    c->m_force[2],
+                    c->m_torque[0],
+                    c->m_torque[1],
+                    c->m_torque[2]);
+            }
+        }
+        printf("]\n");
     }
 
     free(rhs);

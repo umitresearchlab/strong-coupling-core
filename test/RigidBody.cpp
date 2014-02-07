@@ -45,17 +45,16 @@ void RigidBody::integrate(double dt){
     Quat w(m_angularVelocity[0], m_angularVelocity[1], m_angularVelocity[2], 0.0);
     Quat wq = w.multiply(m_quaternion);
 
-
-    //printf("q =  %g %g %g %g\n", m_quaternion[0], m_quaternion[1], m_quaternion[2], m_quaternion[3]);
-    //printf("w =  %g %g %g %g\n", w[0], w[1], w[2], w[3]);
-    //printf("wq = %g %g %g %g\n", wq[0], wq[1], wq[2], wq[3]);
-    //printf("\n");
+    Vec3 x(1,0,0);
 
     m_quaternion[0] += 0.5 * dt * wq[0];
     m_quaternion[1] += 0.5 * dt * wq[1];
     m_quaternion[2] += 0.5 * dt * wq[2];
     m_quaternion[3] += 0.5 * dt * wq[3];
+
     m_quaternion.normalize();
+
+    Vec3 new2 = m_quaternion.multiplyVector(x);
 
     updateWorldInertia();
 
@@ -100,8 +99,8 @@ void RigidBody::getDirectionalDerivative(   Vec3& outSpatial,
     // Step with external force
     saveState();
     m_force.set(0,0,0);
-    m_force += spatialDirection;
     m_torque.set(0,0,0);
+    m_force  += spatialDirection;
     m_torque += rotationalDirection;
     integrate(1);
     velo_withforce.copy(m_velocity);
@@ -110,6 +109,8 @@ void RigidBody::getDirectionalDerivative(   Vec3& outSpatial,
 
     // Step without added force
     saveState();
+    m_force.set(0,0,0);
+    m_torque.set(0,0,0);
     integrate(1);
     velo_noforce.copy(m_velocity);
     avelo_noforce.copy(m_angularVelocity);
@@ -118,7 +119,6 @@ void RigidBody::getDirectionalDerivative(   Vec3& outSpatial,
     // The derivative is difference in velocity
     outSpatial =    velo_withforce .subtract(velo_noforce);
     outRotational = avelo_withforce.subtract(avelo_noforce);
-    //Vec3::multiplyElementWise(outSpatial,outSpatial,spatialDirection);
 }
 
 void RigidBody::saveState(){

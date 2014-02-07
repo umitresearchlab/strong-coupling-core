@@ -89,6 +89,7 @@ int main(int argc, char ** argv){
             gravityZ = 0;
 
     Vec3 invInertia(1,1,1);
+    Vec3 halfExtents(0.1,0.05,0.05);
 
     // Parse arguments
     for (int i = 0; i < argc; ++i){
@@ -132,12 +133,15 @@ int main(int argc, char ** argv){
 
         // Create body
         RigidBody * body = new RigidBody();
-        body->m_position[0] = (double)i;
+        body->m_position[0] = (double)halfExtents[0]*2*(i-N/2);
+        //body->m_angularVelocity[1] = 1;
         body->m_invMass = i==0 ? 0 : invMass;
         if(i==0){
-            body->setLocalInertiaAsBox(0,Vec3(0.5,0.05,0.05));
+            body->setLocalInertiaAsBox(0,halfExtents);
+            //body->m_quaternion.set(0,sin(0.1),0,cos(0.1));
         } else {
-            body->setLocalInertiaAsBox(1,Vec3(0.5,0.05,0.05));
+            body->setLocalInertiaAsBox(1,halfExtents);
+            //body->m_angularVelocity[1] = 1;
         }
         body->m_gravity.set(gravityX,gravityY,gravityZ);
 
@@ -154,8 +158,11 @@ int main(int argc, char ** argv){
 
         // Create lock joint between this and last connector
         if(lastConnector != NULL){
-            //Constraint * constraint = new LockConstraint(lastConnector, conn, Vec3(0.5,0,0), Vec3(-0.5,0,0), Quat(0,0,0,1), Quat(0,0,0,1));
-            Constraint * constraint = new BallJointConstraint(lastConnector, conn, Vec3(0.5,0,0), Vec3(-0.5,0,0));
+            Constraint * constraint;
+            if(i%2==0)
+                constraint = new LockConstraint(lastConnector, conn, Vec3(halfExtents[0],0,0), Vec3(-halfExtents[0],0,0), Quat(0,0,0,1), Quat(0,0,0,1));
+            else
+                constraint = new BallJointConstraint(lastConnector, conn, Vec3(halfExtents[0],0,0), Vec3(-halfExtents[0],0,0));
             solver.addConstraint(constraint);
             constraints.push_back(constraint);
         }
@@ -195,10 +202,17 @@ int main(int argc, char ** argv){
             // Create boxes for each body
             for(int i=0; i<bodies.size(); i++){
                 osg::Geode* boxGeode = new osg::Geode();
-                osg::Box* box = new osg::Box( osg::Vec3(0,0,0), 1.0f, 0.1f, 0.1f);
+                osg::Box* box = new osg::Box(
+                    osg::Vec3(0,0,0),
+                    2*halfExtents[0],
+                    2*halfExtents[1],
+                    2*halfExtents[2]
+                );
                 box->setDataVariance(osg::Object::DYNAMIC);
                 osg::ShapeDrawable* boxDrawable = new osg::ShapeDrawable(box);
                 boxGeode->addDrawable(boxDrawable);
+                double c = 1-(i%2)*0.4;
+                boxDrawable->setColor( osg::Vec4(c,c,c,0) );
                 osg::PositionAttitudeTransform * transform = new osg::PositionAttitudeTransform();
                 root->addChild(transform);
                 transform->addChild(boxGeode);

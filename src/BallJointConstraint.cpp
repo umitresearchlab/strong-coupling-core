@@ -51,10 +51,12 @@ void BallJointConstraint::update(){
     //printf("ri=%g %g %g\n", ri[0], ri[1], ri[2]);
     //printf("rj=%g %g %g\n", rj[0], rj[1], rj[2]);
 
-    // gvec = ( xj + rj - xi - ri )
-    // gx = gvec . dot ( x )
-    // gy = gvec . dot ( y )
-    // gz = gvec . dot ( z )
+    // g = ( xj + rj - xi - ri ) . dot ( x )
+    // gdot = ( vj + wj.cross(rj) - vi - wi.cross(ri) ) . dot ( x )
+    //      = [   -x   -ri.cross(x)   x   rj.cross(x) ] * [ vi wi vj wj ]'
+    //      = G * W
+    //      ... and same for y and z
+
     Vec3 gvec = m_connB->m_position + rj - m_connA->m_position - ri;
     m_x.setViolation(gvec.dot(x));
     m_y.setViolation(gvec.dot(y));
@@ -72,8 +74,8 @@ void BallJointConstraint::update(){
 
     //printf("ri_x_z=%g %g %g\n", ri_x_z[0], ri_x_z[1], ri_x_z[2]);
 
-    m_x.setG(-1, 0, 0, ri_x_x.x(), ri_x_x.y(), ri_x_x.z(),    1, 0, 0,  -rj_x_x.x(), -rj_x_x.y(), -rj_x_x.z());
-    m_y.setG( 0,-1, 0, ri_x_y.x(), ri_x_y.y(), ri_x_y.z(),    0, 1, 0,  -rj_x_y.x(), -rj_x_y.y(), -rj_x_y.z());
-    m_z.setG( 0, 0,-1, ri_x_z.x(), ri_x_z.y(), ri_x_z.z(),    0, 0, 1,  -rj_x_z.x(), -rj_x_z.y(), -rj_x_z.z());
+    m_x.setG(-1, 0, 0, -ri_x_x.x(), -ri_x_x.y(), -ri_x_x.z(),    1, 0, 0,  rj_x_x.x(), rj_x_x.y(), rj_x_x.z());
+    m_y.setG( 0,-1, 0, -ri_x_y.x(), -ri_x_y.y(), -ri_x_y.z(),    0, 1, 0,  rj_x_y.x(), rj_x_y.y(), rj_x_y.z());
+    m_z.setG( 0, 0,-1, -ri_x_z.x(), -ri_x_z.y(), -ri_x_z.z(),    0, 0, 1,  rj_x_z.x(), rj_x_z.y(), rj_x_z.z());
 
 }

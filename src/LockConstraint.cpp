@@ -35,11 +35,6 @@ LockConstraint::LockConstraint(
 }
 
 void LockConstraint::update(){
-    // Todo fix
-    // m_xr.setDefaultViolation();
-    // m_yr.setDefaultViolation();
-    // m_zr.setDefaultViolation();
-
     // Rotational violation:
     //      g = ni .dot( nj )  (3 rotational DOFs)
     // where
@@ -59,15 +54,18 @@ void LockConstraint::update(){
     Vec3 yj = m_connB->m_quaternion . multiplyVector( y );
     Vec3 zj = m_connB->m_quaternion . multiplyVector( z );
 
+    int i = -1;
 
-
-    m_xr.setG(zero, zj.cross(yi), zero, yi.cross(zj));
+    Vec3 zj_x_yi = zj.cross(yi);
+    m_xr.setG(zero, zj_x_yi*i, zero, zj_x_yi*(-i));
     m_xr.setViolation(yi.dot(zj));
 
-    m_yr.setG(zero, xj.cross(zi), zero, zi.cross(xj));
+    Vec3 xj_x_zi = xj.cross(zi);
+    m_yr.setG(zero, xj_x_zi*i, zero, xj_x_zi*(-i));
     m_yr.setViolation(zi.dot(xj));
 
-    m_zr.setG(zero, yj.cross(xi), zero, xi.cross(yj));
+    Vec3 yj_x_xi = yj.cross(xi);
+    m_zr.setG(zero, yj_x_xi*i, zero, yj_x_xi*(-i));
     m_zr.setViolation(xi.dot(yj));
 
     BallJointConstraint::update();
