@@ -7,6 +7,7 @@
 #include "Constraint.h"
 #include "LockConstraint.h"
 #include "BallJointConstraint.h"
+#include "HingeMotorConstraint.h"
 #include <vector>
 #include <stdio.h>
 #include <string.h>
@@ -154,14 +155,11 @@ int main(int argc, char ** argv){
         // Create body
         RigidBody * body = new RigidBody();
         body->m_position[0] = (double)halfExtents[0]*2*(i-N/2);
-        //body->m_angularVelocity[1] = 1;
         body->m_invMass = i==0 ? 0 : invMass;
         if(i==0){
             body->setLocalInertiaAsBox(0,halfExtents);
-            //body->m_quaternion.set(0,sin(0.1),0,cos(0.1));
         } else {
             body->setLocalInertiaAsBox(1,halfExtents);
-            //body->m_angularVelocity[1] = 1;
         }
         body->m_gravity.set(gravityX,gravityY,gravityZ);
 
@@ -178,13 +176,25 @@ int main(int argc, char ** argv){
 
         // Create lock joint between this and last connector
         if(lastConnector != NULL){
-            Constraint * constraint;
-            if(i%2==0)
-                constraint = new LockConstraint(lastConnector, conn, Vec3(halfExtents[0],0,0), Vec3(-halfExtents[0],0,0), Quat(0,0,0,1), Quat(0,0,0,1));
-            else
-                constraint = new BallJointConstraint(lastConnector, conn, Vec3(halfExtents[0],0,0), Vec3(-halfExtents[0],0,0));
-            solver.addConstraint(constraint);
-            constraints.push_back(constraint);
+            if(i%2==0){
+                Constraint * constraint = new LockConstraint(   lastConnector, conn,
+                                                                Vec3(halfExtents[0],0,0),
+                                                                Vec3(-halfExtents[0],0,0),
+                                                                Quat(0,0,0,1),
+                                                                Quat(0,0,0,1));
+                solver.addConstraint(constraint);
+                constraints.push_back(constraint);
+            } else {
+                Constraint * constraint = new BallJointConstraint(lastConnector, conn, Vec3(halfExtents[0],0,0), Vec3(-halfExtents[0],0,0));
+                solver.addConstraint(constraint);
+                constraints.push_back(constraint);
+
+                /*
+                Constraint * constraint2 = new HingeMotorConstraint(lastConnector, conn, Vec3(0,1,0), Vec3(0,1,0), 10);
+                solver.addConstraint(constraint2);
+                constraints.push_back(constraint2);
+                */
+            }
         }
 
         lastConnector = conn;

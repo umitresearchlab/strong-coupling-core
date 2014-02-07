@@ -94,6 +94,9 @@ The HTML files will end up in docs/.
 Funded in part by VINNOVA through project Simovate (dnr 2012-01235) and Umeå University, Umeå, Sweden.
 
 # Change log
+*0.2*
+* Added class sc::HingeMotorConstraint
+* Added method sc::Equation::setRelativeVelocity
 
-*0.1.0*
+*0.1*
 * Started change log

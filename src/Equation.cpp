@@ -13,12 +13,17 @@ Equation::Equation(Connector * connA, Connector * connB){
 
     // Set default solver params
     setDefault();
+    m_relativeVelocity = 0;
 }
 
 Equation::~Equation(){}
 
 void Equation::setDefault(){
     setSpookParams(4,1e-5,1.0/100.0);
+}
+
+void Equation::setRelativeVelocity(double v){
+    m_relativeVelocity = v;
 }
 
 Connector * Equation::getConnA(){ return m_connA; }
@@ -54,7 +59,7 @@ double Equation::setViolation(double g){
 
 double Equation::getVelocity(){
     return  m_G_A.multiply(m_connA->m_velocity, m_connA->m_angularVelocity) +
-            m_G_B.multiply(m_connB->m_velocity, m_connB->m_angularVelocity);
+            m_G_B.multiply(m_connB->m_velocity, m_connB->m_angularVelocity) + m_relativeVelocity;
 }
 
 double Equation::getFutureVelocity(){

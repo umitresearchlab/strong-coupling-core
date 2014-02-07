@@ -17,6 +17,7 @@ private:
     JacobianElement m_invMGt_A;
     JacobianElement m_invMGt_B;
     double m_g;
+    double m_relativeVelocity;
 
 public:
 
@@ -63,6 +64,7 @@ public:
 
     /// Get constraint velocity, G*W
     double getVelocity();
+    void setRelativeVelocity(double);
     double getFutureVelocity();
 
     /**
