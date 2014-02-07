@@ -29,12 +29,27 @@
 using namespace sc;
 
 void printHelp(char * command){
-    printf("\nUsage:\n");
-    printf("\t%s [options]\n\n",command);
-    printf("[options]:\n");
-    printf("\t--numBodies N\tSets the number of bodies to N\n");
-    printf("\t--help,-h\tPrint help and quit\n");
-    printf("\n");
+    printf("\nUsage:\n\
+\t%s [OPTIONS] [FLAGS]\
+\n\
+\n\
+[OPTIONS]\n\
+\n\
+\t--compliance <number> \tGlobal constraint compliance.\n\
+\t--gravityX   <number> \tGravity in X direction.\n\
+\t--gravityY   <number> \tGravity in Y direction.\n\
+\t--gravityZ   <number> \tGravity in Z direction.\n\
+\t--numBodies  <integer>\tNumber of bodies.\n\
+\t--numSteps   <integer>\tMax number of time steps. Infinite if not given.\n\
+\t--relaxation <number> \tGlobal constraint relaxation.\n\
+\t--timeStep   <number> \tTime step size.\n\
+\n\
+[FLAGS]\n\
+\n\
+\t--csv     \tPrint CSV data to STDOUT. Also triggers --quiet.\n\
+\t--help,-h \tPrint help and quit.\n\
+\t--quiet,-q\tDon't print stuff.\n\
+\t--render  \tRender the scene using OSG.\n\n",command);
 }
 
 /*
@@ -79,7 +94,8 @@ int main(int argc, char ** argv){
         NT = INT_MAX,
         quiet = 0,
         debug = 0,
-        render = 0;
+        render = 0,
+        enableCSV = 0;
     double  dt = 0.01,
             relaxation = 3,
             compliance = 0.001,
@@ -109,8 +125,12 @@ int main(int argc, char ** argv){
         }
 
         // Flags without args
-        if(!strcmp(a,"--osg"))      render = 1;
+        if(!strcmp(a,"--render"))   render = 1;
         if(!strcmp(a,"--debug"))    debug =  1;
+        if(!strcmp(a,"--csv")){
+            enableCSV = 1;
+            quiet = 1;
+        }
 
         if(strcmp(argv[i],"--help")==0 || strcmp(argv[i],"-h")==0){
             printHelp(argv[0]);
@@ -182,8 +202,8 @@ int main(int argc, char ** argv){
     solver.getEquations(&eqs);
 
     // Print CSV first column
-    if(!quiet) printFirstCSVRow(bodies);
-    if(!quiet) printCSVRow(0,bodies);
+    if(enableCSV) printFirstCSVRow(bodies);
+    if(enableCSV) printCSVRow(0,bodies);
 
     #ifdef SC_USE_OSG
         osgViewer::Viewer * viewer;
@@ -191,7 +211,7 @@ int main(int argc, char ** argv){
 
         if(render){
 
-            printf("OpenSceneGraph %s\n",osgUtilGetVersion());
+            if(!quiet) printf("OpenSceneGraph %s\n",osgUtilGetVersion());
 
             // Create viewer
             viewer = new osgViewer::Viewer();
@@ -324,7 +344,7 @@ int main(int argc, char ** argv){
         }
 
         // Print results
-        if(!quiet) printCSVRow(t,bodies);
+        if(enableCSV) printCSVRow(t,bodies);
 
         #ifdef SC_USE_OSG
             if(render && !viewer->done()){
