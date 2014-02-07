@@ -34,7 +34,7 @@ public:
     Vec3 multiplyVector(const Vec3& v) const;
     Vec3 getAxis() const;
 
-    /// Normalize this vector. Will change state.
+    /// Normalize this quat. Will change state.
     void normalize();
 
     /// Set all values

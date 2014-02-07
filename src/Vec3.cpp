@@ -1,4 +1,5 @@
 #include "Vec3.h"
+#include "math.h"
 
 using namespace sc;
 
@@ -54,4 +55,18 @@ Vec3 Vec3::subtract(const Vec3& v) const {
     return Vec3(-v.x()+m_data[0],
                 -v.y()+m_data[1],
                 -v.z()+m_data[2]);
+}
+
+void Vec3::normalize(){
+    double l = sqrt(m_data[0]*m_data[0]+m_data[1]*m_data[1]+m_data[2]*m_data[2]);
+    if ( l == 0 ) {
+        m_data[0] = 0;
+        m_data[1] = 0;
+        m_data[2] = 1;
+    } else {
+        l = 1 / l;
+        m_data[0] *= l;
+        m_data[1] *= l;
+        m_data[2] *= l;
+    }
 }

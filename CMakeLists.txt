@@ -5,6 +5,7 @@ SET(SRCS
     src/Connector.cpp
     src/Constraint.cpp
     src/Equation.cpp
+    src/HingeConstraint.cpp
     src/HingeMotorConstraint.cpp
     src/JacobianElement.cpp
     src/LockConstraint.cpp
@@ -20,6 +21,7 @@ SET(HEADERS
     include/Connector.h
     include/Constraint.h
     include/Equation.h
+    include/HingeConstraint.h
     include/HingeMotorConstraint.h
     include/JacobianElement.h
     include/LockConstraint.h

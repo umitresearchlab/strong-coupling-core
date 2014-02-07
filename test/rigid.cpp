@@ -8,6 +8,7 @@
 #include "LockConstraint.h"
 #include "BallJointConstraint.h"
 #include "HingeMotorConstraint.h"
+#include "HingeConstraint.h"
 #include <vector>
 #include <stdio.h>
 #include <string.h>
@@ -185,7 +186,11 @@ int main(int argc, char ** argv){
                 solver.addConstraint(constraint);
                 constraints.push_back(constraint);
             } else {
-                Constraint * constraint = new BallJointConstraint(lastConnector, conn, Vec3(halfExtents[0],0,0), Vec3(-halfExtents[0],0,0));
+                Constraint * constraint = new HingeConstraint(  lastConnector, conn,
+                                                                Vec3( halfExtents[0],0,0),
+                                                                Vec3(-halfExtents[0],0,0),
+                                                                Vec3(0,0,1),
+                                                                Vec3(0,0,1));
                 solver.addConstraint(constraint);
                 constraints.push_back(constraint);
 

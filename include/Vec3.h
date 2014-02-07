@@ -34,6 +34,8 @@ public:
     /// Copy elements from some other vector
     void copy(const Vec3&);
 
+    void normalize();
+
     /// Element access
     double& operator[] (const int i) {
         return m_data[i];
