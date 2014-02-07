@@ -8,6 +8,10 @@ The library has support for a number of constraints, see subclasses of
 sc::Constraint. These can be used to mechanically constrain the connectors
 to each other.
 
+# Links
+* [Documentation](http://umitresearchlab.github.io/strong-coupling-core/docs)
+* [Source code & downloads at Github](http://github.com/umitresearchlab/strong-coupling-core)
+
 # Usage
 
 The code is typically used like so:
