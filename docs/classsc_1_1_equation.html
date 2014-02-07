@@ -23,7 +23,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">Strong Coupling Core
-   &#160;<span id="projectnumber">0.0.1</span>
+   &#160;<span id="projectnumber">0.1.0</span>
    </div>
    <div id="projectbrief">Library for solving a system of strong coupled physical subsystems.</div>
   </td>
@@ -39,7 +39,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
-      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
@@ -144,6 +143,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a8955c8a208c3c819afed2902f631a277"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsc_1_1_equation.html#a8955c8a208c3c819afed2902f631a277">getVelocity</a> ()</td></tr>
 <tr class="memdesc:a8955c8a208c3c819afed2902f631a277"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get constraint velocity, G*W.  <a href="#a8955c8a208c3c819afed2902f631a277">More...</a><br/></td></tr>
 <tr class="separator:a8955c8a208c3c819afed2902f631a277"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa38d3e426714b81554ba9c11f6afb010"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsc_1_1_equation.html#aa38d3e426714b81554ba9c11f6afb010">getFutureVelocity</a> ()</td></tr>
+<tr class="separator:aa38d3e426714b81554ba9c11f6afb010"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2991b13c39917c2685d27b9a378392e3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsc_1_1_equation.html#a2991b13c39917c2685d27b9a378392e3">setSpatialJacobianA</a> (double x, double y, double z)</td></tr>
 <tr class="memdesc:a2991b13c39917c2685d27b9a378392e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the spatial components of connector A jacobian.  <a href="#a2991b13c39917c2685d27b9a378392e3">More...</a><br/></td></tr>
 <tr class="separator:a2991b13c39917c2685d27b9a378392e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -181,6 +182,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a32e049a8641a04b0cc89ee1ed6f10bea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0d984a71adfda8b05c18c6114ab62583"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsc_1_1_equation.html#a0d984a71adfda8b05c18c6114ab62583">setG</a> (double, double, double, double, double, double, double, double, double, double, double, double)</td></tr>
 <tr class="separator:a0d984a71adfda8b05c18c6114ab62583"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a876610a74766e6dde160d90078c0a799"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsc_1_1_equation.html#a876610a74766e6dde160d90078c0a799">setG</a> (const <a class="el" href="classsc_1_1_vec3.html">Vec3</a> &amp;spatialA, const <a class="el" href="classsc_1_1_vec3.html">Vec3</a> &amp;rotationalA, const <a class="el" href="classsc_1_1_vec3.html">Vec3</a> &amp;spatialB, const <a class="el" href="classsc_1_1_vec3.html">Vec3</a> &amp;rotationalB)</td></tr>
+<tr class="separator:a876610a74766e6dde160d90078c0a799"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -316,6 +319,21 @@ Public Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="classsc_1_1_jacobian_element.html">JacobianElement</a> Equation::getddB </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="aa38d3e426714b81554ba9c11f6afb010"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double Equation::getFutureVelocity </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -630,6 +648,44 @@ Public Attributes</h2></td></tr>
           <td></td>
           <td class="paramtype">double&#160;</td>
           <td class="paramname"><em>rzB</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a876610a74766e6dde160d90078c0a799"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Equation::setG </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classsc_1_1_vec3.html">Vec3</a> &amp;&#160;</td>
+          <td class="paramname"><em>spatialA</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classsc_1_1_vec3.html">Vec3</a> &amp;&#160;</td>
+          <td class="paramname"><em>rotationalA</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classsc_1_1_vec3.html">Vec3</a> &amp;&#160;</td>
+          <td class="paramname"><em>spatialB</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classsc_1_1_vec3.html">Vec3</a> &amp;&#160;</td>
+          <td class="paramname"><em>rotationalB</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -1059,7 +1115,7 @@ Public Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Feb 5 2014 15:47:37 for Strong Coupling Core by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Feb 7 2014 12:10:42 for Strong Coupling Core by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

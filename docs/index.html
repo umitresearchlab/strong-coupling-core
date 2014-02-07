@@ -23,7 +23,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">Strong Coupling Core
-   &#160;<span id="projectnumber">0.0.1</span>
+   &#160;<span id="projectnumber">0.1.0</span>
    </div>
    <div id="projectbrief">Library for solving a system of strong coupled physical subsystems.</div>
   </td>
@@ -39,7 +39,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li class="current"><a href="index.html"><span>Main&#160;Page</span></a></li>
-      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
@@ -82,15 +81,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p>Library for solving a system of strong coupled physical subsystems. Aimed to use in co-simulation, where each slave has mechanical connector points.</p>
-<p>The library should have support for a number of constraints:</p>
-<ul>
-<li><a class="el" href="classsc_1_1_lock_constraint.html" title="Locks all 6 degrees of freedom between two connectors. ">sc::LockConstraint</a></li>
-<li><a class="el" href="classsc_1_1_ball_joint_constraint.html" title="Connects the connectors with a ball joint. ">sc::BallJointConstraint</a></li>
-<li>sc::DistanceConstraint</li>
-<li>sc::HingeConstraint</li>
-<li>sc::PrismaticConstraint</li>
-</ul>
-<p>These can be used to mechanically constrain the connectors to each other.</p>
+<p>The library has support for a number of constraints, see subclasses of <a class="el" href="classsc_1_1_constraint.html" title="Base class for constraints. ">sc::Constraint</a>. These can be used to mechanically constrain the connectors to each other.</p>
 <h1>Usage</h1>
 <p>The code is typically used like so:</p>
 <ol type="1">
@@ -99,14 +90,15 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>Constrain two connectors by creating instances of <a class="el" href="classsc_1_1_constraint.html" title="Base class for constraints. ">sc::Constraint</a>.</li>
 <li>Add slaves, connectors, constraints to the solver (<a class="el" href="classsc_1_1_solver.html" title="Holds all slaves and constraints in the system, and solves for constraint forces. ...">sc::Solver</a>).</li>
 <li>For each time step in your stepping loop:<ol type="a">
-<li>Set positions and velocities of the connectors.</li>
-<li>Set the jacobian for each equation in the system (each <a class="el" href="classsc_1_1_constraint.html" title="Base class for constraints. ">sc::Constraint</a> contains at least one <a class="el" href="classsc_1_1_equation.html" title="Base class for equations. Constrains two instances of Connector. ">sc::Equation</a>). The Jacobian can be imagined as the connector inertia in all directions.</li>
-<li>Solve the system (<a class="el" href="classsc_1_1_solver.html#ab651560a089c3beaf420deb61ea4bd87" title="Solves the system of equation. Sets the constraint forces in each connector. ">sc::Solver::solve()</a>).</li>
-<li>Get resulting constraint force from the connectors. Apply these forces to your co-simulation slaves, step, and then go to 5.</li>
+<li>Set position, quaternion, velocity and angular velocity of the connectors.</li>
+<li>Set future velocity and angular velocity of the connectors (you get this by stepping your system one time step forward).</li>
+<li>Set the jacobian for each equation in the system (each <a class="el" href="classsc_1_1_constraint.html" title="Base class for constraints. ">sc::Constraint</a> contains at least one <a class="el" href="classsc_1_1_equation.html" title="Base class for equations. Constrains two instances of Connector. ">sc::Equation</a>). The Jacobian can be imagined as the connector inertia in the constraint directions.</li>
+<li>Solve the system (<a class="el" href="classsc_1_1_solver.html#ab651560a089c3beaf420deb61ea4bd87">sc::Solver::solve()</a>).</li>
+<li>Get resulting constraint force and torque from the connectors. Apply these forces to your co-simulation slaves and then do a final step.</li>
 </ol>
 </li>
 </ol>
-<p>Sample code can be found in test/Slave.cpp</p>
+<p>Sample code can be found in <a class="el" href="rigid_8cpp.html">test/rigid.cpp</a></p>
 <h1>Install</h1>
 <h2>Ubuntu/Linux</h2>
 <p>To make an out-of-source build in CMake, make a build directory and make it current: </p>
@@ -134,20 +126,19 @@ cmake .. &amp;&amp; make;
 <p>TODO</p>
 <h1>Documentation</h1>
 <p>You need <a href="http://www.stack.nl/~dimitri/doxygen/">Doxygen</a> to generate the documentation. Build the documentation by doing this: </p>
-<pre class="fragment">cd docs/;
-doxygen Doxyfile;
-</pre><h1>Project info</h1>
+<pre class="fragment">doxygen Doxyfile;
+</pre><p>The HTML files will end up in docs/.</p>
+<h1>Project info</h1>
 <p>Funded in part by VINNOVA through project Simovate (dnr 2012-01235) and Umeå University, Umeå, Sweden.</p>
 <h1>Change log</h1>
 <p><em>0.1.0</em></p>
 <ul>
-<li>Added <a class="el" href="classsc_1_1_ball_joint_constraint.html" title="Connects the connectors with a ball joint. ">sc::BallJointConstraint</a></li>
 <li>Started change log </li>
 </ul>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Feb 5 2014 15:47:37 for Strong Coupling Core by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Feb 7 2014 12:10:42 for Strong Coupling Core by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

@@ -23,7 +23,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">Strong Coupling Core
-   &#160;<span id="projectnumber">0.0.1</span>
+   &#160;<span id="projectnumber">0.1.0</span>
    </div>
    <div id="projectbrief">Library for solving a system of strong coupled physical subsystems.</div>
   </td>
@@ -39,7 +39,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
-      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
@@ -91,6 +90,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="classsc_1_1_ball_joint_constraint-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">sc::BallJointConstraint Class Reference</div>  </div>
@@ -108,6 +108,7 @@ Inheritance diagram for sc::BallJointConstraint:</div>
   <img src="classsc_1_1_ball_joint_constraint.png" usemap="#sc::BallJointConstraint_map" alt=""/>
   <map id="sc::BallJointConstraint_map" name="sc::BallJointConstraint_map">
 <area href="classsc_1_1_constraint.html" title="Base class for constraints. " alt="sc::Constraint" shape="rect" coords="0,0,136,24"/>
+<area href="classsc_1_1_lock_constraint.html" title="Locks all 6 degrees of freedom between two connectors. " alt="sc::LockConstraint" shape="rect" coords="0,112,136,136"/>
 </map>
  </div></div>
 <table class="memberdecls">
@@ -117,7 +118,7 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a5c463bfe4c5118448b6c20bb7c7b3104"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac2c67703f829dc6520b0a8b1bd117345"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsc_1_1_ball_joint_constraint.html#ac2c67703f829dc6520b0a8b1bd117345">~BallJointConstraint</a> ()</td></tr>
 <tr class="separator:ac2c67703f829dc6520b0a8b1bd117345"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abefa4a2b84695b6de590989883d4d5dc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsc_1_1_ball_joint_constraint.html#abefa4a2b84695b6de590989883d4d5dc">update</a> ()</td></tr>
+<tr class="memitem:abefa4a2b84695b6de590989883d4d5dc"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsc_1_1_ball_joint_constraint.html#abefa4a2b84695b6de590989883d4d5dc">update</a> ()</td></tr>
 <tr class="memdesc:abefa4a2b84695b6de590989883d4d5dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update equations and violations. Should be called whenever the connector states changed.  <a href="#abefa4a2b84695b6de590989883d4d5dc">More...</a><br/></td></tr>
 <tr class="separator:abefa4a2b84695b6de590989883d4d5dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classsc_1_1_constraint"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classsc_1_1_constraint')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classsc_1_1_constraint.html">sc::Constraint</a></td></tr>
@@ -137,6 +138,20 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a7413b1ae3e81a73d28dd1d4cc0c01776 inherit pub_methods_classsc_1_1_constraint"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classsc_1_1_connector.html">Connector</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsc_1_1_constraint.html#a7413b1ae3e81a73d28dd1d4cc0c01776">getConnB</a> ()</td></tr>
 <tr class="separator:a7413b1ae3e81a73d28dd1d4cc0c01776 inherit pub_methods_classsc_1_1_constraint"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
+<tr class="memitem:a74348c1a8093d5d6feeb22b5d31faa54"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classsc_1_1_vec3.html">Vec3</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsc_1_1_ball_joint_constraint.html#a74348c1a8093d5d6feeb22b5d31faa54">m_localAnchorA</a></td></tr>
+<tr class="separator:a74348c1a8093d5d6feeb22b5d31faa54"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a32054acc27525962ab4a8b4451c7bbcd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classsc_1_1_vec3.html">Vec3</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsc_1_1_ball_joint_constraint.html#a32054acc27525962ab4a8b4451c7bbcd">m_localAnchorB</a></td></tr>
+<tr class="separator:a32054acc27525962ab4a8b4451c7bbcd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_attribs_classsc_1_1_constraint"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classsc_1_1_constraint')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classsc_1_1_constraint.html">sc::Constraint</a></td></tr>
+<tr class="memitem:a047b6f8d71a5d504ccff126b6663ffec inherit pro_attribs_classsc_1_1_constraint"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="classsc_1_1_equation.html">Equation</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsc_1_1_constraint.html#a047b6f8d71a5d504ccff126b6663ffec">m_equations</a></td></tr>
+<tr class="separator:a047b6f8d71a5d504ccff126b6663ffec inherit pro_attribs_classsc_1_1_constraint"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6bccb98529325beae10e0f82d303d77c inherit pro_attribs_classsc_1_1_constraint"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classsc_1_1_connector.html">Connector</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsc_1_1_constraint.html#a6bccb98529325beae10e0f82d303d77c">m_connA</a></td></tr>
+<tr class="separator:a6bccb98529325beae10e0f82d303d77c inherit pro_attribs_classsc_1_1_constraint"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4698cd08dd4057c8563f294162ce9528 inherit pro_attribs_classsc_1_1_constraint"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classsc_1_1_connector.html">Connector</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsc_1_1_constraint.html#a4698cd08dd4057c8563f294162ce9528">m_connB</a></td></tr>
+<tr class="separator:a4698cd08dd4057c8563f294162ce9528 inherit pro_attribs_classsc_1_1_constraint"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header pub_attribs_classsc_1_1_constraint"><td colspan="2" onclick="javascript:toggleInherit('pub_attribs_classsc_1_1_constraint')"><img src="closed.png" alt="-"/>&#160;Public Attributes inherited from <a class="el" href="classsc_1_1_constraint.html">sc::Constraint</a></td></tr>
@@ -146,13 +161,6 @@ Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header pro_methods_classsc_1_1_constraint"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classsc_1_1_constraint')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classsc_1_1_constraint.html">sc::Constraint</a></td></tr>
 <tr class="memitem:ac802f0d94d7bab4fa3230e4a11e7ca6a inherit pro_methods_classsc_1_1_constraint"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsc_1_1_constraint.html#ac802f0d94d7bab4fa3230e4a11e7ca6a">addEquation</a> (<a class="el" href="classsc_1_1_equation.html">Equation</a> *eq)</td></tr>
 <tr class="separator:ac802f0d94d7bab4fa3230e4a11e7ca6a inherit pro_methods_classsc_1_1_constraint"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pro_attribs_classsc_1_1_constraint"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classsc_1_1_constraint')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classsc_1_1_constraint.html">sc::Constraint</a></td></tr>
-<tr class="memitem:a047b6f8d71a5d504ccff126b6663ffec inherit pro_attribs_classsc_1_1_constraint"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="classsc_1_1_equation.html">Equation</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsc_1_1_constraint.html#a047b6f8d71a5d504ccff126b6663ffec">m_equations</a></td></tr>
-<tr class="separator:a047b6f8d71a5d504ccff126b6663ffec inherit pro_attribs_classsc_1_1_constraint"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6bccb98529325beae10e0f82d303d77c inherit pro_attribs_classsc_1_1_constraint"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classsc_1_1_connector.html">Connector</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsc_1_1_constraint.html#a6bccb98529325beae10e0f82d303d77c">m_connA</a></td></tr>
-<tr class="separator:a6bccb98529325beae10e0f82d303d77c inherit pro_attribs_classsc_1_1_constraint"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4698cd08dd4057c8563f294162ce9528 inherit pro_attribs_classsc_1_1_constraint"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classsc_1_1_connector.html">Connector</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsc_1_1_constraint.html#a4698cd08dd4057c8563f294162ce9528">m_connB</a></td></tr>
-<tr class="separator:a4698cd08dd4057c8563f294162ce9528 inherit pro_attribs_classsc_1_1_constraint"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Connects the connectors with a ball joint. </p>
@@ -253,6 +261,49 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="classsc_1_1_constraint.html#ace09ec9067ad3bb1bed34cee3268308d">sc::Constraint</a>.</p>
 
+<p>Reimplemented in <a class="el" href="classsc_1_1_lock_constraint.html#a23bd7b9aab6fcfb8e7b224287f364bc5">sc::LockConstraint</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a class="anchor" id="a74348c1a8093d5d6feeb22b5d31faa54"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classsc_1_1_vec3.html">Vec3</a> sc::BallJointConstraint::m_localAnchorA</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a32054acc27525962ab4a8b4451c7bbcd"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classsc_1_1_vec3.html">Vec3</a> sc::BallJointConstraint::m_localAnchorB</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
@@ -262,7 +313,7 @@ Additional Inherited Members</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Feb 5 2014 15:47:37 for Strong Coupling Core by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Feb 7 2014 12:10:42 for Strong Coupling Core by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

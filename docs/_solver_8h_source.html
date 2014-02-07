@@ -23,7 +23,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">Strong Coupling Core
-   &#160;<span id="projectnumber">0.0.1</span>
+   &#160;<span id="projectnumber">0.1.0</span>
    </div>
    <div id="projectbrief">Library for solving a system of strong coupled physical subsystems.</div>
   </td>
@@ -39,7 +39,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
-      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
@@ -127,24 +126,25 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classsc_1_1_solver.html#a528da38ba27702516d9c8c69c38207e6">getEquations</a>(std::vector&lt;Equation*&gt; * eqs);</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classsc_1_1_solver.html#ab651560a089c3beaf420deb61ea4bd87">solve</a>();</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classsc_1_1_solver.html#a088030985df2de87b0e3bf902af4395f">setSpookParams</a>(<span class="keywordtype">double</span> relaxation, <span class="keywordtype">double</span> compliance, <span class="keywordtype">double</span> timeStep);</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classsc_1_1_solver.html#ace2f65267c40a54046d5cc1b8e7937bd">resetConstraintForces</a>();</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classsc_1_1_solver.html#a4c30364b8ea7cd7b37783e26f6cda84f">updateConstraints</a>();</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;};</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;}</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classsc_1_1_solver.html#ab651560a089c3beaf420deb61ea4bd87">solve</a>(<span class="keywordtype">int</span> printDebugInfo);</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classsc_1_1_solver.html#ab651560a089c3beaf420deb61ea4bd87">solve</a>();</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classsc_1_1_solver.html#a088030985df2de87b0e3bf902af4395f">setSpookParams</a>(<span class="keywordtype">double</span> relaxation, <span class="keywordtype">double</span> compliance, <span class="keywordtype">double</span> timeStep);</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classsc_1_1_solver.html#ace2f65267c40a54046d5cc1b8e7937bd">resetConstraintForces</a>();</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classsc_1_1_solver.html#a4c30364b8ea7cd7b37783e26f6cda84f">updateConstraints</a>();</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;};</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;}</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="_constraint_8h_html"><div class="ttname"><a href="_constraint_8h.html">Constraint.h</a></div></div>
 <div class="ttc" id="classsc_1_1_solver_html_a4c30364b8ea7cd7b37783e26f6cda84f"><div class="ttname"><a href="classsc_1_1_solver.html#a4c30364b8ea7cd7b37783e26f6cda84f">sc::Solver::updateConstraints</a></div><div class="ttdeci">void updateConstraints()</div><div class="ttdef"><b>Definition:</b> Solver.cpp:84</div></div>
 <div class="ttc" id="_slave_8h_html"><div class="ttname"><a href="_slave_8h.html">Slave.h</a></div></div>
 <div class="ttc" id="classsc_1_1_solver_html_a8628085cd3d4f68f66525e598780d3dc"><div class="ttname"><a href="classsc_1_1_solver.html#a8628085cd3d4f68f66525e598780d3dc">sc::Solver::addSlave</a></div><div class="ttdeci">void addSlave(Slave *slave)</div><div class="ttdoc">Add a slave to the solver. </div><div class="ttdef"><b>Definition:</b> Solver.cpp:20</div></div>
 <div class="ttc" id="classsc_1_1_solver_html_aad705a16c4e45df364fcb3e97ffdd1de"><div class="ttname"><a href="classsc_1_1_solver.html#aad705a16c4e45df364fcb3e97ffdd1de">sc::Solver::addConstraint</a></div><div class="ttdeci">void addConstraint(Constraint *constraint)</div><div class="ttdoc">Add a constraint to the solver. </div><div class="ttdef"><b>Definition:</b> Solver.cpp:29</div></div>
-<div class="ttc" id="classsc_1_1_solver_html_ab651560a089c3beaf420deb61ea4bd87"><div class="ttname"><a href="classsc_1_1_solver.html#ab651560a089c3beaf420deb61ea4bd87">sc::Solver::solve</a></div><div class="ttdeci">void solve()</div><div class="ttdoc">Solves the system of equation. Sets the constraint forces in each connector. </div><div class="ttdef"><b>Definition:</b> Solver.cpp:90</div></div>
+<div class="ttc" id="classsc_1_1_solver_html_ab651560a089c3beaf420deb61ea4bd87"><div class="ttname"><a href="classsc_1_1_solver.html#ab651560a089c3beaf420deb61ea4bd87">sc::Solver::solve</a></div><div class="ttdeci">void solve()</div><div class="ttdef"><b>Definition:</b> Solver.cpp:90</div></div>
 <div class="ttc" id="classsc_1_1_solver_html_a088030985df2de87b0e3bf902af4395f"><div class="ttname"><a href="classsc_1_1_solver.html#a088030985df2de87b0e3bf902af4395f">sc::Solver::setSpookParams</a></div><div class="ttdeci">void setSpookParams(double relaxation, double compliance, double timeStep)</div><div class="ttdef"><b>Definition:</b> Solver.cpp:66</div></div>
 <div class="ttc" id="classsc_1_1_solver_html_aaae6d898b71c758f6de5f838ebfba068"><div class="ttname"><a href="classsc_1_1_solver.html#aaae6d898b71c758f6de5f838ebfba068">sc::Solver::getSystemMatrixCols</a></div><div class="ttdeci">int getSystemMatrixCols()</div><div class="ttdoc">Get number of columns in the system matrix. </div><div class="ttdef"><b>Definition:</b> Solver.cpp:44</div></div>
 <div class="ttc" id="_connector_8h_html"><div class="ttname"><a href="_connector_8h.html">Connector.h</a></div></div>
@@ -160,7 +160,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Feb 5 2014 15:47:37 for Strong Coupling Core by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Feb 7 2014 12:10:42 for Strong Coupling Core by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

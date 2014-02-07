@@ -4,5 +4,5 @@ var searchData=
   ['operator_2b',['operator+',['../classsc_1_1_vec3.html#af60ea0403a34ccc697ea1e24c222e0c7',1,'sc::Vec3']]],
   ['operator_2b_3d',['operator+=',['../classsc_1_1_vec3.html#aa5c4cce63851f33acc51c4169b3ef85b',1,'sc::Vec3']]],
   ['operator_2d',['operator-',['../classsc_1_1_vec3.html#ab61da7ba7021deab5fefdcae8369cbfc',1,'sc::Vec3']]],
-  ['operator_5b_5d',['operator[]',['../classsc_1_1_quat.html#add23380f9b4d7ba3a854007f0c423099',1,'sc::Quat::operator[]()'],['../classsc_1_1_vec3.html#a8491ff9af2f0b81ec9f1037976f80450',1,'sc::Vec3::operator[]()']]]
+  ['operator_5b_5d',['operator[]',['../classsc_1_1_quat.html#a89045fecf1884b692d99b3f986269ab0',1,'sc::Quat::operator[](int i)'],['../classsc_1_1_quat.html#ac85d99dca93886ff2b3f84c030cb67c4',1,'sc::Quat::operator[](int i) const '],['../classsc_1_1_vec3.html#a8491ff9af2f0b81ec9f1037976f80450',1,'sc::Vec3::operator[]()']]]
 ];

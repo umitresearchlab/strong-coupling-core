@@ -23,7 +23,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">Strong Coupling Core
-   &#160;<span id="projectnumber">0.0.1</span>
+   &#160;<span id="projectnumber">0.1.0</span>
    </div>
    <div id="projectbrief">Library for solving a system of strong coupled physical subsystems.</div>
   </td>
@@ -39,7 +39,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
-      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
@@ -115,6 +114,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:adce20ccd2bf711b81a050bd431c3871f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsc_1_1_connector.html#adce20ccd2bf711b81a050bd431c3871f">setVelocity</a> (double vx, double vy, double vz)</td></tr>
 <tr class="memdesc:adce20ccd2bf711b81a050bd431c3871f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set velocity of the connector.  <a href="#adce20ccd2bf711b81a050bd431c3871f">More...</a><br/></td></tr>
 <tr class="separator:adce20ccd2bf711b81a050bd431c3871f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62e0e1b06f0fcfc6d4bb0df34af7deb5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsc_1_1_connector.html#a62e0e1b06f0fcfc6d4bb0df34af7deb5">setFutureVelocity</a> (const <a class="el" href="classsc_1_1_vec3.html">Vec3</a> &amp;velocity, const <a class="el" href="classsc_1_1_vec3.html">Vec3</a> &amp;angularVelocity)</td></tr>
+<tr class="separator:a62e0e1b06f0fcfc6d4bb0df34af7deb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aae90bcc6ea9e25fa25deb938ad8ce3ed"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsc_1_1_connector.html#aae90bcc6ea9e25fa25deb938ad8ce3ed">setOrientation</a> (double x, double y, double z, double w)</td></tr>
 <tr class="memdesc:aae90bcc6ea9e25fa25deb938ad8ce3ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set orientation of the connector.  <a href="#aae90bcc6ea9e25fa25deb938ad8ce3ed">More...</a><br/></td></tr>
 <tr class="separator:aae90bcc6ea9e25fa25deb938ad8ce3ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -145,6 +146,10 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:ad2f5591466185c9daff028a2c9cac81b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classsc_1_1_vec3.html">Vec3</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsc_1_1_connector.html#ad2f5591466185c9daff028a2c9cac81b">m_velocity</a></td></tr>
 <tr class="memdesc:ad2f5591466185c9daff028a2c9cac81b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Physical (linear) velocity of the connector.  <a href="#ad2f5591466185c9daff028a2c9cac81b">More...</a><br/></td></tr>
 <tr class="separator:ad2f5591466185c9daff028a2c9cac81b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a42cc6fab7a774c841d4de7b57aa61ccd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classsc_1_1_vec3.html">Vec3</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsc_1_1_connector.html#a42cc6fab7a774c841d4de7b57aa61ccd">m_futureVelocity</a></td></tr>
+<tr class="separator:a42cc6fab7a774c841d4de7b57aa61ccd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac12756effca9e95da29e828f93b89083"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classsc_1_1_vec3.html">Vec3</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsc_1_1_connector.html#ac12756effca9e95da29e828f93b89083">m_futureAngularVelocity</a></td></tr>
+<tr class="separator:ac12756effca9e95da29e828f93b89083"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3327da7c4f3a8b9ecfc57dc5e7cc83a1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classsc_1_1_quat.html">Quat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsc_1_1_connector.html#a3327da7c4f3a8b9ecfc57dc5e7cc83a1">m_quaternion</a></td></tr>
 <tr class="memdesc:a3327da7c4f3a8b9ecfc57dc5e7cc83a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Quaternion orientation of this connector. Needed?  <a href="#a3327da7c4f3a8b9ecfc57dc5e7cc83a1">More...</a><br/></td></tr>
 <tr class="separator:a3327da7c4f3a8b9ecfc57dc5e7cc83a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -279,6 +284,32 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Set angular velocity of the connector. </p>
+
+</div>
+</div>
+<a class="anchor" id="a62e0e1b06f0fcfc6d4bb0df34af7deb5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Connector::setFutureVelocity </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classsc_1_1_vec3.html">Vec3</a> &amp;&#160;</td>
+          <td class="paramname"><em>velocity</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classsc_1_1_vec3.html">Vec3</a> &amp;&#160;</td>
+          <td class="paramname"><em>angularVelocity</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -419,6 +450,30 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ac12756effca9e95da29e828f93b89083"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classsc_1_1_vec3.html">Vec3</a> sc::Connector::m_futureAngularVelocity</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a42cc6fab7a774c841d4de7b57aa61ccd"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classsc_1_1_vec3.html">Vec3</a> sc::Connector::m_futureVelocity</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="a50ab89f6b88d95520947fdc2165fdd70"></a>
 <div class="memitem">
 <div class="memproto">
@@ -524,7 +579,7 @@ Public Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Feb 5 2014 15:47:37 for Strong Coupling Core by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Feb 7 2014 12:10:42 for Strong Coupling Core by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>
