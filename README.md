@@ -4,15 +4,9 @@ Strong coupling core                                                 {#mainpage}
 Library for solving a system of strong coupled physical subsystems. Aimed to use
 in co-simulation, where each slave has mechanical connector points.
 
-The library should have support for a number of constraints:
-
-* sc::LockConstraint
-* sc::BallJointConstraint
-* sc::DistanceConstraint
-* sc::HingeConstraint
-* sc::PrismaticConstraint
-
-These can be used to mechanically constrain the connectors to each other.
+The library has support for a number of constraints, see subclasses of
+sc::Constraint. These can be used to mechanically constrain the connectors
+to each other.
 
 # Usage
 
@@ -25,15 +19,17 @@ The code is typically used like so:
 3.  Constrain two connectors by creating instances of sc::Constraint.
 4.  Add slaves, connectors, constraints to the solver (sc::Solver).
 5.  For each time step in your stepping loop:
-    1.  Set positions and velocities of the connectors.
-    2.  Set the jacobian for each equation in the system (each sc::Constraint
+    1.  Set position, quaternion, velocity and angular velocity of the connectors.
+    2.  Set future velocity and angular velocity of the connectors (you get this
+        by stepping your system one time step forward).
+    3.  Set the jacobian for each equation in the system (each sc::Constraint
         contains at least one sc::Equation). The Jacobian can be imagined as the
-        connector inertia in all directions.
-    3.  Solve the system (sc::Solver::solve()).
-    4.  Get resulting constraint force from the connectors. Apply these forces to your
-        co-simulation slaves, step, and then go to 5.
+        connector inertia in the constraint directions.
+    4.  Solve the system (sc::Solver::solve()).
+    5.  Get resulting constraint force and torque from the connectors. Apply
+        these forces to your co-simulation slaves and then do a final step.
 
-Sample code can be found in test/Slave.cpp
+Sample code can be found in test/rigid.cpp
 
 # Install
 
@@ -86,8 +82,9 @@ TODO
 You need [Doxygen](http://www.stack.nl/~dimitri/doxygen/) to generate the
 documentation. Build the documentation by doing this:
 
-    cd docs/;
     doxygen Doxyfile;
+
+The HTML files will end up in docs/.
 
 # Project info
 Funded in part by VINNOVA through project Simovate (dnr 2012-01235) and Umeå University, Umeå, Sweden.
@@ -95,6 +92,4 @@ Funded in part by VINNOVA through project Simovate (dnr 2012-01235) and Umeå Un
 # Change log
 
 *0.1.0*
-
-* Added sc::BallJointConstraint
 * Started change log

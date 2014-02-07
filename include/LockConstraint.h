@@ -7,7 +7,6 @@ namespace sc {
 
 /**
  * @brief Locks all 6 degrees of freedom between two connectors.
- * @todo Should be some way of specifying transform
  */
 class LockConstraint : public BallJointConstraint {
 

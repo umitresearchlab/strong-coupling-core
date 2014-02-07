@@ -23,7 +23,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">Strong Coupling Core
-   &#160;<span id="projectnumber">0.0.1</span>
+   &#160;<span id="projectnumber">0.1.0</span>
    </div>
    <div id="projectbrief">Library for solving a system of strong coupled physical subsystems.</div>
   </td>
@@ -39,7 +39,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
-      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
@@ -124,8 +123,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a528da38ba27702516d9c8c69c38207e6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsc_1_1_solver.html#a528da38ba27702516d9c8c69c38207e6">getEquations</a> (std::vector&lt; <a class="el" href="classsc_1_1_equation.html">Equation</a> * &gt; *eqs)</td></tr>
 <tr class="memdesc:a528da38ba27702516d9c8c69c38207e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get all equations in a vector.  <a href="#a528da38ba27702516d9c8c69c38207e6">More...</a><br/></td></tr>
 <tr class="separator:a528da38ba27702516d9c8c69c38207e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2adc48c3c49f31facb5d37793e2090df"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsc_1_1_solver.html#a2adc48c3c49f31facb5d37793e2090df">solve</a> (int printDebugInfo)</td></tr>
+<tr class="memdesc:a2adc48c3c49f31facb5d37793e2090df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Solves the system of equation. Sets the constraint forces in each connector.  <a href="#a2adc48c3c49f31facb5d37793e2090df">More...</a><br/></td></tr>
+<tr class="separator:a2adc48c3c49f31facb5d37793e2090df"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab651560a089c3beaf420deb61ea4bd87"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsc_1_1_solver.html#ab651560a089c3beaf420deb61ea4bd87">solve</a> ()</td></tr>
-<tr class="memdesc:ab651560a089c3beaf420deb61ea4bd87"><td class="mdescLeft">&#160;</td><td class="mdescRight">Solves the system of equation. Sets the constraint forces in each connector.  <a href="#ab651560a089c3beaf420deb61ea4bd87">More...</a><br/></td></tr>
 <tr class="separator:ab651560a089c3beaf420deb61ea4bd87"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a088030985df2de87b0e3bf902af4395f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsc_1_1_solver.html#a088030985df2de87b0e3bf902af4395f">setSpookParams</a> (double relaxation, double compliance, double timeStep)</td></tr>
 <tr class="separator:a088030985df2de87b0e3bf902af4395f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -345,6 +346,24 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a2adc48c3c49f31facb5d37793e2090df"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Solver::solve </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>printDebugInfo</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Solves the system of equation. Sets the constraint forces in each connector. </p>
+
+</div>
+</div>
 <a class="anchor" id="ab651560a089c3beaf420deb61ea4bd87"></a>
 <div class="memitem">
 <div class="memproto">
@@ -357,8 +376,6 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Solves the system of equation. Sets the constraint forces in each connector. </p>
 
 </div>
 </div>
@@ -400,7 +417,7 @@ Public Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Feb 5 2014 15:47:37 for Strong Coupling Core by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Feb 7 2014 12:10:42 for Strong Coupling Core by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

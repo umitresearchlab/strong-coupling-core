@@ -13,6 +13,7 @@ var searchData=
   ['getelement',['getElement',['../classsc_1_1_mat3.html#ac1f10975b6547a13c56b7fb7efbd07e1',1,'sc::Mat3']]],
   ['getequation',['getEquation',['../classsc_1_1_constraint.html#a70e6864a9c7e205e219b6bf34aab5d2a',1,'sc::Constraint']]],
   ['getequations',['getEquations',['../classsc_1_1_solver.html#a528da38ba27702516d9c8c69c38207e6',1,'sc::Solver']]],
+  ['getfuturevelocity',['getFutureVelocity',['../classsc_1_1_equation.html#aa38d3e426714b81554ba9c11f6afb010',1,'sc::Equation']]],
   ['getga',['getGA',['../classsc_1_1_equation.html#aa363b313ea0f68764ff09fdc4b48c843',1,'sc::Equation']]],
   ['getgb',['getGB',['../classsc_1_1_equation.html#a8188a60b9b13f998045421fce3c5c75d',1,'sc::Equation']]],
   ['getnumequations',['getNumEquations',['../classsc_1_1_constraint.html#ac7ad233dd41773201a1299cad61ecdf3',1,'sc::Constraint']]],
