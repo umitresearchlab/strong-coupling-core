@@ -28,6 +28,7 @@ public:
 
     /**
      * @brief Add a slave to the solver
+     * @todo Adding a slave before adding its connectors to the slave leads to errors. Fix!
      * @param slave
      */
     void addSlave(Slave * slave);

@@ -13,13 +13,13 @@ Equation::Equation(Connector * connA, Connector * connB){
 
     // Set default solver params
     setDefault();
-    m_relativeVelocity = 0;
 }
 
 Equation::~Equation(){}
 
 void Equation::setDefault(){
     setSpookParams(4,1e-5,1.0/100.0);
+    m_relativeVelocity = 0;
 }
 
 void Equation::setRelativeVelocity(double v){
