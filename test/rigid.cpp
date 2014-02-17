@@ -318,7 +318,7 @@ int main(int argc, char ** argv){
                 // Set jacobians
                 eq->getSpatialJacobianSeedA(spatSeed);
                 eq->getRotationalJacobianSeedA(rotSeed);
-                bodyA->getDirectionalDerivative(ddSpatial,ddRotational,bodyA->m_position,spatSeed,rotSeed);
+                bodyA->getDirectionalDerivative(ddSpatial,ddRotational,bodyA->m_position,spatSeed,rotSeed, dt);
                 //printf("Eq %d:\n", j);
                 //printf("A = (%f %f %f)\n", ddSpatial[0], ddSpatial[1], ddSpatial[2]);
                 eq->setSpatialJacobianA(ddSpatial);
@@ -328,7 +328,7 @@ int main(int argc, char ** argv){
 
                 eq->getSpatialJacobianSeedB(spatSeed);
                 eq->getRotationalJacobianSeedB(rotSeed);
-                bodyB->getDirectionalDerivative(ddSpatial,ddRotational,bodyB->m_position,spatSeed,rotSeed);
+                bodyB->getDirectionalDerivative(ddSpatial,ddRotational,bodyB->m_position,spatSeed,rotSeed, dt);
                 //printf("B: dd=(%f %f %f), seed=(%f %f %f)\n", ddSpatial[0], ddSpatial[1], ddSpatial[2], spatSeed[0], spatSeed[1], spatSeed[2]);
                 eq->setSpatialJacobianB(ddSpatial);
                 eq->setRotationalJacobianB(ddRotational);

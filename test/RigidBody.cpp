@@ -19,8 +19,11 @@ RigidBody::~RigidBody(){}
 
 void RigidBody::integrate(double dt){
 
-    // Add some gravity
-    m_force += m_gravity;
+    if (m_invMass == 0)
+        return;
+
+    m_force += m_gravity * (1.0/m_invMass);
+
 
     // Integrate linear
     m_velocity += m_force * dt * m_invMass;
@@ -86,7 +89,8 @@ void RigidBody::getDirectionalDerivative(   Vec3& outSpatial,
                                             Vec3& outRotational,
                                             Vec3& position,
                                             const Vec3& spatialDirection,
-                                            const Vec3& rotationalDirection){
+                                            const Vec3& rotationalDirection,
+                                            double timeStep){
 
     Vec3 velo_noforce,
          velo_withforce,
@@ -102,7 +106,7 @@ void RigidBody::getDirectionalDerivative(   Vec3& outSpatial,
     m_torque.set(0,0,0);
     m_force  += spatialDirection;
     m_torque += rotationalDirection;
-    integrate(1);
+    integrate(timeStep);
     velo_withforce.copy(m_velocity);
     avelo_withforce.copy(m_angularVelocity);
     restoreState();
@@ -111,14 +115,14 @@ void RigidBody::getDirectionalDerivative(   Vec3& outSpatial,
     saveState();
     m_force.set(0,0,0);
     m_torque.set(0,0,0);
-    integrate(1);
+    integrate(timeStep);
     velo_noforce.copy(m_velocity);
     avelo_noforce.copy(m_angularVelocity);
     restoreState();
 
     // The derivative is difference in velocity
-    outSpatial =    velo_withforce .subtract(velo_noforce);
-    outRotational = avelo_withforce.subtract(avelo_noforce);
+    outSpatial =    velo_withforce .subtract(velo_noforce) * (1.0/timeStep);
+    outRotational = avelo_withforce.subtract(avelo_noforce) * (1.0/timeStep);
 }
 
 void RigidBody::saveState(){

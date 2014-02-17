@@ -51,7 +51,8 @@ public:
                                     Vec3& outRotational,
                                     Vec3& position,
                                     const Vec3& spatialDirection,
-                                    const Vec3& rotationalDirection);
+                                    const Vec3& rotationalDirection,
+                                    double timeStep);
     void saveState();
     void restoreState();
     void setLocalInertiaAsBox(double mass, const Vec3& halfExtents);
