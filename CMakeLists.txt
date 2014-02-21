@@ -17,19 +17,19 @@ SET(SRCS
 )
 
 SET(HEADERS
-    include/BallJointConstraint.h
-    include/Connector.h
-    include/Constraint.h
-    include/Equation.h
-    include/HingeConstraint.h
-    include/HingeMotorConstraint.h
-    include/JacobianElement.h
-    include/LockConstraint.h
-    include/Mat3.h
-    include/Quat.h
-    include/Slave.h
-    include/Solver.h
-    include/Vec3.h
+    include/sc/BallJointConstraint.h
+    include/sc/Connector.h
+    include/sc/Constraint.h
+    include/sc/Equation.h
+    include/sc/HingeConstraint.h
+    include/sc/HingeMotorConstraint.h
+    include/sc/JacobianElement.h
+    include/sc/LockConstraint.h
+    include/sc/Mat3.h
+    include/sc/Quat.h
+    include/sc/Slave.h
+    include/sc/Solver.h
+    include/sc/Vec3.h
 )
 
 INCLUDE_DIRECTORIES(${UMFPACK_INCLUDE_DIR} include)

@@ -1,7 +1,7 @@
 #include "RigidBody.h"
-#include "Quat.h"
-#include "Vec3.h"
-#include "Mat3.h"
+#include "sc/Quat.h"
+#include "sc/Vec3.h"
+#include "sc/Mat3.h"
 #include "stdio.h"
 
 using namespace sc;

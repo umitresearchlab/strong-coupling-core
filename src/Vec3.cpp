@@ -1,4 +1,4 @@
-#include "Vec3.h"
+#include "sc/Vec3.h"
 #include "math.h"
 
 using namespace sc;

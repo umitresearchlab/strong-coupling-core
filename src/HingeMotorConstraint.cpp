@@ -1,6 +1,6 @@
-#include "Connector.h"
-#include "HingeMotorConstraint.h"
-#include "Equation.h"
+#include "sc/Connector.h"
+#include "sc/HingeMotorConstraint.h"
+#include "sc/Equation.h"
 #include "stdio.h"
 #include "stdlib.h"
 

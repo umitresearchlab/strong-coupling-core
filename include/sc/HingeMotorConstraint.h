@@ -1,7 +1,7 @@
 #ifndef SCHINGEMOTORCONSTRAINT_H
 #define SCHINGEMOTORCONSTRAINT_H
 
-#include "Constraint.h"
+#include "sc/Constraint.h"
 
 namespace sc {
 

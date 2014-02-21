@@ -1,7 +1,7 @@
 #ifndef SCLOCKCONSTRAINT_H
 #define SCLOCKCONSTRAINT_H
 
-#include "BallJointConstraint.h"
+#include "sc/BallJointConstraint.h"
 
 namespace sc {
 

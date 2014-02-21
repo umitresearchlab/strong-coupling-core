@@ -1,7 +1,7 @@
 #ifndef SCBALLJOINTCONSTRAINT_H
 #define SCBALLJOINTCONSTRAINT_H
 
-#include "Constraint.h"
+#include "sc/Constraint.h"
 
 namespace sc {
 

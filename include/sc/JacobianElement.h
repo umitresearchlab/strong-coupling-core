@@ -1,7 +1,7 @@
 #ifndef SCJACOBIANELEMENT_H
 #define SCJACOBIANELEMENT_H
 
-#include "Vec3.h"
+#include "sc/Vec3.h"
 
 namespace sc {
 

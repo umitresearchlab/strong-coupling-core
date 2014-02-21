@@ -1,4 +1,4 @@
-#include "Mat3.h"
+#include "sc/Mat3.h"
 
 using namespace sc;
 

@@ -1,6 +1,6 @@
-#include "Connector.h"
-#include "BallJointConstraint.h"
-#include "Equation.h"
+#include "sc/Connector.h"
+#include "sc/BallJointConstraint.h"
+#include "sc/Equation.h"
 #include "stdio.h"
 #include "stdlib.h"
 

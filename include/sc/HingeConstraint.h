@@ -1,7 +1,7 @@
 #ifndef SCHINGECONSTRAINT_H
 #define SCHINGECONSTRAINT_H
 
-#include "BallJointConstraint.h"
+#include "sc/BallJointConstraint.h"
 
 namespace sc {
 

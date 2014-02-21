@@ -1,8 +1,8 @@
 #ifndef EQUATION_H
 #define EQUATION_H
 
-#include "Connector.h"
-#include "JacobianElement.h"
+#include "sc/Connector.h"
+#include "sc/JacobianElement.h"
 
 namespace sc {
 

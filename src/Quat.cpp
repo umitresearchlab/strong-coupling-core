@@ -1,5 +1,5 @@
-#include "Quat.h"
-#include "Vec3.h"
+#include "sc/Quat.h"
+#include "sc/Vec3.h"
 #include "math.h"
 #include "stdio.h"
 

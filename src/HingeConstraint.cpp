@@ -1,7 +1,7 @@
-#include "Connector.h"
-#include "HingeConstraint.h"
-#include "BallJointConstraint.h"
-#include "Equation.h"
+#include "sc/Connector.h"
+#include "sc/HingeConstraint.h"
+#include "sc/BallJointConstraint.h"
+#include "sc/Equation.h"
 #include "stdio.h"
 #include "stdlib.h"
 

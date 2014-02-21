@@ -1,9 +1,9 @@
 #ifndef SOLVER_H
 #define SOLVER_H
 
-#include "Slave.h"
-#include "Constraint.h"
-#include "Connector.h"
+#include "sc/Slave.h"
+#include "sc/Constraint.h"
+#include "sc/Connector.h"
 #include <vector>
 
 #define SCSOLVER_DEBUGPRINTS 0

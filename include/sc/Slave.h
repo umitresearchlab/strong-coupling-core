@@ -1,7 +1,7 @@
 #ifndef SCSLAVE_H
 #define SCSLAVE_H
 
-#include "Connector.h"
+#include "sc/Connector.h"
 #include <vector>
 
 namespace sc {

@@ -1,5 +1,5 @@
-#include "Slave.h"
-#include "Connector.h"
+#include "sc/Slave.h"
+#include "sc/Connector.h"
 
 using namespace sc;
 

@@ -2,7 +2,7 @@
 #define SCQUAT_H
 
 #include "stdlib.h"
-#include "Vec3.h"
+#include "sc/Vec3.h"
 
 namespace sc {
 

@@ -1,4 +1,4 @@
-#include "Equation.h"
+#include "sc/Equation.h"
 #include "stdio.h"
 
 using namespace sc;

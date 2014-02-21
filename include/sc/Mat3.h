@@ -2,8 +2,8 @@
 #define SCMAT3_H
 
 #include "stdlib.h"
-#include "Vec3.h"
-#include "Quat.h"
+#include "sc/Vec3.h"
+#include "sc/Quat.h"
 
 namespace sc {
 
