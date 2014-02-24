@@ -19,8 +19,14 @@ ENDIF()
 ADD_EXECUTABLE(rigid       ${RIGID_HEADERS} ${RIGID_SRCS})
 
 IF(USE_OSG)
-    TARGET_LINK_LIBRARIES(rigid      sc m umfpack amd cblas osg osgViewer osgGA osgUtil)
+    SET(OSGLIBS osg osgViewer osgGA osgUtil)
 ELSE()
-    TARGET_LINK_LIBRARIES(rigid      sc m umfpack amd cblas suitesparseconfig)
+    SET(OSGLIBS )
+ENDIF()
+
+IF(WIN32)
+    TARGET_LINK_LIBRARIES(rigid      sc m umfpack amd cblas suitesparseconfig ${OSGLIBS})
+ELSE()
+    TARGET_LINK_LIBRARIES(rigid      sc m umfpack amd cblas ${OSGLIBS})
 ENDIF()
 
