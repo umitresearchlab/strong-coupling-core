@@ -488,3 +488,13 @@ void Solver::solve(int printDebugInfo){
     umfpack_di_free_symbolic(&Symbolic);
     umfpack_di_free_numeric(&Numeric);
 }
+
+/// Get a constraint
+Constraint * Solver::getConstraint(int i){
+    return m_constraints[i];
+}
+
+/// Get a constraint
+int Solver::getNumConstraints(){
+    return m_constraints.size();
+}

@@ -55,6 +55,12 @@ public:
      */
     void getEquations(std::vector<Equation*> * eqs);
 
+    /// Get a constraint
+    Constraint * getConstraint(int i);
+
+    /// Get a constraint
+    int getNumConstraints();
+
     /**
      * @brief Solves the system of equation. Sets the constraint forces in each connector.
      */
