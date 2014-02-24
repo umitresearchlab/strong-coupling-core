@@ -12,6 +12,7 @@
 #include <vector>
 #include <stdio.h>
 #include <string.h>
+#include <limits.h>
 
 #ifdef SC_USE_OSG
 #include <osg/Node>
